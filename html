@@ -119,7 +119,13 @@
     @media (prefers-reduced-motion: reduce) {
       * { scroll-behavior: auto; }
     }
-  </style>
+    /* ===== Retro 8-bit Cursor ===== */
+    .window { cursor: none; }
+    .retro-cursor { position: fixed; inset: 0 auto auto 0; width: 20px; height: 28px; pointer-events: none; z-index: 9999; image-rendering: pixelated; background-repeat: no-repeat; background-size: 100% 100%; filter: drop-shadow(2px 2px 0 #000); display: none; }
+
+    /* SVG を data URL で埋め込み（白ベースの8bit矢印）*/
+    .retro-cursor{ background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2' /></svg>"); }
+</style>
 </head>
 <body>
   <main class="window" aria-label="Retro Window">
@@ -204,5 +210,46 @@
       <span>Retro UI / Static HTML</span>
     </div>
   </main>
+  <script>
+    // Retro 8-bit cursor follower (confined to .window)
+    (function(){
+      var supportsTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (supportsTouch) return; // タッチ端末は無効
+      var scope = document.querySelector('.window');
+      if (!scope) return;
+      var cur = document.createElement('div');
+      cur.className = 'retro-cursor';
+      cur.setAttribute('aria-hidden','true');
+      document.body.appendChild(cur);
+
+      var rect = null; var show = false;
+      var tx = 0, ty = 0, x = 0, y = 0; // target / current
+      var offX = 2, offY = 2;          // 先端位置の微調整
+
+      function within(e){
+        rect = scope.getBoundingClientRect();
+        return (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom);
+      }
+
+      window.addEventListener('mousemove', function(e){
+        if (within(e)){
+          show = true; cur.style.display = 'block'; scope.style.cursor = 'none';
+          tx = e.clientX + offX; ty = e.clientY + offY;
+        } else {
+          show = false; cur.style.display = 'none'; scope.style.cursor = '';
+        }
+      }, {passive:true});
+
+      function raf(){
+        x += (tx - x) * 0.35; // 追従の滑らかさ
+        y += (ty - y) * 0.35;
+        if (show) cur.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+      // リサイズ時に座標系を更新
+      window.addEventListener('resize', function(){ rect = scope.getBoundingClientRect(); }, {passive:true});
+    })();
+  </script>
 </body>
 </html>
