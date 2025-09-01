@@ -74,6 +74,11 @@
     .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
 
     @media (max-width:640px){.profile{grid-template-columns:72px 1fr}.username{font-size:18px}}
+      /* 8bit cursor 調整（サイズと手アイコン） */
+    :root{ --cursor-w:26px; --cursor-h:36px; }
+    .retro-cursor{ width:var(--cursor-w); height:var(--cursor-h); }
+    /* 手の形（pointer相当） */
+    .retro-cursor.hand{ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>"); }
   </style>
 </head>
 <body>
@@ -95,9 +100,9 @@
       <div class="avatar"><img src="https://picsum.photos/seed/kicho/300/300" alt="プロフィール画像" loading="lazy"></div>
       <div>
         <h1 class="username">KICHOHIN</h1>
-        <div class="stats"><div><strong id="postCount">0</strong> posts</div><div><strong>120</strong> followers</div><div><strong>98</strong> following</div></div>
+        <div class="stats"><div><strong id="postCount">+99</strong> posts</div><div><strong>+9999</strong> followers</div><div><strong>+9999</strong> following</div></div>
         <div class="actions"><button class="btn primary" type="button">+ Follow</button><a class="btn" href="mailto:hello@example.com">Contact</a></div>
-        <p class="bio">Web / GAS / LINE連携。構造を壊さない修正・軽量実装を重視します。</p>
+        <p class="bio">ウェブ構築や業務効率化などインターネットを使ったご支援を行っております。個人様や法人様問わず各課題に合わせ、成果につながる設計と運用を重視したサポートを心がけています。「DXをもっと身近に。」その言葉を胸に、インターネットやコンピュータを通して効率的な未来をご提案させていただきます。</p>
       </div>
     </section>
 
@@ -226,9 +231,36 @@
     const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
     if(isTouch) return;
     let rect=null, show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
-    function within(e){ rect = scope.getBoundingClientRect(); return (e.clientX>=rect.left && e.clientX<=rect.right && e.clientY>=rect.top && e.clientY<=rect.bottom); }
-    window.addEventListener('mousemove',e=>{ if(within(e)){ show=true; cur.style.display='block'; tx=e.clientX+offX; ty=e.clientY+offY; } else { show=false; cur.style.display='none'; } },{passive:true});
-    (function raf(){ x += (tx-x)*0.35; y += (ty-y)*0.35; if(show) cur.style.transform=`translate(${x}px,${y}px)`; requestAnimationFrame(raf); })();
+
+    function within(e){
+      rect = scope.getBoundingClientRect();
+      return (e.clientX>=rect.left && e.clientX<=rect.right && e.clientY>=rect.top && e.clientY<=rect.bottom);
+    }
+    function isInteractive(el){
+      while(el && el!==scope){
+        if(el.matches && el.matches('a,button,input,select,textarea,summary,[role="button"],.btn,.card,.menu a')) return true;
+        el = el.parentNode;
+      }
+      return false;
+    }
+
+    window.addEventListener('mousemove', e => {
+      if(within(e)){
+        show = true; cur.style.display = 'block';
+        tx = e.clientX + offX; ty = e.clientY + offY;
+        const under = document.elementFromPoint(e.clientX, e.clientY);
+        cur.classList.toggle('hand', isInteractive(under));
+      } else {
+        show = false; cur.style.display = 'none'; cur.classList.remove('hand');
+      }
+    }, {passive:true});
+
+    (function raf(){
+      x += (tx - x) * 0.35; y += (ty - y) * 0.35;
+      if(show) cur.style.transform = `translate(${x}px,${y}px)`;
+      requestAnimationFrame(raf);
+    })();
+  })();
   })();
   </script>
 </body>
