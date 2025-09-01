@@ -4,19 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KICHOHIN Portfolio</title>
-  <!-- ドット系日本語フォント（Google Fonts / OFL）-->
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
+      /* 8bit cursor サイズ */
+      --cursor-w:26px; --cursor-h:36px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);font-family:"DotGothic16", system-ui, -apple-system, Segoe UI, Arial, sans-serif;color:var(--ink);display:flex;justify-content:center;align-items:flex-start;padding:20px}
+    body{margin:0;background:var(--bg);font-family:"DotGothic16",system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);display:flex;justify-content:center;align-items:flex-start;padding:20px}
     a{color:inherit}
 
-    /* ===== Window frame ===== */
+    /* Window */
     .window{width:min(1100px,95vw);background:var(--win);border:2px solid var(--border);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);overflow:hidden}
     .title-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bar);color:var(--bar-fg)}
     .title-bar .ctrls{display:inline-flex;gap:6px}
@@ -26,19 +27,19 @@
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    /* ===== Sections / router views ===== */
+    /* Views */
     .view{display:none}
     .view.active{display:block}
 
-    /* Profile header */
+    /* Profile */
     .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb}
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
     .username{margin:0 0 6px;font-size:20px}
-    .stats{display:flex;gap:14px;font-size:14px}
     .actions{display:flex;gap:8px;margin-top:8px}
     .btn{padding:6px 10px;border:1px solid #111;background:#f5f5f5;border-radius:10px;cursor:pointer}
     .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
+    .bio{margin:10px 0 0;color:var(--muted);line-height:1.7}
 
     /* Works */
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:12px}
@@ -52,7 +53,7 @@
     .svc h3{margin:0 0 6px}
     .svc ul{margin:0;padding-left:18px}
 
-    /* Voices (SNS風ストリーム) */
+    /* Voices */
     .voice-wrap{padding:12px}
     .voice-ctrl{display:flex;gap:8px;margin-bottom:8px}
     .stream{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;border:1px solid #111;background:#fff;border-radius:8px;padding:8px}
@@ -67,22 +68,16 @@
 
     .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
 
-    /* 8bit cursor follower */
-    body{cursor:auto}
-    .cursor-scope{cursor:auto}
-    .retro-cursor{position:fixed;left:0;top:0;width:20px;height:28px;pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
+    /* 8bit cursor */
+    .retro-cursor{position:fixed;left:0;top:0;width:var(--cursor-w);height:var(--cursor-h);pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
     .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
+    .retro-cursor.hand{background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>\")}
 
     @media (max-width:640px){.profile{grid-template-columns:72px 1fr}.username{font-size:18px}}
-      /* 8bit cursor 調整（サイズと手アイコン） */
-    :root{ --cursor-w:26px; --cursor-h:36px; }
-    .retro-cursor{ width:var(--cursor-w); height:var(--cursor-h); }
-    /* 手の形（pointer相当） */
-    .retro-cursor.hand{ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>"); }
   </style>
 </head>
 <body>
-  <main class="window cursor-scope" id="app" aria-label="Portfolio">
+  <main class="window" id="app" aria-label="Portfolio">
     <header class="title-bar">
       <div>Portfolio.exe</div>
       <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
@@ -95,14 +90,17 @@
       <a href="#/contact" data-route="#/contact">Contact</a>
     </nav>
 
-    <!-- Profile header (固定) -->
+    <!-- Profile -->
     <section class="profile" aria-label="Profile">
       <div class="avatar"><img src="https://picsum.photos/seed/kicho/300/300" alt="プロフィール画像" loading="lazy"></div>
       <div>
-        <h1 class="username">貴重品　／　KICHOHIN</h1>
-       
-        <a class="btn" href="https://coconala.com/users/5218668">FOLLOW</a></div>
-        <p class="bio">ウェブ構築や業務効率化などインターネットを使ったご支援を行っております。個人や法人問わず各課題に合わせ、成果につながる設計と運用を重視したサポートを心がけています。「DXをもっと身近に。」その言葉を胸に、インターネットやコンピュータを通して効率的な未来をご提案させていただきます</p>
+        <h1 class="username">貴重品 ／ KICHOHIN</h1>
+        <div class="actions">
+          <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">FOLLOW</a>
+        </div>
+        <p class="bio">
+          ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。個人・法人を問わず課題に合わせ、成果につながる設計と運用を重視して対応します。「DXをもっと身近に。」を指針に、効率的な未来をご提案します。
+        </p>
       </div>
     </section>
 
@@ -120,7 +118,9 @@
         <div class="voice-ctrl">
           <button class="btn" id="play">再生</button>
           <button class="btn" id="pause">一時停止</button>
-          <label style="display:flex;align-items:center;gap:6px">速度<input id="speed" type="range" min="300" max="2000" step="100" value="900"></label>
+          <label style="display:flex;align-items:center;gap:6px">速度
+            <input id="speed" type="range" min="300" max="2000" step="100" value="900">
+          </label>
         </div>
         <div class="stream" id="stream" aria-live="polite"></div>
       </div>
@@ -133,7 +133,7 @@
       <ul>
         <li>Web実装（UI/SEO/OGP/構造化データ）</li>
         <li>GAS・LINE連携の業務自動化</li>
-        <li>WooCommerce 多言語・翻訳制御</li>
+        <li>WooCommerce 多言語運用</li>
       </ul>
     </section>
 
@@ -152,7 +152,7 @@
   <div class="retro-cursor" id="rc"></div>
 
   <script>
-  // ====== データ（差し替え想定） ======
+  // ===== データ（差し替え想定） =====
   const works = [
     { title:"Work 01", year:2025, img:"https://picsum.photos/seed/w1/1200/1200" },
     { title:"Work 02", year:2025, img:"https://picsum.photos/seed/w2/1200/1200" },
@@ -171,14 +171,13 @@
     { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
   ];
 
-  // ココナラ等の声を手入力で反映想定（実名や機密を入れない）
   const voices = [
     { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
     { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
     { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
   ];
 
-  // ====== ルーター ======
+  // ===== ルーター =====
   const views={
     '#/works':document.getElementById('v-works'),
     '#/services':document.getElementById('v-services'),
@@ -195,18 +194,25 @@
   }
   window.addEventListener('hashchange',route); route();
 
-  // ====== Works render ======
+  // ===== Works =====
   const grid=document.getElementById('worksGrid');
-  grid.innerHTML = works.map(w=>`<a class="card" href="#" aria-label="${w.title}"><img src="${w.img}" alt="${w.title}" loading="lazy"><div class="caption"><span>${w.title}</span><span>${w.year}</span></div></a>`).join('');
-  document.getElementById('postCount').textContent = works.length;
+  grid.innerHTML = works.map(w=>`
+    <a class="card" href="#" aria-label="${w.title}">
+      <img src="${w.img}" alt="${w.title}" loading="lazy">
+      <div class="caption"><span>${w.title}</span><span>${w.year}</span></div>
+    </a>`).join('');
 
-  // ====== Services render ======
+  // ===== Services =====
   const svc=document.getElementById('svcList');
-  svc.innerHTML = services.map(s=>`<article class="svc"><h3>${s.name}</h3><ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul></article>`).join('');
+  svc.innerHTML = services.map(s=>`
+    <article class="svc">
+      <h3>${s.name}</h3>
+      <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+    </article>`).join('');
 
-  // ====== Voices stream（SNS風） ======
+  // ===== Voices（SNS風） =====
   const stream=document.getElementById('stream');
-  let idx=0, timer=null; const base=voices.concat(voices).concat(voices); // 反復
+  let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
   function pushOne(){
     const v=base[idx++ % base.length];
     const el=document.createElement('div');
@@ -221,20 +227,19 @@
   document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
   document.getElementById('pause').addEventListener('click',pause);
   document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
-  // 初期キック
   for(let i=0;i<3;i++) pushOne();
 
-  // ====== 8bit cursor follower within window ======
+  // ===== 8bit cursor follower（window 内のみ） =====
   (function(){
     const scope=document.getElementById('app');
     const cur=document.getElementById('rc');
     const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
     if(isTouch) return;
-    let rect=null, show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
+    let show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
 
     function within(e){
-      rect = scope.getBoundingClientRect();
-      return (e.clientX>=rect.left && e.clientX<=rect.right && e.clientY>=rect.top && e.clientY<=rect.bottom);
+      const r = scope.getBoundingClientRect();
+      return (e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom);
     }
     function isInteractive(el){
       while(el && el!==scope){
@@ -260,7 +265,6 @@
       if(show) cur.style.transform = `translate(${x}px,${y}px)`;
       requestAnimationFrame(raf);
     })();
-  })();
   })();
   </script>
 </body>
