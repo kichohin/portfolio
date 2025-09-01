@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio</title>
+  <title>KICHOHIN Portfolio</title>
   <!-- ドット系日本語フォント（Google Fonts / OFL）-->
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
@@ -69,7 +69,7 @@
 
     /* 8bit cursor follower */
     body{cursor:auto}
-    .cursor-scope{cursor:none}
+    .cursor-scope{cursor:auto}
     .retro-cursor{position:fixed;left:0;top:0;width:20px;height:28px;pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
     .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
 
@@ -84,7 +84,7 @@
 <body>
   <main class="window cursor-scope" id="app" aria-label="Portfolio">
     <header class="title-bar">
-      <div>KICHOHIN — Portfolio.exe</div>
+      <div>Portfolio.exe</div>
       <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
     </header>
     <nav class="menu" role="navigation">
@@ -99,9 +99,10 @@
     <section class="profile" aria-label="Profile">
       <div class="avatar"><img src="https://picsum.photos/seed/kicho/300/300" alt="プロフィール画像" loading="lazy"></div>
       <div>
-        <h1 class="username">貴重品　／　KICHOHIN</h1>
-        <div class="actions"><button class="btn primary" type="button">+ Follow</button><a class="btn" href="mailto:hello@example.com">Contact</a></div>
-        <p class="bio">ウェブ構築や業務効率化などインターネットを使ったご支援を行っております。個人様や法人様問わず各課題に合わせ、成果につながる設計と運用を重視したサポートを心がけています。「DXをもっと身近に。」その言葉を胸に、インターネットやコンピュータを通して効率的な未来をご提案させていただきます。</p>
+        <h1 class="username">KICHOHIN</h1>
+       
+        <div class="actions"><button class="btn primary" type="button">+ Follow</button><a class="btn" href="https://coconala.com/users/5218668">Contact</a></div>
+        <p class="bio">ウェブ構築や業務効率化などインターネットを使ったご支援を行っております。個人や法人問わず各課題に合わせ、成果につながる設計と運用を重視したサポートを心がけています。「DXをもっと身近に。」その言葉を胸に、インターネットやコンピュータを通して効率的な未来をご提案させていただきます</p>
       </div>
     </section>
 
@@ -145,7 +146,7 @@
       </ul>
     </section>
 
-    <div class="footer"><span>© 2025 KICHOHIN</span><span>8bit UI / Static SPA</span></div>
+    <div class="footer"><span>© 2025 KICHOHIN</span></div>
   </main>
 
   <div class="retro-cursor" id="rc"></div>
@@ -245,12 +246,12 @@
 
     window.addEventListener('mousemove', e => {
       if(within(e)){
-        show = true; cur.style.display = 'block';
+        show = true; cur.style.display = 'block'; scope.style.cursor = 'none';
         tx = e.clientX + offX; ty = e.clientY + offY;
         const under = document.elementFromPoint(e.clientX, e.clientY);
         cur.classList.toggle('hand', isInteractive(under));
       } else {
-        show = false; cur.style.display = 'none'; cur.classList.remove('hand');
+        show = false; cur.style.display = 'none'; cur.classList.remove('hand'); scope.style.cursor = '';
       }
     }, {passive:true});
 
