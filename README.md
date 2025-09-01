@@ -1,62 +1,59 @@
-
- <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: "Courier New", monospace;
-      background: #ffffff;
-      color: #000;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      max-width: 600px;
-      padding: 40px;
-      border: 2px solid #000;
-      background-color: #ffff00;
-      box-shadow: 6px 6px 0 #000;
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 24px;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    p {
-      margin: 6px 0 16px;
-      line-height: 1.5;
-    }
-
-    a {
-      color: #000;
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <p>Web Developer / Workflow Optimizer</p>
-
-    <h2>What I Do</h2>
-    <p>Building simple, fast, and useful web systems. I support businesses with WordPress, Google Apps Script (GAS), and automation tools to make work easier and smarter.</p>
-
-    <h2>How I Work</h2>
-    <p>Listen carefully. Build only what matters. Keep it light, keep it clean.</p>
-    <p>When your girlfriend says she wants cake, buying the cheapest one is wrong. Buying the most expensive one is also wrong. What matters is: what kind of cake does she really want?</p>
-    <p>If you don’t want a big, confusing contract — but do want to make your work more efficient — who else will you contact if not me? That hesitation is already inefficient.</p>
-
-    <p>I'm looking forward to your message.</p>
-    
-  </div>
-  </div>
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a//dev/null b/index.html
+index 0000000000000000000000000000000000000000..3fcd5f6792e735ff95872e57a3d297cc3d6cd06b 100644
+--- a//dev/null
++++ b/index.html
+@@ -0,0 +1,50 @@
++<!DOCTYPE html>
++<html lang="ja">
++<head>
++  <meta charset="UTF-8">
++  <title>Portfolio</title>
++  <link rel="stylesheet" href="styles.css">
++</head>
++<body>
++  <div class="window">
++    <div class="title-bar">
++      <div class="title-bar-text">Instagram.exe</div>
++      <div class="title-bar-controls">
++        <button aria-label="Minimize"></button>
++        <button aria-label="Maximize"></button>
++        <button aria-label="Close"></button>
++      </div>
++    </div>
++    <div class="menu-bar">
++      <button>File</button>
++      <button>Edit</button>
++      <button>View</button>
++      <button>Help</button>
++    </div>
++    <div class="profile">
++      <div class="avatar"></div>
++      <div class="details">
++        <h1 class="username">username</h1>
++        <div class="stats">
++          <span>0 posts</span>
++          <span>0 followers</span>
++          <span>0 following</span>
++        </div>
++        <button class="follow">+ Follow</button>
++        <p class="bio">Your profile description here</p>
++      </div>
++    </div>
++    <div class="gallery">
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++      <div class="thumb"></div>
++    </div>
++  </div>
++</body>
++</html>
+ 
+EOF
+)
