@@ -73,7 +73,34 @@
     .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
     .retro-cursor.hand{background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>\")}
 
-    @media (max-width:640px){.profile{grid-template-columns:72px 1fr}.username{font-size:18px}}
+    /* ====== スマホ時の並び（構造はそのまま） ====== */
+    @media (max-width: 640px) {
+      .profile { grid-template-columns: 72px 1fr; align-items: start; }
+      /* 右カラム内を「名前｜FOLLOW」1行＋下段に本文の2行グリッドに */
+      .profile > div {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-auto-rows: min-content;
+        column-gap: 8px;
+        row-gap: 6px;
+        align-items: center;
+      }
+      .username {
+        font-size: 18px;
+        margin: 0;
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .actions {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        margin: 0;
+        transform: translateY(-2px); /* “若干”のずらし */
+      }
+      .bio { grid-column: 1 / -1; }
+      .actions .btn { padding: 4px 8px; font-size: 12px; border-radius: 8px; }
+    }
   </style>
 </head>
 <body>
@@ -92,14 +119,14 @@
 
     <!-- Profile -->
     <section class="profile" aria-label="Profile">
-     <div class="avatar">
-      <img
-        src="assets/avatar.png"
-        srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
-        alt="貴重品のプロフィール画像"
-        width="96" height="96"
-        decoding="async" loading="eager">
-    </div>
+      <div class="avatar">
+        <img
+          src="assets/avatar.png"
+          srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
+          alt="貴重品のプロフィール画像"
+          width="96" height="96"
+          decoding="async" loading="eager">
+      </div>
       <div>
         <h1 class="username">貴重品 ／ KICHOHIN</h1>
         <div class="actions">
@@ -158,7 +185,6 @@
   <script>
   // ===== データ（差し替え想定） =====
 
-
   const services = [
     { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
     { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
@@ -182,46 +208,53 @@
   const navLinks=[...document.querySelectorAll('.menu a')];
   function route(){
     const h=location.hash||'#/works';
-    Object.values(views).forEach(v=>v.classList.remove('active'));
-    (views[h]||views['#/works']).classList.add('active');
+    Object.values(views).forEach(v=>v && v.classList.remove('active'));
+    const target = views[h] || views['#/services'] || views['#/about'] || views['#/contact'] || views['#/voices'];
+    if (target) target.classList.add('active');
     navLinks.forEach(a=>a.setAttribute('aria-current',a.getAttribute('data-route')===h?'page':'false'));
   }
   window.addEventListener('hashchange',route); route();
 
   // ===== Works =====
   const grid=document.getElementById('worksGrid');
-  grid.innerHTML = works.map(w=>`
-    <a class="card" href="#" aria-label="${w.title}">
-      <img src="${w.img}" alt="${w.title}" loading="lazy">
-      <div class="caption"><span>${w.title}</span><span>${w.year}</span></div>
-    </a>`).join('');
+  if (grid && typeof works !== 'undefined' && Array.isArray(works)) {
+    grid.innerHTML = works.map(w=>`
+      <a class="card" href="#" aria-label="${w.title}">
+        <img src="${w.img}" alt="${w.title}" loading="lazy">
+        <div class="caption"><span>${w.title}</span><span>${w.year}</span></div>
+      </a>`).join('');
+  }
 
   // ===== Services =====
   const svc=document.getElementById('svcList');
-  svc.innerHTML = services.map(s=>`
-    <article class="svc">
-      <h3>${s.name}</h3>
-      <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
-    </article>`).join('');
+  if (svc) {
+    svc.innerHTML = services.map(s=>`
+      <article class="svc">
+        <h3>${s.name}</h3>
+        <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+      </article>`).join('');
+  }
 
   // ===== Voices（SNS風） =====
   const stream=document.getElementById('stream');
-  let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
-  function pushOne(){
-    const v=base[idx++ % base.length];
-    const el=document.createElement('div');
-    el.className='voice';
-    el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
-      <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
-      <div class="text">${v.text}</div></div>`;
-    stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
+  if (stream) {
+    let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
+    function pushOne(){
+      const v=base[idx++ % base.length];
+      const el=document.createElement('div');
+      el.className='voice';
+      el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
+        <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
+        <div class="text">${v.text}</div></div>`;
+      stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
+    }
+    function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
+    function pause(){ if(timer) clearInterval(timer); }
+    document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
+    document.getElementById('pause').addEventListener('click',pause);
+    document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
+    for(let i=0;i<3;i++) pushOne();
   }
-  function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
-  function pause(){ if(timer) clearInterval(timer); }
-  document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
-  document.getElementById('pause').addEventListener('click',pause);
-  document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
-  for(let i=0;i<3;i++) pushOne();
 
   // ===== 8bit cursor follower（window 内のみ） =====
   (function(){
