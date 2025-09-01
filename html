@@ -1,255 +1,235 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KICHOHIN | Portfolio (Retro Window)</title>
-  <meta name="description" content="KICHOHIN Portfolio – シンプルで軽量なレトロ窓UIのギャラリー。" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KICHOHIN Portfolio — 8bit</title>
+  <!-- ドット系日本語フォント（Google Fonts / OFL）-->
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #c0c0c0;          /* デスクトップ背景 */
-      --win: #ffffff;         /* ウィンドウ背景 */
-      --ink: #111111;         /* 文字色 */
-      --border: #000000;      /* 外枠 */
-      --shadow: #000000;      /* ドロップシャドウ */
-      --title-bg: #000080;    /* タイトルバー */
-      --title-fg: #ffffff;    /* タイトル文字 */
-      --chrome: #d3d3d3;      /* メニューバー */
-      --muted: #6b7280;       /* 補助文字 */
-      --accent: #0f6bff;      /* 強調 */
+    :root{
+      --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
+      --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);font-family:"DotGothic16", system-ui, -apple-system, Segoe UI, Arial, sans-serif;color:var(--ink);display:flex;justify-content:center;align-items:flex-start;padding:20px}
+    a{color:inherit}
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, Segoe UI, "MS Sans Serif", Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 24px;
-    }
+    /* ===== Window frame ===== */
+    .window{width:min(1100px,95vw);background:var(--win);border:2px solid var(--border);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);overflow:hidden}
+    .title-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bar);color:var(--bar-fg)}
+    .title-bar .ctrls{display:inline-flex;gap:6px}
+    .btn-ctrl{width:18px;height:16px;background:var(--chrome);border:1px solid #000;border-radius:3px;display:grid;place-items:center;font-size:10px;user-select:none}
 
-    /* ===== Window ===== */
-    .window {
-      width: min(1100px, 92vw);
-      background: var(--win);
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      box-shadow: 6px 6px 0 var(--shadow);
-      overflow: hidden;
-    }
+    .menu{display:flex;gap:6px;padding:6px 8px;background:var(--chrome);border-bottom:1px solid #9b9b9b}
+    .menu a{padding:4px 8px;text-decoration:none;border-radius:6px}
+    .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    .title-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 10px;
-      background: var(--title-bg);
-      color: var(--title-fg);
-    }
-    .title-bar-text { font-weight: 700; letter-spacing: .2px; }
+    /* ===== Sections / router views ===== */
+    .view{display:none}
+    .view.active{display:block}
 
-    .title-bar-controls { display: inline-flex; gap: 6px; }
-    .ctrl {
-      inline-size: 18px; block-size: 16px;
-      background: var(--chrome);
-      border: 1px solid #000;
-      border-radius: 3px;
-      display: grid; place-items: center;
-      cursor: default;
-      user-select: none;
-      line-height: 1;
-      font-size: 10px;
-      color: #000;
-    }
+    /* Profile header */
+    .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb}
+    .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .username{margin:0 0 6px;font-size:20px}
+    .stats{display:flex;gap:14px;font-size:14px}
+    .actions{display:flex;gap:8px;margin-top:8px}
+    .btn{padding:6px 10px;border:1px solid #111;background:#f5f5f5;border-radius:10px;cursor:pointer}
+    .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
 
-    .menu-bar {
-      display: flex; gap: 12px;
-      padding: 6px 8px;
-      background: var(--chrome);
-      border-block-end: 1px solid #9b9b9b;
-      font-size: 13px;
-    }
-    .menu-bar button {
-      background: transparent; border: 0; padding: 4px 6px; cursor: pointer;
-      font: inherit; color: inherit;
-    }
-    .menu-bar button:focus { outline: 2px dashed #000; outline-offset: 2px; }
+    /* Works */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:12px}
+    .card{position:relative;aspect-ratio:1/1;border:1px solid #111;background:#eee;overflow:hidden;border-radius:6px}
+    .card img{width:100%;height:100%;object-fit:cover;display:block}
+    .caption{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:12px;color:#fff;background:rgb(0 0 0 / 55%);display:flex;justify-content:space-between}
 
-    /* ===== Profile ===== */
-    .profile {
-      display: grid; grid-template-columns: 96px 1fr; gap: 14px;
-      padding: 16px;
-      border-block-end: 1px solid #e5e7eb;
-    }
-    .avatar { inline-size: 96px; block-size: 96px; border-radius: 50%; overflow: hidden; border: 2px solid #000; background: #eee; }
-    .avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:12px}
+    .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
+    .svc h3{margin:0 0 6px}
+    .svc ul{margin:0;padding-left:18px}
 
-    .username { margin: 0 0 6px; font-size: 20px; }
-    .stats { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; }
-    .stats strong { font-weight: 700; }
+    /* Voices (SNS風ストリーム) */
+    .voice-wrap{padding:12px}
+    .voice-ctrl{display:flex;gap:8px;margin-bottom:8px}
+    .stream{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;border:1px solid #111;background:#fff;border-radius:8px;padding:8px}
+    .voice{display:grid;grid-template-columns:40px 1fr;gap:8px;padding:6px;border:1px solid #ddd;border-radius:8px;background:#f9fafb}
+    .voice .av{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#eee;border:1px solid #bbb}
+    .voice .av img{width:100%;height:100%;object-fit:cover}
+    .voice .name{font-weight:700}
+    .voice .meta{color:var(--muted);font-size:12px}
 
-    .actions { display: flex; gap: 8px; margin-top: 8px; }
-    .btn { padding: 6px 10px; border: 1px solid #111; background: #f5f5f5; border-radius: 10px; cursor: pointer; }
-    .btn.primary { background: #f0f6ff; border-color: #0f6bff; color: #0f3a9f; }
+    /* About / Contact */
+    .about,.contact{padding:16px}
 
-    .bio { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+    .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
 
-    /* ===== Gallery ===== */
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; padding: 12px; }
-    .card { position: relative; aspect-ratio: 1 / 1; border: 1px solid #111; background: #eee; overflow: hidden; border-radius: 6px; }
-    .card img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
-    .caption { position: absolute; inset-inline: 0; inset-block-end: 0; padding: 6px 8px; font-size: 12px; color: #fff; background: rgb(0 0 0 / 55%); display: flex; justify-content: space-between; align-items: center; }
+    /* 8bit cursor follower */
+    body{cursor:auto}
+    .cursor-scope{cursor:none}
+    .retro-cursor{position:fixed;left:0;top:0;width:20px;height:28px;pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
+    .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
 
-    /* ===== Footer ===== */
-    .footer { padding: 12px; border-top: 1px solid #e5e7eb; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
-
-    /* ===== Responsive tweaks ===== */
-    @media (max-width: 640px) {
-      .profile { grid-template-columns: 72px 1fr; }
-      .username { font-size: 18px; }
-    }
-
-    /* アクセシビリティ配慮 */
-    @media (prefers-reduced-motion: reduce) {
-      * { scroll-behavior: auto; }
-    }
-    /* ===== Retro 8-bit Cursor ===== */
-    .window { cursor: none; }
-    .retro-cursor { position: fixed; inset: 0 auto auto 0; width: 20px; height: 28px; pointer-events: none; z-index: 9999; image-rendering: pixelated; background-repeat: no-repeat; background-size: 100% 100%; filter: drop-shadow(2px 2px 0 #000); display: none; }
-
-    /* SVG を data URL で埋め込み（白ベースの8bit矢印）*/
-    .retro-cursor{ background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2' /></svg>"); }
-</style>
+    @media (max-width:640px){.profile{grid-template-columns:72px 1fr}.username{font-size:18px}}
+  </style>
 </head>
 <body>
-  <main class="window" aria-label="Retro Window">
+  <main class="window cursor-scope" id="app" aria-label="Portfolio">
     <header class="title-bar">
-      <div class="title-bar-text">Instagram.exe — KICHOHIN</div>
-      <div class="title-bar-controls" aria-hidden="true">
-        <div class="ctrl" title="Minimize">_</div>
-        <div class="ctrl" title="Maximize">□</div>
-        <div class="ctrl" title="Close">×</div>
-      </div>
+      <div>KICHOHIN — Portfolio.exe</div>
+      <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
     </header>
-
-    <nav class="menu-bar" aria-label="Window menu">
-      <button type="button">File</button>
-      <button type="button">Edit</button>
-      <button type="button">View</button>
-      <button type="button">Help</button>
+    <nav class="menu" role="navigation">
+      <a href="#/works" data-route="#/works" aria-current="page">Works</a>
+      <a href="#/services" data-route="#/services">Services</a>
+      <a href="#/voices" data-route="#/voices">Voices</a>
+      <a href="#/about" data-route="#/about">About</a>
+      <a href="#/contact" data-route="#/contact">Contact</a>
     </nav>
 
-    <section class="profile">
-      <div class="avatar">
-        <!-- TODO: プロフィール画像を差し替え -->
-        <img src="https://picsum.photos/seed/kicho/300/300" alt="プロフィール画像" loading="lazy" />
-      </div>
+    <!-- Profile header (固定) -->
+    <section class="profile" aria-label="Profile">
+      <div class="avatar"><img src="https://picsum.photos/seed/kicho/300/300" alt="プロフィール画像" loading="lazy"></div>
       <div>
         <h1 class="username">KICHOHIN</h1>
-        <div class="stats" aria-label="プロフィール統計">
-          <div><strong>9</strong> posts</div>
-          <div><strong>120</strong> followers</div>
-          <div><strong>98</strong> following</div>
-        </div>
-        <div class="actions">
-          <button class="btn primary" type="button">+ Follow</button>
-          <a class="btn" href="mailto:hello@example.com">Contact</a>
-        </div>
-        <p class="bio">Web / GAS / LINE連携。軽量・即応・構造を壊さない実装を得意とします。</p>
+        <div class="stats"><div><strong id="postCount">0</strong> posts</div><div><strong>120</strong> followers</div><div><strong>98</strong> following</div></div>
+        <div class="actions"><button class="btn primary" type="button">+ Follow</button><a class="btn" href="mailto:hello@example.com">Contact</a></div>
+        <p class="bio">Web / GAS / LINE連携。構造を壊さない修正・軽量実装を重視します。</p>
       </div>
     </section>
 
-    <section class="gallery" aria-label="作品ギャラリー">
-      <!-- TODO: 画像は自身の /assets 配下へ置き換え。alt を必ず設定 -->
-      <a class="card" href="#" aria-label="Work 01">
-        <img src="https://picsum.photos/seed/w1/1200/1200" alt="Work 01 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 01</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 02">
-        <img src="https://picsum.photos/seed/w2/1200/1200" alt="Work 02 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 02</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 03">
-        <img src="https://picsum.photos/seed/w3/1200/1200" alt="Work 03 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 03</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 04">
-        <img src="https://picsum.photos/seed/w4/1200/1200" alt="Work 04 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 04</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 05">
-        <img src="https://picsum.photos/seed/w5/1200/1200" alt="Work 05 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 05</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 06">
-        <img src="https://picsum.photos/seed/w6/1200/1200" alt="Work 06 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 06</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 07">
-        <img src="https://picsum.photos/seed/w7/1200/1200" alt="Work 07 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 07</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 08">
-        <img src="https://picsum.photos/seed/w8/1200/1200" alt="Work 08 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 08</span><span>2025</span></div>
-      </a>
-      <a class="card" href="#" aria-label="Work 09">
-        <img src="https://picsum.photos/seed/w9/1200/1200" alt="Work 09 サムネイル" loading="lazy" />
-        <div class="caption"><span>Work 09</span><span>2025</span></div>
-      </a>
+    <!-- Views -->
+    <section id="v-works" class="view active" aria-label="Works">
+      <div class="gallery" id="worksGrid"></div>
     </section>
 
-    <div class="footer">
-      <span>© 2025 KICHOHIN</span>
-      <span>Retro UI / Static HTML</span>
-    </div>
+    <section id="v-services" class="view" aria-label="Services">
+      <div class="services" id="svcList"></div>
+    </section>
+
+    <section id="v-voices" class="view" aria-label="Voices">
+      <div class="voice-wrap">
+        <div class="voice-ctrl">
+          <button class="btn" id="play">再生</button>
+          <button class="btn" id="pause">一時停止</button>
+          <label style="display:flex;align-items:center;gap:6px">速度<input id="speed" type="range" min="300" max="2000" step="100" value="900"></label>
+        </div>
+        <div class="stream" id="stream" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="v-about" class="view about" aria-label="About">
+      <h2>方針</h2>
+      <p>最小改修での復旧、既存構造を維持した拡張、運用ドキュメントの整備を一貫して行います。LINE / GAS / WordPress / Next.js 等の軽量構成を優先します。</p>
+      <h3>制作物の範囲</h3>
+      <ul>
+        <li>Web実装（UI/SEO/OGP/構造化データ）</li>
+        <li>GAS・LINE連携の業務自動化</li>
+        <li>WooCommerce 多言語・翻訳制御</li>
+      </ul>
+    </section>
+
+    <section id="v-contact" class="view contact" aria-label="Contact">
+      <h2>お問い合わせ</h2>
+      <p>ご相談はメール、または各プラットフォーム経由で受け付けています。</p>
+      <ul>
+        <li>Mail: <a href="mailto:hello@example.com">hello@example.com</a></li>
+        <li>GitHub Pages: このサイト</li>
+      </ul>
+    </section>
+
+    <div class="footer"><span>© 2025 KICHOHIN</span><span>8bit UI / Static SPA</span></div>
   </main>
+
+  <div class="retro-cursor" id="rc"></div>
+
   <script>
-    // Retro 8-bit cursor follower (confined to .window)
-    (function(){
-      var supportsTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      if (supportsTouch) return; // タッチ端末は無効
-      var scope = document.querySelector('.window');
-      if (!scope) return;
-      var cur = document.createElement('div');
-      cur.className = 'retro-cursor';
-      cur.setAttribute('aria-hidden','true');
-      document.body.appendChild(cur);
+  // ====== データ（差し替え想定） ======
+  const works = [
+    { title:"Work 01", year:2025, img:"https://picsum.photos/seed/w1/1200/1200" },
+    { title:"Work 02", year:2025, img:"https://picsum.photos/seed/w2/1200/1200" },
+    { title:"Work 03", year:2025, img:"https://picsum.photos/seed/w3/1200/1200" },
+    { title:"Work 04", year:2025, img:"https://picsum.photos/seed/w4/1200/1200" },
+    { title:"Work 05", year:2025, img:"https://picsum.photos/seed/w5/1200/1200" },
+    { title:"Work 06", year:2025, img:"https://picsum.photos/seed/w6/1200/1200" },
+    { title:"Work 07", year:2025, img:"https://picsum.photos/seed/w7/1200/1200" },
+    { title:"Work 08", year:2025, img:"https://picsum.photos/seed/w8/1200/1200" },
+    { title:"Work 09", year:2025, img:"https://picsum.photos/seed/w9/1200/1200" }
+  ];
 
-      var rect = null; var show = false;
-      var tx = 0, ty = 0, x = 0, y = 0; // target / current
-      var offX = 2, offY = 2;          // 先端位置の微調整
+  const services = [
+    { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
+    { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
+    { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
+  ];
 
-      function within(e){
-        rect = scope.getBoundingClientRect();
-        return (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom);
-      }
+  // ココナラ等の声を手入力で反映想定（実名や機密を入れない）
+  const voices = [
+    { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
+    { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
+    { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
+  ];
 
-      window.addEventListener('mousemove', function(e){
-        if (within(e)){
-          show = true; cur.style.display = 'block'; scope.style.cursor = 'none';
-          tx = e.clientX + offX; ty = e.clientY + offY;
-        } else {
-          show = false; cur.style.display = 'none'; scope.style.cursor = '';
-        }
-      }, {passive:true});
+  // ====== ルーター ======
+  const views={
+    '#/works':document.getElementById('v-works'),
+    '#/services':document.getElementById('v-services'),
+    '#/voices':document.getElementById('v-voices'),
+    '#/about':document.getElementById('v-about'),
+    '#/contact':document.getElementById('v-contact')
+  };
+  const navLinks=[...document.querySelectorAll('.menu a')];
+  function route(){
+    const h=location.hash||'#/works';
+    Object.values(views).forEach(v=>v.classList.remove('active'));
+    (views[h]||views['#/works']).classList.add('active');
+    navLinks.forEach(a=>a.setAttribute('aria-current',a.getAttribute('data-route')===h?'page':'false'));
+  }
+  window.addEventListener('hashchange',route); route();
 
-      function raf(){
-        x += (tx - x) * 0.35; // 追従の滑らかさ
-        y += (ty - y) * 0.35;
-        if (show) cur.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-      // リサイズ時に座標系を更新
-      window.addEventListener('resize', function(){ rect = scope.getBoundingClientRect(); }, {passive:true});
-    })();
+  // ====== Works render ======
+  const grid=document.getElementById('worksGrid');
+  grid.innerHTML = works.map(w=>`<a class="card" href="#" aria-label="${w.title}"><img src="${w.img}" alt="${w.title}" loading="lazy"><div class="caption"><span>${w.title}</span><span>${w.year}</span></div></a>`).join('');
+  document.getElementById('postCount').textContent = works.length;
+
+  // ====== Services render ======
+  const svc=document.getElementById('svcList');
+  svc.innerHTML = services.map(s=>`<article class="svc"><h3>${s.name}</h3><ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul></article>`).join('');
+
+  // ====== Voices stream（SNS風） ======
+  const stream=document.getElementById('stream');
+  let idx=0, timer=null; const base=voices.concat(voices).concat(voices); // 反復
+  function pushOne(){
+    const v=base[idx++ % base.length];
+    const el=document.createElement('div');
+    el.className='voice';
+    el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
+      <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
+      <div class="text">${v.text}</div></div>`;
+    stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
+  }
+  function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
+  function pause(){ if(timer) clearInterval(timer); }
+  document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
+  document.getElementById('pause').addEventListener('click',pause);
+  document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
+  // 初期キック
+  for(let i=0;i<3;i++) pushOne();
+
+  // ====== 8bit cursor follower within window ======
+  (function(){
+    const scope=document.getElementById('app');
+    const cur=document.getElementById('rc');
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
+    if(isTouch) return;
+    let rect=null, show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
+    function within(e){ rect = scope.getBoundingClientRect(); return (e.clientX>=rect.left && e.clientX<=rect.right && e.clientY>=rect.top && e.clientY<=rect.bottom); }
+    window.addEventListener('mousemove',e=>{ if(within(e)){ show=true; cur.style.display='block'; tx=e.clientX+offX; ty=e.clientY+offY; } else { show=false; cur.style.display='none'; } },{passive:true});
+    (function raf(){ x += (tx-x)*0.35; y += (ty-y)*0.35; if(show) cur.style.transform=`translate(${x}px,${y}px)`; requestAnimationFrame(raf); })();
+  })();
   </script>
 </body>
 </html>
