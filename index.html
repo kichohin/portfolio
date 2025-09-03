@@ -32,10 +32,10 @@
       box-shadow:6px 6px 0 var(--shadow);
       overflow:auto; overscroll-behavior:contain; scroll-behavior:smooth;
       position:relative;
-      /* 内側スクロールバーを隠す */
-      scrollbar-width:none;             /* Firefox */
+      scrollbar-width:none;                 /* Firefox: 非表示 */
+      scrollbar-gutter:stable both-edges;   /* OSの常時表示でも段差を最小化 */
     }
-    .window::-webkit-scrollbar{ width:0; height:0 } /* WebKit */
+    .window::-webkit-scrollbar{ width:0; height:0 } /* WebKit: 非表示 */
 
     /* Sticky bars */
     .title-bar{
@@ -51,11 +51,11 @@
       position:sticky; top:var(--tb-h); z-index:2;
       display:flex; gap:6px; padding:6px 8px; background:var(--chrome);
       border-bottom:1px solid #9b9b9b;
-      /* 横スクロール（見た目のスクロールバーは隠す） */
       overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;
       scrollbar-width:none;
+      -ms-overflow-style:none;           /* Edge(旧) */
     }
-    .menu::-webkit-scrollbar{ display:none }
+    .menu::-webkit-scrollbar{ display:none } /* iOS/Chromium: 非表示 */
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px;flex:0 0 auto}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
@@ -77,11 +77,11 @@
     .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
     .bio{margin:10px 0 0;color:var(--muted);line-height:1.75;letter-spacing:0.01em;word-break:break-word}
 
-    /* PC：FOLLOW を一回り大きく＋周辺に馴染むトーン */
+    /* PC：FOLLOW を一回り大きく自然なトーンに */
     @media (min-width: 641px){
       .actions{margin-top:0; align-self:start}
       .actions .btn{
-        padding:6px 14px; font-size:13px; border-radius:8px;
+        padding:6px 14px; font-size:14px; border-radius:8px;
         background:#ececec;
         box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff;
       }
@@ -99,21 +99,28 @@
     .svc h3{margin:0 0 6px}
     .svc ul{margin:0;padding-left:18px}
 
-    .voice-ctrl{display:flex;gap:8px;margin-bottom:8px}
-    .stream{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;border:1px solid #111;background:#fff;border-radius:8px;padding:8px}
-    .voice{display:grid;grid-template-columns:40px 1fr;gap:8px;padding:6px;border:1px solid #ddd;border-radius:8px;background:#f9fafb}
-    .voice .av{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#eee;border:1px solid #bbb}
-    .voice .av img{width:100%;height:100%;object-fit:cover}
-    .voice .name{font-weight:700}
-    .voice .meta{color:var(--muted);font-size:12px}
+    /* Voices: 3つの吹き出しが常時入替 */
+    .voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .bubble{
+      position:relative;background:#fff;border:1px solid #111;border-radius:12px;padding:12px;min-height:72px;
+      box-shadow:2px 2px 0 #0000;
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .bubble::after{
+      content:""; position:absolute; left:16px; bottom:-8px; width:14px; height:14px;
+      background:#fff; border-left:1px solid #111; border-bottom:1px solid #111;
+      transform:rotate(45deg);
+    }
+    .bubble .meta{display:block;margin-top:6px;color:var(--muted);font-size:12px}
 
+    /* Flow */
     .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .step{
       border:1px solid #111;border-radius:10px;padding:12px;background:#fff;position:relative;
-      padding-top:36px; /* ← Stepバッジ分の天面余白を追加（干渉防止） */
+      padding-top:44px; /* 余白拡大で干渉解消 */
     }
     .step .num{position:absolute;left:8px;top:8px;border:1px solid #111;border-radius:6px;padding:2px 6px;background:#f0f6ff}
-    .step h3{margin:4px 0 6px}
+    .step h3{margin:6px 0 6px}
 
     .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .price{border:1px solid #111;border-radius:10px;padding:12px;background:#fff}
@@ -135,11 +142,10 @@
       .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
       .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
       .actions .btn{padding:4px 10px;font-size:12px;border-radius:8px}
-      /* スマホはアバターを四角に */
-      .avatar{ border-radius:0 }
+      .avatar{ border-radius:0 }            /* スマホは四角 */
       .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8}
       .lp-section{padding:12px}
-      .panels,.services,.steps,.prices{gap:10px}
+      .panels,.services,.steps,.prices,.voices{gap:10px}
     }
     @media (min-width: 641px) {
       .profile{row-gap:8px}
@@ -245,14 +251,11 @@
     <!-- Voices -->
     <section class="lp-section" id="voices" aria-label="Voices">
       <h2 class="lp-title">お客さまの声</h2>
-      <div class="voice-ctrl">
-        <button class="btn" id="play">再生</button>
-        <button class="btn" id="pause">一時停止</button>
-        <label style="display:flex;align-items:center;gap:6px">速度
-          <input id="speed" type="range" min="300" max="2000" step="100" value="900">
-        </label>
+      <div class="voices" id="voicesWrap" aria-live="polite">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
       </div>
-      <div class="stream" id="stream" aria-live="polite"></div>
     </section>
 
     <!-- Flow -->
@@ -343,29 +346,47 @@
     document.getElementById('svcList').innerHTML =
       services.map(s=>`<article class="svc"><h3>${s.name}</h3><ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul></article>`).join('');
 
-    /* ===== Voices ===== */
-    const voices = [
-      { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
-      { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
-      { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
+    /* ===== Voices（3件が自動ローテーション） ===== */
+    // 後で文面を差し替える場合はこの配列を書き換えてください（20件例）
+    const voiceTexts = [
+      "最小改修で短期復旧いただき助かりました。", "要点が明確で決定が早かったです。",
+      "LINE通知と集計の自動化で作業が半分に。", "運用メモが分かりやすく、引き継ぎが楽でした。",
+      "既存テーマを壊さずに拡張できました。", "SEO/OGPの整備で共有がスムーズに。",
+      "代替案まで提示があり安心でした。", "検証環境の準備からお任せできました。",
+      "WooCommerce 多言語の最小構成が効きました。", "レスポンスが早く進行が止まりませんでした。",
+      "小さな改修でも丁寧に対応。", "帳票出力まで自動化できて便利です。",
+      "JSの不具合切り分けが的確でした。", "運用前提の設計で後からの追加が容易でした。",
+      "ドキュメントが簡潔で現場に刺さりました。", "想定外のケースにも柔軟に対応。",
+      "レビューとテストが手厚く安心でした。", "スケジュールどおりに完了しました。",
+      "既存の仕組みを活かす提案が良かった。", "コミュニケーションが端的で助かります。"
     ];
-    const stream=document.getElementById('stream');
-    let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
-    function pushOne(){
-      const v=base[idx++ % base.length];
-      const el=document.createElement('div');
-      el.className='voice';
-      el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
-        <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
-        <div class="text">${v.text}</div></div>`;
-      stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
+    const wrap = document.getElementById('voicesWrap');
+    const bubbles = [...wrap.querySelectorAll('.bubble')];
+
+    // 初期表示（先頭3件）
+    let start = 0;
+    function renderInitial(){
+      for(let i=0;i<3;i++){
+        bubbles[i].textContent = voiceTexts[(start + i) % voiceTexts.length];
+      }
     }
-    function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
-    function pause(){ if(timer) clearInterval(timer); }
-    document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
-    document.getElementById('pause').addEventListener('click',pause);
-    document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
-    for(let i=0;i<3;i++) pushOne();
+    renderInitial();
+
+    // 交互に1つずつ入替
+    let rot = 0;
+    setInterval(()=>{
+      const target = bubbles[rot % 3];
+      // 次のテキスト
+      start = (start + 1) % voiceTexts.length;
+      target.style.opacity = 0;
+      target.style.transform = 'translateY(4px)';
+      setTimeout(()=>{
+        target.textContent = voiceTexts[(start + 2) % voiceTexts.length]; // 新しい一言
+        target.style.opacity = 1;
+        target.style.transform = 'translateY(0)';
+      }, 220);
+      rot++;
+    }, 2600);
 
     /* ===== 内部スクロールでメニューを更新 ===== */
     const container = document.getElementById('app');
