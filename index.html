@@ -93,18 +93,18 @@
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
     .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 
-    /* ===== Services（カード全体がリンク） ===== */
+    /* Services（カード全体がリンク） */
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
     .svc{
       display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
       text-align:center; text-decoration:none; color:inherit;
       border:1px solid #111; border-radius:8px; padding:16px; background:#fafafa;
       transition:transform .06s ease, background .2s ease;
-      min-height:120px; /* 高さ揃えに寄与 */
+      min-height:120px;
     }
     .svc:hover{ background:#fff; transform:translateY(-1px) }
     .svc h3{margin:0 0 6px; line-height:1.6}
-    .svc .btn{pointer-events:none} /* ネスト回避のため見た目だけボタン */
+    .svc .btn{pointer-events:none}
     .svc .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
 
     /* Voices（吹き出し） */
@@ -245,7 +245,7 @@
       </div>
     </section>
 
-    <!-- Services（= 商品3件／カード全体リンク・中央寄せ） -->
+    <!-- Services -->
     <section class="lp-section" id="services" aria-label="Services">
       <h2 class="lp-title">提供サービス</h2>
       <div class="services" id="svcList"></div>
@@ -337,7 +337,7 @@
   </main>
 
   <script>
-    /* ===== 商品3件：カード全体がリンク、中央寄せ ===== */
+    /* ===== 商品3件：カード全体リンク、中央寄せ ===== */
     const products = [
       { title:"広告タグ・GA4計測エラーを即修正", url:"https://coconala.com/services/3673839?ref=profile_top_service" },
       { title:"電子帳簿法の証憑を自動保存",       url:"https://coconala.com/services/3856798?ref=profile_top_service" },
@@ -350,19 +350,35 @@
           <span class="btn primary">詳しく見る</span>
         </a>`).join('');
 
-    /* ===== Voices（3件ローテーション） ===== */
-    const voiceTexts = [
+    /* ===== お客さまの声：レビューのポジティブ要約を追加 ===== */
+    const fromReviews = [
+      "ご契約前から丁寧な返信で信頼できました。",
+      "画像も用いた説明がわかりやすかったです。",
+      "安心して任せられました。",
+      "急遽の案件にも丁寧に対応いただき感謝します。",
+      "説明が丁寧でスムーズに完了できました。",
+      "プロフェッショナルで的確でした。",
+      "内容が素晴らしかったです。",
+      "返信が早く、初心者にも根気強く対応してくれました。",
+      "迅速で誠実なご対応に助かりました。",
+      "質問に対して内容の濃い回答でした。",
+      "迅速で明瞭な説明に満足しています。",
+      "要望や質問がしやすかったです。",
+      "おすすめできます。",
+      "爆速でWordPressの不具合を解決いただきました。",
+      "迅速かつ丁寧な対応でした。 また相談したいです。",
+      "素晴らしいクオリティと対応でした。",
+      "知見の少ない質問にも丁寧に答えていただきました。"
+    ];
+    const genericVoices = [
       "最小改修で短期復旧いただき助かりました。", "要点が明確で決定が早かったです。",
       "LINE通知と集計の自動化で作業が半分に。", "運用メモが分かりやすく、引き継ぎが楽でした。",
       "既存テーマを壊さずに拡張できました。", "SEO/OGPの整備で共有がスムーズに。",
       "代替案まで提示があり安心でした。", "検証環境の準備からお任せできました。",
-      "WooCommerce 多言語の最小構成が効きました。", "レスポンスが早く進行が止まりませんでした。",
-      "小さな改修でも丁寧に対応。", "帳票出力まで自動化できて便利です。",
-      "JSの不具合切り分けが的確でした。", "運用前提の設計で後からの追加が容易でした。",
-      "ドキュメントが簡潔で現場に刺さりました。", "想定外のケースにも柔軟に対応。",
-      "レビューとテストが手厚く安心でした。", "スケジュールどおりに完了しました。",
-      "既存の仕組みを活かす提案が良かった。", "コミュニケーションが端的で助かります。"
+      "WooCommerce 多言語の最小構成が効きました。", "レスポンスが早く進行が止まりませんでした。"
     ];
+    const voiceTexts = fromReviews.concat(genericVoices);
+
     const wrap = document.getElementById('voicesWrap');
     const bubbles = [...wrap.querySelectorAll('.bubble')];
 
