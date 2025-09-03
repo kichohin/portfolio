@@ -9,8 +9,7 @@
     :root{
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
-      --cursor-w:26px; --cursor-h:36px;
-      --tb-h: 36px; /* タイトルバー高さ（sticky基準） */
+      --tb-h:36px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -19,69 +18,77 @@
       font-family:"DotGothic16",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
       color:var(--ink);
       display:flex;justify-content:center;align-items:center;
-      height:100vh; overflow:hidden; /* 外側はスクロールさせない */
-      padding:16px;
+      height:100vh; overflow:hidden; padding:16px;
     }
     a{color:inherit}
 
-    /* ==== Window（固定サイズ・内側スクロール） ==== */
+    /* ===== Window（固定サイズ・内側スクロール） ===== */
     .window{
       width:min(1100px,95vw);
-      height:min(88vh,760px);                  /* 固定に近い高さ */
+      height:min(88vh,760px);
       background:var(--win);
       border:2px solid var(--border);
       border-radius:8px;
       box-shadow:6px 6px 0 var(--shadow);
-      overflow:auto;                           /* ← 内側だけスクロール */
-      scroll-behavior:smooth;                  /* アンカー移動をスムーズに */
+      overflow:auto;                /* 内側スクロール */
       overscroll-behavior:contain;
+      scroll-behavior:smooth;
       position:relative;
     }
-
-    /* Title bar（固定） */
+    /* Sticky bars */
     .title-bar{
       position:sticky; top:0; z-index:3;
       display:flex;align-items:center;justify-content:space-between;
-      height:var(--tb-h);
-      padding:0 10px;
-      background:var(--bar);color:var(--bar-fg);
+      height:var(--tb-h); padding:0 10px;
+      background:var(--bar); color:var(--bar-fg);
     }
     .title-bar .ctrls{display:inline-flex;gap:6px}
     .btn-ctrl{width:18px;height:16px;background:var(--chrome);border:1px solid #000;border-radius:3px;display:grid;place-items:center;font-size:10px;user-select:none}
 
-    /* Menu（固定） */
     .menu{
       position:sticky; top:var(--tb-h); z-index:2;
-      display:flex;gap:6px;padding:6px 8px;background:var(--chrome);
-      border-bottom:1px solid #9b9b9b
+      display:flex; gap:6px; padding:6px 8px; background:var(--chrome);
+      border-bottom:1px solid #9b9b9b;
+
+      /* スマホで横スクロール */
+      overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
     }
-    .menu a{padding:4px 8px;text-decoration:none;border-radius:6px}
+    .menu a{padding:4px 8px;text-decoration:none;border-radius:6px;flex:0 0 auto}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    /* Profile（ヒーロー） */
-    .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb;background:#fff}
+    /* ===== Profile / Hero ===== */
+    .profile{
+      display:grid; grid-template-columns:96px 1fr; gap:14px;
+      padding:16px; border-bottom:1px solid #e5e7eb; background:#fff;
+      scroll-margin-top:calc(var(--tb-h) + 44px); /* アンカー位置補正 */
+    }
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+    .avatar img{
+      width:100%; height:100%; display:block; object-fit:cover;
+      /* ピクセル画像のにじみ防止 */
+      image-rendering:pixelated;
+      image-rendering:-moz-crisp-edges;
+      image-rendering:crisp-edges;
+      -ms-interpolation-mode:nearest-neighbor;
+    }
     .username{margin:0 0 6px;font-size:20px}
     .actions{display:flex;gap:8px;margin-top:8px}
     .btn{padding:6px 10px;border:1px solid #111;background:#f5f5f5;border-radius:10px;cursor:pointer}
     .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
     .bio{margin:10px 0 0;color:var(--muted);line-height:1.75;letter-spacing:0.01em;word-break:break-word}
 
-    /* LP セクション共通 */
-    .lp-section{padding:16px;background:#fff}
+    /* ===== LP sections ===== */
+    .lp-section{padding:16px;background:#fff;scroll-margin-top:calc(var(--tb-h) + 44px)}
     .lp-title{font-size:18px;margin:0 0 12px}
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
     .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 
-    /* Services */
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
     .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
     .svc h3{margin:0 0 6px}
     .svc ul{margin:0;padding-left:18px}
 
-    /* Voices */
-    .voice-wrap{padding:0}
     .voice-ctrl{display:flex;gap:8px;margin-bottom:8px}
     .stream{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;border:1px solid #111;background:#fff;border-radius:8px;padding:8px}
     .voice{display:grid;grid-template-columns:40px 1fr;gap:8px;padding:6px;border:1px solid #ddd;border-radius:8px;background:#f9fafb}
@@ -90,36 +97,34 @@
     .voice .name{font-weight:700}
     .voice .meta{color:var(--muted);font-size:12px}
 
-    /* Flow */
     .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .step{border:1px solid #111;border-radius:10px;padding:12px;background:#fff;position:relative}
     .step .num{position:absolute;left:8px;top:8px;border:1px solid #111;border-radius:6px;padding:2px 6px;background:#f0f6ff}
     .step h3{margin:18px 0 6px}
 
-    /* Pricing */
     .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .price{border:1px solid #111;border-radius:10px;padding:12px;background:#fff}
     .price h3{margin:0 0 6px}
     .price strong{font-size:20px}
     .note{color:var(--muted);font-size:12px}
 
-    /* FAQ */
     details{border:1px solid #111;border-radius:10px;padding:10px;background:#fff}
     details+details{margin-top:8px}
     summary{cursor:pointer}
 
     .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;background:#fff}
 
-    /* 8bit cursor */
-    .retro-cursor{position:fixed;left:0;top:0;width:var(--cursor-w);height:var(--cursor-h);pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
-    .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
-    .retro-cursor.hand{background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>\")}
-
-    /* モバイル（～640px） */
+    /* ===== Mobile ===== */
     @media (max-width: 640px) {
       .window{height:92vh}
-      .profile{grid-template-columns:72px 1fr;align-items:start;padding:12px;gap:12px}
-      .profile > div{display:grid;grid-template-columns:1fr auto;grid-auto-rows:min-content;column-gap:8px;row-gap:6px;align-items:center}
+      /* アバターは 96px のまま（縮小でのにじみ回避） */
+      .profile{
+        grid-template-columns:96px 1fr; align-items:start; padding:12px; gap:12px;
+      }
+      .profile > div{
+        display:grid; grid-template-columns:1fr auto; grid-auto-rows:min-content;
+        column-gap:8px; row-gap:6px; align-items:center;
+      }
       .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
       .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
       .actions .btn{padding:4px 8px;font-size:12px;border-radius:8px}
@@ -127,7 +132,6 @@
       .lp-section{padding:12px}
       .panels,.services,.steps,.prices{gap:10px}
     }
-    /* タブレット/PC（641px～）：アバター下の余白を解消 */
     @media (min-width: 641px) {
       .profile{row-gap:8px}
       .profile > div{ display: contents; }
@@ -144,8 +148,7 @@
       <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
     </header>
 
-    <!-- ページ内アンカー（ウィンドウ内スクロールに追随） -->
-    <nav class="menu" role="navigation">
+    <nav class="menu" role="navigation" id="menu">
       <a href="#top" aria-current="page">Top</a>
       <a href="#problems">Problems</a>
       <a href="#solution">Solution</a>
@@ -233,16 +236,14 @@
     <!-- Voices -->
     <section class="lp-section" id="voices" aria-label="Voices">
       <h2 class="lp-title">お客さまの声</h2>
-      <div class="voice-wrap">
-        <div class="voice-ctrl">
-          <button class="btn" id="play">再生</button>
-          <button class="btn" id="pause">一時停止</button>
-          <label style="display:flex;align-items:center;gap:6px">速度
-            <input id="speed" type="range" min="300" max="2000" step="100" value="900">
-          </label>
-        </div>
-        <div class="stream" id="stream" aria-live="polite"></div>
+      <div class="voice-ctrl">
+        <button class="btn" id="play">再生</button>
+        <button class="btn" id="pause">一時停止</button>
+        <label style="display:flex;align-items:center;gap:6px">速度
+          <input id="speed" type="range" min="300" max="2000" step="100" value="900">
+        </label>
       </div>
+      <div class="stream" id="stream" aria-live="polite"></div>
     </section>
 
     <!-- Flow -->
@@ -323,104 +324,60 @@
     <div class="footer"><span>© 2025 KICHOHIN</span></div>
   </main>
 
-  <div class="retro-cursor" id="rc"></div>
-
   <script>
-    /* ====== Services（既存データ） ====== */
+    /* ===== Services ===== */
     const services = [
       { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
       { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
       { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
     ];
     const svc=document.getElementById('svcList');
-    if (svc) {
-      svc.innerHTML = services.map(s=>`
-        <article class="svc">
-          <h3>${s.name}</h3>
-          <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
-        </article>`).join('');
-    }
+    svc.innerHTML = services.map(s=>`
+      <article class="svc">
+        <h3>${s.name}</h3>
+        <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+      </article>`).join('');
 
-    /* ====== Voices（ストリーム） ====== */
+    /* ===== Voices ===== */
     const voices = [
       { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
       { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
       { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
     ];
     const stream=document.getElementById('stream');
-    if (stream) {
-      let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
-      function pushOne(){
-        const v=base[idx++ % base.length];
-        const el=document.createElement('div');
-        el.className='voice';
-        el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
-          <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
-          <div class="text">${v.text}</div></div>`;
-        stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
-      }
-      function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
-      function pause(){ if(timer) clearInterval(timer); }
-      document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
-      document.getElementById('pause').addEventListener('click',pause);
-      document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
-      for(let i=0;i<3;i++) pushOne();
+    let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
+    function pushOne(){
+      const v=base[idx++ % base.length];
+      const el=document.createElement('div');
+      el.className='voice';
+      el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
+        <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
+        <div class="text">${v.text}</div></div>`;
+      stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
     }
+    function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
+    function pause(){ if(timer) clearInterval(timer); }
+    document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
+    document.getElementById('pause').addEventListener('click',pause);
+    document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
+    for(let i=0;i<3;i++) pushOne();
 
-    /* ====== 8bit cursor follower（window 内のみ） ====== */
-    (function(){
-      const scope=document.getElementById('app');
-      const cur=document.getElementById('rc');
-      const isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
-      if(isTouch) return;
-      let show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
-
-      function within(e){
-        const r=scope.getBoundingClientRect();
-        return (e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom);
-      }
-      function isInteractive(el){
-        while(el&&el!==scope){
-          if(el.matches&&el.matches('a,button,input,select,textarea,summary,[role="button"],.btn')) return true;
-          el=el.parentNode;
-        }
-        return false;
-      }
-      window.addEventListener('mousemove', e=>{
-        if(within(e)){
-          show=true; cur.style.display='block'; scope.style.cursor='none';
-          tx=e.clientX+offX; ty=e.clientY+offY;
-          const under=document.elementFromPoint(e.clientX,e.clientY);
-          cur.classList.toggle('hand', isInteractive(under));
-        } else {
-          show=false; cur.style.display='none'; cur.classList.remove('hand'); scope.style.cursor='';
-        }
-      }, {passive:true});
-      (function raf(){
-        x+=(tx-x)*0.35; y+=(ty-y)*0.35;
-        if(show) cur.style.transform=`translate(${x}px,${y}px)`;
-        requestAnimationFrame(raf);
-      })();
-    })();
-
-    /* ====== メニューの「選択中」をウィンドウ内スクロールで更新 ====== */
-    const container = document.getElementById('app');      // スクロール親（window）
+    /* ===== 内部スクロールでメニューを更新 ===== */
+    const container = document.getElementById('app');
     const links=[...document.querySelectorAll('.menu a')];
     const sections=['top','problems','solution','services','voices','flow','pricing','faq','contact']
       .map(id=>document.getElementById(id))
       .filter(Boolean);
 
-    // アンカークリックはウィンドウ内スクロールで処理
-    document.querySelector('.menu').addEventListener('click', (e)=>{
-      const a = e.target.closest('a[href^="#"]');
-      if(!a) return;
+    // アンカークリックは内側スクロールで処理
+    document.getElementById('menu').addEventListener('click', (e)=>{
+      const a=e.target.closest('a[href^="#"]'); if(!a) return;
       e.preventDefault();
-      const id=a.getAttribute('href').slice(1);
-      const target=document.getElementById(id);
+      const target=document.querySelector(a.getAttribute('href'));
       if(target){ target.scrollIntoView({behavior:'smooth',block:'start'}); }
     });
 
-    // IntersectionObserver: ルートをウィンドウ（.window）に設定
+    // 交差監視（rootはウィンドウ本体）
     const io=new IntersectionObserver(entries=>{
       entries.forEach(ent=>{
         if(ent.isIntersecting){
@@ -429,12 +386,16 @@
           });
         }
       });
-    },{
-      root: container,                       // ← ここがポイント：外側ではなく内側のスクロール
-      rootMargin: '-40% 0px -50% 0px',       // 上下の観測マージン
-      threshold: 0
-    });
+    },{ root: container, rootMargin: '-40% 0px -50% 0px', threshold: 0 });
     sections.forEach(s=>io.observe(s));
+
+    // 末尾まで到達したら Contact を選択中にする
+    container.addEventListener('scroll', ()=>{
+      const nearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 2;
+      if(nearBottom){
+        links.forEach(a=>a.setAttribute('aria-current', a.getAttribute('href')==='#contact' ? 'page':'false'));
+      }
+    }, {passive:true});
   </script>
 </body>
 </html>
