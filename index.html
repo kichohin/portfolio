@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KICHOHIN Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
   <style>
     :root{
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
-      --cursor-w:26px; --cursor-h:36px; /* 8bit cursor サイズ */
+      --cursor-w:26px; --cursor-h:36px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -30,10 +30,6 @@
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    /* Views */
-    .view{display:none}
-    .view.active{display:block}
-
     /* Profile */
     .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb}
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
@@ -44,14 +40,20 @@
     .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
     .bio{margin:10px 0 0;color:var(--muted);line-height:1.75;letter-spacing:0.01em;word-break:break-word}
 
-    /* Services */
-    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:12px}
+    /* LP セクション共通 */
+    .lp-section{padding:16px}
+    .lp-title{font-size:18px;margin:0 0 12px}
+    .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
+    .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+
+    /* Services（既存デザイン流用） */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
     .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
     .svc h3{margin:0 0 6px}
     .svc ul{margin:0;padding-left:18px}
 
     /* Voices */
-    .voice-wrap{padding:12px}
+    .voice-wrap{padding:0}
     .voice-ctrl{display:flex;gap:8px;margin-bottom:8px}
     .stream{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;border:1px solid #111;background:#fff;border-radius:8px;padding:8px}
     .voice{display:grid;grid-template-columns:40px 1fr;gap:8px;padding:6px;border:1px solid #ddd;border-radius:8px;background:#f9fafb}
@@ -60,7 +62,24 @@
     .voice .name{font-weight:700}
     .voice .meta{color:var(--muted);font-size:12px}
 
-    .about,.contact{padding:16px}
+    /* Flow */
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .step{border:1px solid #111;border-radius:10px;padding:12px;background:#fff;position:relative}
+    .step .num{position:absolute;left:8px;top:8px;border:1px solid #111;border-radius:6px;padding:2px 6px;background:#f0f6ff}
+    .step h3{margin:18px 0 6px}
+
+    /* Pricing */
+    .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .price{border:1px solid #111;border-radius:10px;padding:12px;background:#fff}
+    .price h3{margin:0 0 6px}
+    .price strong{font-size:20px}
+    .note{color:var(--muted);font-size:12px}
+
+    /* FAQ */
+    details{border:1px solid #111;border-radius:10px;padding:10px;background:#fff}
+    details+details{margin-top:8px}
+    summary{cursor:pointer}
+
     .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
 
     /* 8bit cursor */
@@ -68,34 +87,30 @@
     .retro-cursor{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28' shape-rendering='crispEdges'><path d='M1 1 L1 17 L5 13 L7 19 L10 18 L8 12 L12 12 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>")}
     .retro-cursor.hand{background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32' shape-rendering='crispEdges'><path d='M6 18 L6 10 L8 10 L8 16 L9 16 L9 9 L11 9 L11 16 L12 16 L12 8 L14 8 L14 17 L15 17 L15 11 L17 11 L17 20 C17 23 15 26 12 27 C10 28 8 27 7 25 Z' fill='%23ffffff' stroke='%23000000' stroke-width='2'/></svg>\")}
 
-    /* モバイル（～640px）：右カラム内で「名前｜FOLLOW」→下段に本文 */
+    /* モバイル（～640px） */
     @media (max-width: 640px) {
-      body{ padding:8px; }
+      body{ padding:8px }
       .profile{
-        grid-template-columns:72px 1fr;
-        align-items:start;
-        padding:12px;
-        gap:12px;
+        grid-template-columns:72px 1fr; align-items:start; padding:12px; gap:12px;
       }
       .profile > div{
-        display:grid;
-        grid-template-columns:1fr auto;
-        grid-auto-rows:min-content;
+        display:grid; grid-template-columns:1fr auto; grid-auto-rows:min-content;
         column-gap:8px; row-gap:6px; align-items:center;
       }
-      .username{font-size:18px;margin:0;grid-column:1;grid-row:1;}
-      .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px);}
-      .actions .btn{padding:4px 8px;font-size:12px;border-radius:8px;}
-      .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8;}
+      .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
+      .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
+      .actions .btn{padding:4px 8px;font-size:12px;border-radius:8px}
+      .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8}
+      .lp-section{padding:12px}
+      .panels,.services,.steps,.prices{gap:10px}
     }
-
-    /* タブレット/PC（641px～）：右カラムの子要素を親グリッドへフラット化し、bioを2列ぶち抜き */
+    /* タブレット/PC（641px～）：アバター下の余白を解消 */
     @media (min-width: 641px) {
-      .profile{row-gap:8px;}
-      .profile > div{ display: contents; }        /* 構造はそのまま、配置だけ親グリッドに参加 */
+      .profile{row-gap:8px}
+      .profile > div{ display: contents; }
       .username{ grid-column:2; grid-row:1; }
       .actions{ grid-column:2; grid-row:1; justify-self:end; margin-top:0; }
-      .bio{ grid-column:1 / -1; margin-top:8px; } /* ← アバター下の余白を解消 */
+      .bio{ grid-column:1 / -1; margin-top:8px; }
     }
   </style>
 </head>
@@ -105,16 +120,22 @@
       <div>Portfolio.exe</div>
       <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
     </header>
+
+    <!-- ページ内アンカー -->
     <nav class="menu" role="navigation">
-      <a href="#/works" data-route="#/works" aria-current="page">Works</a>
-      <a href="#/services" data-route="#/services">Services</a>
-      <a href="#/voices" data-route="#/voices">Voices</a>
-      <a href="#/about" data-route="#/about">About</a>
-      <a href="#/contact" data-route="#/contact">Contact</a>
+      <a href="#top" aria-current="page">Top</a>
+      <a href="#problems">Problems</a>
+      <a href="#solution">Solution</a>
+      <a href="#services">Services</a>
+      <a href="#voices">Voices</a>
+      <a href="#flow">Flow</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Profile -->
-    <section class="profile" aria-label="Profile">
+    <!-- Profile / Hero -->
+    <section class="profile lp-section" id="top" aria-label="Profile">
       <div class="avatar">
         <img
           src="assets/avatar.png"
@@ -129,18 +150,66 @@
           <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">FOLLOW</a>
         </div>
         <p class="bio">
-          ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。個人・法人を問わず課題に合わせ、成果につながる設計と運用を重視して対応します。「DXをもっと身近に。」を指針に、効率的な未来をご提案します。
+          ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。既存構造を尊重しつつ、成果につながる設計と運用をご提案します。
         </p>
       </div>
     </section>
 
-    <!-- Views -->
+    <!-- Problems -->
+    <section class="lp-section" id="problems" aria-label="Problems">
+      <h2 class="lp-title">よくある課題</h2>
+      <div class="panels">
+        <div class="panel">
+          <ul>
+            <li>サイトが重い・表示が崩れる</li>
+            <li>OGP/SEO/構造化データが未整備</li>
+            <li>小改修だけお願いしたい</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <ul>
+            <li>GAS × LINE で業務を自動化したい</li>
+            <li>決済連動の帳票出力・通知を整えたい</li>
+            <li>運用しやすい手順がほしい</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <ul>
+            <li>WooCommerce の多言語を最小手数で運用したい</li>
+            <li>既存テーマを壊さずに拡張したい</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <section id="v-services" class="view" aria-label="Services">
+    <!-- Solution / 提案価値 -->
+    <section class="lp-section" id="solution" aria-label="Solution">
+      <h2 class="lp-title">解決アプローチ</h2>
+      <div class="panels">
+        <div class="panel">
+          <h3>最小改修での復旧</h3>
+          <p>既存構造を維持し、影響範囲を限定した修正で短期復旧します。</p>
+        </div>
+        <div class="panel">
+          <h3>運用に載る自動化</h3>
+          <p>GAS × LINE を中心に、通知・集計・帳票出力を実務目線で設計します。</p>
+        </div>
+        <div class="panel">
+          <h3>拡張に耐える設計</h3>
+          <p>後方互換・ドキュメントを重視し、将来の差し替えや多言語展開に備えます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services（既存のボックスをLP内に配置） -->
+    <section class="lp-section" id="services" aria-label="Services">
+      <h2 class="lp-title">提供サービス</h2>
       <div class="services" id="svcList"></div>
     </section>
 
-    <section id="v-voices" class="view" aria-label="Voices">
+    <!-- Voices（コメント風ストリーム） -->
+    <section class="lp-section" id="voices" aria-label="Voices">
+      <h2 class="lp-title">お客さまの声</h2>
       <div class="voice-wrap">
         <div class="voice-ctrl">
           <button class="btn" id="play">再生</button>
@@ -153,24 +222,79 @@
       </div>
     </section>
 
-    <section id="v-about" class="view about" aria-label="About">
-      <h2>方針</h2>
-      <p>最小改修での復旧、既存構造を維持した拡張、運用ドキュメントの整備を一貫して行います。LINE / GAS / WordPress / Next.js 等の軽量構成を優先します。</p>
-      <h3>制作物の範囲</h3>
-      <ul>
-        <li>Web実装（UI/SEO/OGP/構造化データ）</li>
-        <li>GAS・LINE連携の業務自動化</li>
-        <li>WooCommerce 多言語運用</li>
-      </ul>
+    <!-- Flow -->
+    <section class="lp-section" id="flow" aria-label="Flow">
+      <h2 class="lp-title">導入の流れ</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="num">Step 1</div>
+          <h3>ヒアリング</h3>
+          <p>要件・制約・現行構成を確認し、影響範囲を整理します。</p>
+        </div>
+        <div class="step">
+          <div class="num">Step 2</div>
+          <h3>設計・見積</h3>
+          <p>最小改修案とスケジュールを提示します。必要に応じて代替案も用意します。</p>
+        </div>
+        <div class="step">
+          <div class="num">Step 3</div>
+          <h3>実装・検証</h3>
+          <p>影響箇所を限定して実装。確認用環境での検証と運用ドキュメントを提供します。</p>
+        </div>
+      </div>
     </section>
 
-    <section id="v-contact" class="view contact" aria-label="Contact">
-      <h2>お問い合わせ</h2>
-      <p>ご相談はメール、または各プラットフォーム経由で受け付けています。</p>
-      <ul>
-        <li>Mail: <a href="mailto:hello@example.com">hello@example.com</a></li>
-        <li>GitHub Pages: このサイト</li>
-      </ul>
+    <!-- Pricing -->
+    <section class="lp-section" id="pricing" aria-label="Pricing">
+      <h2 class="lp-title">料金の目安</h2>
+      <div class="prices">
+        <div class="price">
+          <h3>スポット改修</h3>
+          <p><strong>¥20,000〜</strong></p>
+          <p class="note">軽微な表示崩れ・OGP整備・小規模JS修正など</p>
+        </div>
+        <div class="price">
+          <h3>自動化ミニ</h3>
+          <p><strong>¥50,000〜</strong></p>
+          <p class="note">GAS × LINE の通知・集計の基本導入</p>
+        </div>
+        <div class="price">
+          <h3>多言語運用セット</h3>
+          <p><strong>¥80,000〜</strong></p>
+          <p class="note">WooCommerce の多言語・翻訳制御の最小実装</p>
+        </div>
+      </div>
+      <p class="note">要件・現行構成により前後します。まずは状況を共有ください。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="lp-section" id="faq" aria-label="FAQ">
+      <h2 class="lp-title">よくある質問</h2>
+      <details>
+        <summary>既存テーマやプラグインを極力変えずに対応できますか。</summary>
+        <div>可能です。影響範囲を特定し、後方互換を優先します。</div>
+      </details>
+      <details>
+        <summary>ドキュメントや運用手順は提供されますか。</summary>
+        <div>納品時に簡潔な運用メモを提供します。</div>
+      </details>
+      <details>
+        <summary>保守は依頼できますか。</summary>
+        <div>月次・四半期など柔軟に対応します。</div>
+      </details>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section class="lp-section" id="contact" aria-label="Contact">
+      <h2 class="lp-title">お問い合わせ</h2>
+      <div class="panel">
+        <p>ご相談はメール、または各プラットフォーム経由で受け付けています。</p>
+        <ul>
+          <li>Mail: <a href="mailto:hello@example.com">hello@example.com</a></li>
+          <li>Coconala: <a href="https://coconala.com/users/5218668" target="_blank" rel="noopener">プロフィール</a></li>
+        </ul>
+        <p><a class="btn primary" href="mailto:hello@example.com">この内容で相談する</a></p>
+      </div>
     </section>
 
     <div class="footer"><span>© 2025 KICHOHIN</span></div>
@@ -179,105 +303,95 @@
   <div class="retro-cursor" id="rc"></div>
 
   <script>
-  // ===== データ（差し替え想定） =====
-  const services = [
-    { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
-    { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
-    { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
-  ];
-
-  const voices = [
-    { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
-    { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
-    { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
-  ];
-
-  // ===== ルーター =====
-  const views={
-    '#/works':document.getElementById('v-works'),
-    '#/services':document.getElementById('v-services'),
-    '#/voices':document.getElementById('v-voices'),
-    '#/about':document.getElementById('v-about'),
-    '#/contact':document.getElementById('v-contact')
-  };
-  const navLinks=[...document.querySelectorAll('.menu a')];
-  function route(){
-    const h=location.hash||'#/works';
-    Object.values(views).forEach(v=>v && v.classList.remove('active'));
-    const target = views[h] || views['#/services'] || views['#/about'] || views['#/contact'] || views['#/voices'];
-    if (target) target.classList.add('active');
-    navLinks.forEach(a=>a.setAttribute('aria-current',a.getAttribute('data-route')===h?'page':'false'));
-  }
-  window.addEventListener('hashchange',route); route();
-
-  // ===== Services =====
-  const svc=document.getElementById('svcList');
-  if (svc) {
-    svc.innerHTML = services.map(s=>`
-      <article class="svc">
-        <h3>${s.name}</h3>
-        <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
-      </article>`).join('');
-  }
-
-  // ===== Voices（SNS風） =====
-  const stream=document.getElementById('stream');
-  if (stream) {
-    let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
-    function pushOne(){
-      const v=base[idx++ % base.length];
-      const el=document.createElement('div');
-      el.className='voice';
-      el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
-        <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
-        <div class="text">${v.text}</div></div>`;
-      stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
+    // Services（既存配列）
+    const services = [
+      { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
+      { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
+      { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
+    ];
+    const svc=document.getElementById('svcList');
+    if (svc) {
+      svc.innerHTML = services.map(s=>`
+        <article class="svc">
+          <h3>${s.name}</h3>
+          <ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+        </article>`).join('');
     }
-    function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
-    function pause(){ if(timer) clearInterval(timer); }
-    document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
-    document.getElementById('pause').addEventListener('click',pause);
-    document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
-    for(let i=0;i<3;i++) pushOne();
-  }
 
-  // ===== 8bit cursor follower（window 内のみ） =====
-  (function(){
-    const scope=document.getElementById('app');
-    const cur=document.getElementById('rc');
-    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
-    if(isTouch) return;
-    let show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
-
-    function within(e){
-      const r = scope.getBoundingClientRect();
-      return (e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom);
-    }
-    function isInteractive(el){
-      while(el && el!==scope){
-        if(el.matches && el.matches('a,button,input,select,textarea,summary,[role="button"],.btn,.card,.menu a')) return true;
-        el = el.parentNode;
+    // Voices（ストリーム）
+    const voices = [
+      { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
+      { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
+      { name:"C様", text:"対応が早く、要点が明確でした。運用メモも分かりやすいです。", time:"3日前", av:"https://i.pravatar.cc/80?img=16" }
+    ];
+    const stream=document.getElementById('stream');
+    if (stream) {
+      let idx=0, timer=null; const base=voices.concat(voices).concat(voices);
+      function pushOne(){
+        const v=base[idx++ % base.length];
+        const el=document.createElement('div');
+        el.className='voice';
+        el.innerHTML=`<div class="av"><img src="${v.av}" alt="${v.name}のアイコン"></div>
+          <div><div class="name">${v.name}<span class="meta">　${v.time}</span></div>
+          <div class="text">${v.text}</div></div>`;
+        stream.appendChild(el); stream.scrollTop = stream.scrollHeight;
       }
-      return false;
+      function play(interval){ if(timer) clearInterval(timer); timer=setInterval(pushOne, interval||900); }
+      function pause(){ if(timer) clearInterval(timer); }
+      document.getElementById('play').addEventListener('click',()=>play(Number(document.getElementById('speed').value)));
+      document.getElementById('pause').addEventListener('click',pause);
+      document.getElementById('speed').addEventListener('input',e=>{ if(timer){ play(Number(e.target.value)); } });
+      for(let i=0;i<3;i++) pushOne();
     }
 
-    window.addEventListener('mousemove', e => {
-      if(within(e)){
-        show = true; cur.style.display = 'block'; scope.style.cursor = 'none';
-        tx = e.clientX + offX; ty = e.clientY + offY;
-        const under = document.elementFromPoint(e.clientX, e.clientY);
-        cur.classList.toggle('hand', isInteractive(under));
-      } else {
-        show = false; cur.style.display = 'none'; cur.classList.remove('hand'); scope.style.cursor = '';
-      }
-    }, {passive:true});
+    // 8bit cursor follower（window 内のみ）
+    (function(){
+      const scope=document.getElementById('app');
+      const cur=document.getElementById('rc');
+      const isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+      if(isTouch) return;
+      let show=false, tx=0,ty=0,x=0,y=0, offX=2,offY=2;
 
-    (function raf(){
-      x += (tx - x) * 0.35; y += (ty - y) * 0.35;
-      if(show) cur.style.transform = `translate(${x}px,${y}px)`;
-      requestAnimationFrame(raf);
+      function within(e){
+        const r=scope.getBoundingClientRect();
+        return (e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom);
+      }
+      function isInteractive(el){
+        while(el&&el!==scope){
+          if(el.matches&&el.matches('a,button,input,select,textarea,summary,[role="button"],.btn')) return true;
+          el=el.parentNode;
+        }
+        return false;
+      }
+      window.addEventListener('mousemove', e=>{
+        if(within(e)){
+          show=true; cur.style.display='block'; scope.style.cursor='none';
+          tx=e.clientX+offX; ty=e.clientY+offY;
+          const under=document.elementFromPoint(e.clientX,e.clientY);
+          cur.classList.toggle('hand', isInteractive(under));
+        } else {
+          show=false; cur.style.display='none'; cur.classList.remove('hand'); scope.style.cursor='';
+        }
+      }, {passive:true});
+      (function raf(){
+        x+=(tx-x)*0.35; y+=(ty-y)*0.35;
+        if(show) cur.style.transform=`translate(${x}px,${y}px)`;
+        requestAnimationFrame(raf);
+      })();
     })();
-  })();
+
+    // メニューの aria-current をページ内スクロールで更新（簡易）
+    const links=[...document.querySelectorAll('.menu a')];
+    const secs=['top','problems','solution','services','voices','flow','pricing','faq','contact']
+      .map(id=>document.getElementById(id));
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){
+          links.forEach(a=>a.setAttribute('aria-current', a.getAttribute('href')==='#'+ent.target.id ? 'page':'false'));
+        }
+      });
+    }, {root:null, rootMargin:'-40% 0px -50% 0px', threshold:0});
+    secs.forEach(s=>s && io.observe(s));
   </script>
 </body>
 </html>
