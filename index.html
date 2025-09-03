@@ -89,13 +89,23 @@
     /* Sections */
     .lp-section{padding:16px;background:#fff;scroll-margin-top:calc(var(--tb-h) + 44px)}
     .lp-title{font-size:18px;margin:0 0 12px}
+
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
     .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 
+    /* ===== Services（カード全体がリンク） ===== */
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-    .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
-    .svc h3{margin:0 0 10px}
-    .svc .btn{margin-top:6px}
+    .svc{
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+      text-align:center; text-decoration:none; color:inherit;
+      border:1px solid #111; border-radius:8px; padding:16px; background:#fafafa;
+      transition:transform .06s ease, background .2s ease;
+      min-height:120px; /* 高さ揃えに寄与 */
+    }
+    .svc:hover{ background:#fff; transform:translateY(-1px) }
+    .svc h3{margin:0 0 6px; line-height:1.6}
+    .svc .btn{pointer-events:none} /* ネスト回避のため見た目だけボタン */
+    .svc .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
 
     /* Voices（吹き出し） */
     .voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
@@ -235,7 +245,7 @@
       </div>
     </section>
 
-    <!-- Services（= 商品3件） -->
+    <!-- Services（= 商品3件／カード全体リンク・中央寄せ） -->
     <section class="lp-section" id="services" aria-label="Services">
       <h2 class="lp-title">提供サービス</h2>
       <div class="services" id="svcList"></div>
@@ -313,14 +323,12 @@
       </details>
     </section>
 
-    <!-- Contact（ボタン・メール・センタリング） -->
+    <!-- Contact -->
     <section class="lp-section" id="contact" aria-label="Contact">
       <h2 class="lp-title">お問い合わせ</h2>
       <div class="panel center">
         <p>まずはお気軽にご相談ください。</p>
-        <p>
-          <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">まずは相談する</a>
-        </p>
+        <p><a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">まずは相談する</a></p>
         <p>Mail: <a href="mailto:kichohinkichohin@gmail.com">kichohinkichohin@gmail.com</a></p>
       </div>
     </section>
@@ -329,18 +337,18 @@
   </main>
 
   <script>
-    /* ===== 商品3件（Services） ===== */
+    /* ===== 商品3件：カード全体がリンク、中央寄せ ===== */
     const products = [
-      { title:"広告タグ・GA4計測エラーを即修正します", url:"https://coconala.com/services/3673839?ref=profile_top_service" },
-      { title:"電子帳簿法の証憑を自動保存します",       url:"https://coconala.com/services/3856798?ref=profile_top_service" },
-      { title:"LINE連携の予約管理を構築いたします",       url:"https://coconala.com/services/3812684?ref=profile_top_service" }
+      { title:"広告タグ・GA4計測エラーを即修正", url:"https://coconala.com/services/3673839?ref=profile_top_service" },
+      { title:"電子帳簿法の証憑を自動保存",       url:"https://coconala.com/services/3856798?ref=profile_top_service" },
+      { title:"LINE連携の予約管理を構築",         url:"https://coconala.com/services/3812684?ref=profile_top_service" }
     ];
     document.getElementById('svcList').innerHTML =
       products.map(p=>`
-        <article class="svc">
+        <a class="svc" href="${p.url}" target="_blank" rel="noopener" aria-label="${p.title}">
           <h3>${p.title}</h3>
-          <a class="btn primary" href="${p.url}" target="_blank" rel="noopener">詳しく見る（Coconala）</a>
-        </article>`).join('');
+          <span class="btn primary">詳しく見る</span>
+        </a>`).join('');
 
     /* ===== Voices（3件ローテーション） ===== */
     const voiceTexts = [
