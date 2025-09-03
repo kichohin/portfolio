@@ -33,7 +33,7 @@
       overflow:auto; overscroll-behavior:contain; scroll-behavior:smooth;
       position:relative;
       scrollbar-width:none;                 /* Firefox: 非表示 */
-      scrollbar-gutter:stable both-edges;   /* OSの常時表示でも段差を最小化 */
+      scrollbar-gutter:stable both-edges;   /* 常時表示OSでも段差最小化 */
     }
     .window::-webkit-scrollbar{ width:0; height:0 } /* WebKit: 非表示 */
 
@@ -52,10 +52,9 @@
       display:flex; gap:6px; padding:6px 8px; background:var(--chrome);
       border-bottom:1px solid #9b9b9b;
       overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      -ms-overflow-style:none;           /* Edge(旧) */
+      scrollbar-width:none; -ms-overflow-style:none;
     }
-    .menu::-webkit-scrollbar{ display:none } /* iOS/Chromium: 非表示 */
+    .menu::-webkit-scrollbar{ display:none }
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px;flex:0 0 auto}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
@@ -65,7 +64,7 @@
       padding:16px; border-bottom:1px solid #e5e7eb; background:#fff;
       scroll-margin-top:calc(var(--tb-h) + 44px);
     }
-    .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
+    .avatar{width:96px;height:96px;overflow:hidden;/* 枠を撤去 */ border:0; background:transparent}
     .avatar img{
       width:100%; height:100%; display:block; object-fit:cover;
       image-rendering:pixelated; image-rendering:-moz-crisp-edges; image-rendering:crisp-edges;
@@ -99,17 +98,27 @@
     .svc h3{margin:0 0 6px}
     .svc ul{margin:0;padding-left:18px}
 
-    /* Voices: 3つの吹き出しが常時入替 */
+    /* ===== Voices: 3つの吹き出しが常時入替 ===== */
     .voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
     .bubble{
       position:relative;background:#fff;border:1px solid #111;border-radius:12px;padding:12px;min-height:72px;
-      box-shadow:2px 2px 0 #0000;
       transition:opacity .25s ease, transform .25s ease;
     }
+    /* 左側のしっぽ（縁取りありの二重三角） */
+    .bubble::after, .bubble::before{
+      content:""; position:absolute; top:22px; left:-12px; width:0; height:0; pointer-events:none;
+      border-style:solid; border-color:transparent;
+    }
+    /* 外側の黒い縁 */
     .bubble::after{
-      content:""; position:absolute; left:16px; bottom:-8px; width:14px; height:14px;
-      background:#fff; border-left:1px solid #111; border-bottom:1px solid #111;
-      transform:rotate(45deg);
+      border-width:8px 12px 8px 0;
+      border-right-color:#111;
+    }
+    /* 内側（背景色で塗りつぶし） */
+    .bubble::before{
+      left:-10px;           /* 外側より1-2px内側へ */
+      border-width:7px 11px 7px 0;
+      border-right-color:#fff;
     }
     .bubble .meta{display:block;margin-top:6px;color:var(--muted);font-size:12px}
 
@@ -142,7 +151,7 @@
       .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
       .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
       .actions .btn{padding:4px 10px;font-size:12px;border-radius:8px}
-      .avatar{ border-radius:0 }            /* スマホは四角 */
+      .avatar{ /* モバイルは四角・等倍 */ border:0 }
       .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8}
       .lp-section{padding:12px}
       .panels,.services,.steps,.prices,.voices{gap:10px}
@@ -347,7 +356,7 @@
       services.map(s=>`<article class="svc"><h3>${s.name}</h3><ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul></article>`).join('');
 
     /* ===== Voices（3件が自動ローテーション） ===== */
-    // 後で文面を差し替える場合はこの配列を書き換えてください（20件例）
+    // 後で差し替えるときはこの配列を書き換え
     const voiceTexts = [
       "最小改修で短期復旧いただき助かりました。", "要点が明確で決定が早かったです。",
       "LINE通知と集計の自動化で作業が半分に。", "運用メモが分かりやすく、引き継ぎが楽でした。",
@@ -363,25 +372,22 @@
     const wrap = document.getElementById('voicesWrap');
     const bubbles = [...wrap.querySelectorAll('.bubble')];
 
-    // 初期表示（先頭3件）
-    let start = 0;
-    function renderInitial(){
-      for(let i=0;i<3;i++){
-        bubbles[i].textContent = voiceTexts[(start + i) % voiceTexts.length];
-      }
+    let cursor = 0;
+    function fill(i, text){ bubbles[i].textContent = text; }
+    function initial(){
+      for(let i=0;i<3;i++){ fill(i, voiceTexts[(cursor+i)%voiceTexts.length]); }
     }
-    renderInitial();
+    initial();
 
-    // 交互に1つずつ入替
+    // 1つずつ入替
     let rot = 0;
     setInterval(()=>{
       const target = bubbles[rot % 3];
-      // 次のテキスト
-      start = (start + 1) % voiceTexts.length;
+      cursor = (cursor + 1) % voiceTexts.length;
       target.style.opacity = 0;
       target.style.transform = 'translateY(4px)';
       setTimeout(()=>{
-        target.textContent = voiceTexts[(start + 2) % voiceTexts.length]; // 新しい一言
+        fill(rot % 3, voiceTexts[(cursor + 2) % voiceTexts.length]);
         target.style.opacity = 1;
         target.style.transform = 'translateY(0)';
       }, 220);
