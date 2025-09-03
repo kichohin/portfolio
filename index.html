@@ -10,28 +10,56 @@
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
       --cursor-w:26px; --cursor-h:36px;
+      --tb-h: 36px; /* タイトルバー高さ（sticky基準） */
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;background:var(--bg);
       font-family:"DotGothic16",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
-      color:var(--ink);display:flex;justify-content:center;align-items:flex-start;padding:20px
+      color:var(--ink);
+      display:flex;justify-content:center;align-items:center;
+      height:100vh; overflow:hidden; /* 外側はスクロールさせない */
+      padding:16px;
     }
     a{color:inherit}
 
-    /* Window */
-    .window{width:min(1100px,95vw);background:var(--win);border:2px solid var(--border);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);overflow:hidden}
-    .title-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bar);color:var(--bar-fg)}
+    /* ==== Window（固定サイズ・内側スクロール） ==== */
+    .window{
+      width:min(1100px,95vw);
+      height:min(88vh,760px);                  /* 固定に近い高さ */
+      background:var(--win);
+      border:2px solid var(--border);
+      border-radius:8px;
+      box-shadow:6px 6px 0 var(--shadow);
+      overflow:auto;                           /* ← 内側だけスクロール */
+      scroll-behavior:smooth;                  /* アンカー移動をスムーズに */
+      overscroll-behavior:contain;
+      position:relative;
+    }
+
+    /* Title bar（固定） */
+    .title-bar{
+      position:sticky; top:0; z-index:3;
+      display:flex;align-items:center;justify-content:space-between;
+      height:var(--tb-h);
+      padding:0 10px;
+      background:var(--bar);color:var(--bar-fg);
+    }
     .title-bar .ctrls{display:inline-flex;gap:6px}
     .btn-ctrl{width:18px;height:16px;background:var(--chrome);border:1px solid #000;border-radius:3px;display:grid;place-items:center;font-size:10px;user-select:none}
 
-    .menu{display:flex;gap:6px;padding:6px 8px;background:var(--chrome);border-bottom:1px solid #9b9b9b}
+    /* Menu（固定） */
+    .menu{
+      position:sticky; top:var(--tb-h); z-index:2;
+      display:flex;gap:6px;padding:6px 8px;background:var(--chrome);
+      border-bottom:1px solid #9b9b9b
+    }
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    /* Profile */
-    .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb}
+    /* Profile（ヒーロー） */
+    .profile{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px;border-bottom:1px solid #e5e7eb;background:#fff}
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid #000;background:#eee}
     .avatar img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
     .username{margin:0 0 6px;font-size:20px}
@@ -41,12 +69,12 @@
     .bio{margin:10px 0 0;color:var(--muted);line-height:1.75;letter-spacing:0.01em;word-break:break-word}
 
     /* LP セクション共通 */
-    .lp-section{padding:16px}
+    .lp-section{padding:16px;background:#fff}
     .lp-title{font-size:18px;margin:0 0 12px}
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
     .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 
-    /* Services（既存デザイン流用） */
+    /* Services */
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
     .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
     .svc h3{margin:0 0 6px}
@@ -80,7 +108,7 @@
     details+details{margin-top:8px}
     summary{cursor:pointer}
 
-    .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+    .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;background:#fff}
 
     /* 8bit cursor */
     .retro-cursor{position:fixed;left:0;top:0;width:var(--cursor-w);height:var(--cursor-h);pointer-events:none;z-index:9999;image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(2px 2px 0 #000);display:none}
@@ -89,14 +117,9 @@
 
     /* モバイル（～640px） */
     @media (max-width: 640px) {
-      body{ padding:8px }
-      .profile{
-        grid-template-columns:72px 1fr; align-items:start; padding:12px; gap:12px;
-      }
-      .profile > div{
-        display:grid; grid-template-columns:1fr auto; grid-auto-rows:min-content;
-        column-gap:8px; row-gap:6px; align-items:center;
-      }
+      .window{height:92vh}
+      .profile{grid-template-columns:72px 1fr;align-items:start;padding:12px;gap:12px}
+      .profile > div{display:grid;grid-template-columns:1fr auto;grid-auto-rows:min-content;column-gap:8px;row-gap:6px;align-items:center}
       .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
       .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
       .actions .btn{padding:4px 8px;font-size:12px;border-radius:8px}
@@ -121,7 +144,7 @@
       <div class="ctrls" aria-hidden="true"><div class="btn-ctrl">_</div><div class="btn-ctrl">□</div><div class="btn-ctrl">×</div></div>
     </header>
 
-    <!-- ページ内アンカー -->
+    <!-- ページ内アンカー（ウィンドウ内スクロールに追随） -->
     <nav class="menu" role="navigation">
       <a href="#top" aria-current="page">Top</a>
       <a href="#problems">Problems</a>
@@ -182,7 +205,7 @@
       </div>
     </section>
 
-    <!-- Solution / 提案価値 -->
+    <!-- Solution -->
     <section class="lp-section" id="solution" aria-label="Solution">
       <h2 class="lp-title">解決アプローチ</h2>
       <div class="panels">
@@ -201,13 +224,13 @@
       </div>
     </section>
 
-    <!-- Services（既存のボックスをLP内に配置） -->
+    <!-- Services -->
     <section class="lp-section" id="services" aria-label="Services">
       <h2 class="lp-title">提供サービス</h2>
       <div class="services" id="svcList"></div>
     </section>
 
-    <!-- Voices（コメント風ストリーム） -->
+    <!-- Voices -->
     <section class="lp-section" id="voices" aria-label="Voices">
       <h2 class="lp-title">お客さまの声</h2>
       <div class="voice-wrap">
@@ -284,7 +307,7 @@
       </details>
     </section>
 
-    <!-- Contact / CTA -->
+    <!-- Contact -->
     <section class="lp-section" id="contact" aria-label="Contact">
       <h2 class="lp-title">お問い合わせ</h2>
       <div class="panel">
@@ -303,7 +326,7 @@
   <div class="retro-cursor" id="rc"></div>
 
   <script>
-    // Services（既存配列）
+    /* ====== Services（既存データ） ====== */
     const services = [
       { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
       { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
@@ -318,7 +341,7 @@
         </article>`).join('');
     }
 
-    // Voices（ストリーム）
+    /* ====== Voices（ストリーム） ====== */
     const voices = [
       { name:"A様", text:"既存の構造を変えずに不具合だけを確実に修正いただき助かりました。", time:"2時間前", av:"https://i.pravatar.cc/80?img=5" },
       { name:"B社ご担当", text:"LINE × GAS の自動化で作業時間が大幅に短縮しました。", time:"昨日", av:"https://i.pravatar.cc/80?img=11" },
@@ -344,7 +367,7 @@
       for(let i=0;i<3;i++) pushOne();
     }
 
-    // 8bit cursor follower（window 内のみ）
+    /* ====== 8bit cursor follower（window 内のみ） ====== */
     (function(){
       const scope=document.getElementById('app');
       const cur=document.getElementById('rc');
@@ -380,18 +403,38 @@
       })();
     })();
 
-    // メニューの aria-current をページ内スクロールで更新（簡易）
+    /* ====== メニューの「選択中」をウィンドウ内スクロールで更新 ====== */
+    const container = document.getElementById('app');      // スクロール親（window）
     const links=[...document.querySelectorAll('.menu a')];
-    const secs=['top','problems','solution','services','voices','flow','pricing','faq','contact']
-      .map(id=>document.getElementById(id));
+    const sections=['top','problems','solution','services','voices','flow','pricing','faq','contact']
+      .map(id=>document.getElementById(id))
+      .filter(Boolean);
+
+    // アンカークリックはウィンドウ内スクロールで処理
+    document.querySelector('.menu').addEventListener('click', (e)=>{
+      const a = e.target.closest('a[href^="#"]');
+      if(!a) return;
+      e.preventDefault();
+      const id=a.getAttribute('href').slice(1);
+      const target=document.getElementById(id);
+      if(target){ target.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+
+    // IntersectionObserver: ルートをウィンドウ（.window）に設定
     const io=new IntersectionObserver(entries=>{
       entries.forEach(ent=>{
         if(ent.isIntersecting){
-          links.forEach(a=>a.setAttribute('aria-current', a.getAttribute('href')==='#'+ent.target.id ? 'page':'false'));
+          links.forEach(a=>{
+            a.setAttribute('aria-current', a.getAttribute('href')==='#'+ent.target.id ? 'page':'false');
+          });
         }
       });
-    }, {root:null, rootMargin:'-40% 0px -50% 0px', threshold:0});
-    secs.forEach(s=>s && io.observe(s));
+    },{
+      root: container,                       // ← ここがポイント：外側ではなく内側のスクロール
+      rootMargin: '-40% 0px -50% 0px',       // 上下の観測マージン
+      threshold: 0
+    });
+    sections.forEach(s=>io.observe(s));
   </script>
 </body>
 </html>
