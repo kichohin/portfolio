@@ -22,7 +22,7 @@
     }
     a{color:inherit}
 
-    /* ===== Window（固定サイズ・内側スクロール） ===== */
+    /* Window（固定サイズ・内側スクロール） */
     .window{
       width:min(1100px,95vw);
       height:min(88vh,760px);
@@ -32,12 +32,12 @@
       box-shadow:6px 6px 0 var(--shadow);
       overflow:auto; overscroll-behavior:contain; scroll-behavior:smooth;
       position:relative;
-      scrollbar-width:none;                 /* Firefox: 非表示 */
-      scrollbar-gutter:stable both-edges;   /* 常時表示OSでも段差最小化 */
+      scrollbar-width:none;
+      scrollbar-gutter:stable both-edges;
     }
-    .window::-webkit-scrollbar{ width:0; height:0 } /* WebKit: 非表示 */
+    .window::-webkit-scrollbar{ width:0; height:0 }
 
-    /* Sticky bars */
+    /* Bars */
     .title-bar{
       position:sticky; top:0; z-index:3;
       display:flex;align-items:center;justify-content:space-between;
@@ -58,13 +58,13 @@
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px;flex:0 0 auto}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
-    /* ===== Profile / Hero ===== */
+    /* Profile */
     .profile{
       display:grid; grid-template-columns:96px 1fr; gap:14px;
       padding:16px; border-bottom:1px solid #e5e7eb; background:#fff;
       scroll-margin-top:calc(var(--tb-h) + 44px);
     }
-    .avatar{width:96px;height:96px;overflow:hidden;/* 枠を撤去 */ border:0; background:transparent}
+    .avatar{width:96px;height:96px;overflow:hidden;border:0;background:transparent}
     .avatar img{
       width:100%; height:100%; display:block; object-fit:cover;
       image-rendering:pixelated; image-rendering:-moz-crisp-edges; image-rendering:crisp-edges;
@@ -76,7 +76,6 @@
     .btn.primary{background:#f0f6ff;border-color:#0f6bff;color:#0f3a9f}
     .bio{margin:10px 0 0;color:var(--muted);line-height:1.75;letter-spacing:0.01em;word-break:break-word}
 
-    /* PC：FOLLOW を一回り大きく自然なトーンに */
     @media (min-width: 641px){
       .actions{margin-top:0; align-self:start}
       .actions .btn{
@@ -87,7 +86,7 @@
       .actions .btn:hover{ background:#f5f5f5 }
     }
 
-    /* ===== LP sections ===== */
+    /* Sections */
     .lp-section{padding:16px;background:#fff;scroll-margin-top:calc(var(--tb-h) + 44px)}
     .lp-title{font-size:18px;margin:0 0 12px}
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
@@ -95,39 +94,26 @@
 
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
     .svc{border:1px solid #111;border-radius:8px;padding:12px;background:#fafafa}
-    .svc h3{margin:0 0 6px}
-    .svc ul{margin:0;padding-left:18px}
+    .svc h3{margin:0 0 10px}
+    .svc .btn{margin-top:6px}
 
-    /* ===== Voices: 3つの吹き出しが常時入替 ===== */
+    /* Voices（吹き出し） */
     .voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
     .bubble{
       position:relative;background:#fff;border:1px solid #111;border-radius:12px;padding:12px;min-height:72px;
       transition:opacity .25s ease, transform .25s ease;
     }
-    /* 左側のしっぽ（縁取りありの二重三角） */
     .bubble::after, .bubble::before{
       content:""; position:absolute; top:22px; left:-12px; width:0; height:0; pointer-events:none;
       border-style:solid; border-color:transparent;
     }
-    /* 外側の黒い縁 */
-    .bubble::after{
-      border-width:8px 12px 8px 0;
-      border-right-color:#111;
-    }
-    /* 内側（背景色で塗りつぶし） */
-    .bubble::before{
-      left:-10px;           /* 外側より1-2px内側へ */
-      border-width:7px 11px 7px 0;
-      border-right-color:#fff;
-    }
+    .bubble::after{ border-width:8px 12px 8px 0; border-right-color:#111; }
+    .bubble::before{ left:-10px; border-width:7px 11px 7px 0; border-right-color:#fff; }
     .bubble .meta{display:block;margin-top:6px;color:var(--muted);font-size:12px}
 
     /* Flow */
     .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .step{
-      border:1px solid #111;border-radius:10px;padding:12px;background:#fff;position:relative;
-      padding-top:44px; /* 余白拡大で干渉解消 */
-    }
+    .step{border:1px solid #111;border-radius:10px;padding:12px;background:#fff;position:relative;padding-top:44px}
     .step .num{position:absolute;left:8px;top:8px;border:1px solid #111;border-radius:6px;padding:2px 6px;background:#f0f6ff}
     .step h3{margin:6px 0 6px}
 
@@ -137,13 +123,18 @@
     .price strong{font-size:20px}
     .note{color:var(--muted);font-size:12px}
 
+    /* Contact センタリング */
+    .panel.center{ text-align:center }
+    .panel.center p{ margin:8px 0 }
+    .panel.center .btn{ display:inline-block; }
+
     details{border:1px solid #111;border-radius:10px;padding:10px;background:#fff}
     details+details{margin-top:8px}
     summary{cursor:pointer}
 
     .footer{padding:12px;border-top:1px solid #e5e7eb;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;background:#fff}
 
-    /* ===== Mobile ===== */
+    /* Mobile */
     @media (max-width: 640px) {
       .window{height:92vh}
       .profile{grid-template-columns:96px 1fr; align-items:start; padding:12px; gap:12px}
@@ -151,7 +142,6 @@
       .username{font-size:18px;margin:0;grid-column:1;grid-row:1}
       .actions{grid-column:2;grid-row:1;justify-self:end;margin:0;transform:translateY(-2px)}
       .actions .btn{padding:4px 10px;font-size:12px;border-radius:8px}
-      .avatar{ /* モバイルは四角・等倍 */ border:0 }
       .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8}
       .lp-section{padding:12px}
       .panels,.services,.steps,.prices,.voices{gap:10px}
@@ -184,24 +174,18 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Profile / Hero -->
+    <!-- Profile -->
     <section class="profile lp-section" id="top" aria-label="Profile">
       <div class="avatar">
-        <img
-          src="assets/avatar.png"
-          srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
-          alt="貴重品のプロフィール画像"
-          width="96" height="96"
-          decoding="async" loading="eager">
+        <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
+             alt="貴重品のプロフィール画像" width="96" height="96" decoding="async" loading="eager">
       </div>
       <div>
         <h1 class="username">貴重品 ／ KICHOHIN</h1>
         <div class="actions">
           <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">FOLLOW</a>
         </div>
-        <p class="bio">
-          ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。既存構造を尊重しつつ、成果につながる設計と運用をご提案します。
-        </p>
+        <p class="bio">ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。既存構造を尊重しつつ、成果につながる設計と運用をご提案します。</p>
       </div>
     </section>
 
@@ -251,7 +235,7 @@
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- Services（= 商品3件） -->
     <section class="lp-section" id="services" aria-label="Services">
       <h2 class="lp-title">提供サービス</h2>
       <div class="services" id="svcList"></div>
@@ -329,16 +313,15 @@
       </details>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact（ボタン・メール・センタリング） -->
     <section class="lp-section" id="contact" aria-label="Contact">
       <h2 class="lp-title">お問い合わせ</h2>
-      <div class="panel">
-        <p>ご相談はメール、または各プラットフォーム経由で受け付けています。</p>
-        <ul>
-          <li>Mail: <a href="mailto:hello@example.com">hello@example.com</a></li>
-          <li>Coconala: <a href="https://coconala.com/users/5218668" target="_blank" rel="noopener">プロフィール</a></li>
-        </ul>
-        <p><a class="btn primary" href="mailto:hello@example.com">この内容で相談する</a></p>
+      <div class="panel center">
+        <p>まずはお気軽にご相談ください。</p>
+        <p>
+          <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">まずは相談する</a>
+        </p>
+        <p>Mail: <a href="mailto:kichohinkichohin@gmail.com">kichohinkichohin@gmail.com</a></p>
       </div>
     </section>
 
@@ -346,17 +329,20 @@
   </main>
 
   <script>
-    /* ===== Services ===== */
-    const services = [
-      { name:"既存構造を壊さない不具合修正", points:["表示崩れ・JSエラーの最短復旧","OGP/SEO/構造化データの整備","GitHub / Vercel / GSC 連携"] },
-      { name:"GAS × LINE 連携", points:["決済連動のPDF発行","スプレッドシート集計・自動返信","Webhook ベースの運用"] },
-      { name:"WooCommerce 多言語運用", points:["WPML/Polylang 併用の最小実装","JSON マッピングでの翻訳差し替え","チェックアウトUIの簡素化"] }
+    /* ===== 商品3件（Services） ===== */
+    const products = [
+      { title:"広告タグ・GA4計測エラーを即修正します", url:"https://coconala.com/services/3673839?ref=profile_top_service" },
+      { title:"電子帳簿法の証憑を自動保存します",       url:"https://coconala.com/services/3856798?ref=profile_top_service" },
+      { title:"LINE連携の予約管理を構築いたします",       url:"https://coconala.com/services/3812684?ref=profile_top_service" }
     ];
     document.getElementById('svcList').innerHTML =
-      services.map(s=>`<article class="svc"><h3>${s.name}</h3><ul>${s.points.map(p=>`<li>${p}</li>`).join('')}</ul></article>`).join('');
+      products.map(p=>`
+        <article class="svc">
+          <h3>${p.title}</h3>
+          <a class="btn primary" href="${p.url}" target="_blank" rel="noopener">詳しく見る（Coconala）</a>
+        </article>`).join('');
 
-    /* ===== Voices（3件が自動ローテーション） ===== */
-    // 後で差し替えるときはこの配列を書き換え
+    /* ===== Voices（3件ローテーション） ===== */
     const voiceTexts = [
       "最小改修で短期復旧いただき助かりました。", "要点が明確で決定が早かったです。",
       "LINE通知と集計の自動化で作業が半分に。", "運用メモが分かりやすく、引き継ぎが楽でした。",
@@ -374,12 +360,9 @@
 
     let cursor = 0;
     function fill(i, text){ bubbles[i].textContent = text; }
-    function initial(){
-      for(let i=0;i<3;i++){ fill(i, voiceTexts[(cursor+i)%voiceTexts.length]); }
-    }
+    function initial(){ for(let i=0;i<3;i++){ fill(i, voiceTexts[(cursor+i)%voiceTexts.length]); } }
     initial();
 
-    // 1つずつ入替
     let rot = 0;
     setInterval(()=>{
       const target = bubbles[rot % 3];
@@ -394,14 +377,12 @@
       rot++;
     }, 2600);
 
-    /* ===== 内部スクロールでメニューを更新 ===== */
+    /* ===== メニュー選択同期（内側スクロール） ===== */
     const container = document.getElementById('app');
     const links=[...document.querySelectorAll('.menu a')];
     const sections=['top','problems','solution','services','voices','flow','pricing','faq','contact']
-      .map(id=>document.getElementById(id))
-      .filter(Boolean);
+      .map(id=>document.getElementById(id)).filter(Boolean);
 
-    // アンカークリックは内側スクロール
     document.getElementById('menu').addEventListener('click', (e)=>{
       const a=e.target.closest('a[href^="#"]'); if(!a) return;
       e.preventDefault();
@@ -409,7 +390,6 @@
       if(target){ target.scrollIntoView({behavior:'smooth',block:'start'}); }
     });
 
-    // 交差監視（rootはウィンドウ本体）
     const io=new IntersectionObserver(entries=>{
       entries.forEach(ent=>{
         if(ent.isIntersecting){
@@ -421,7 +401,6 @@
     },{ root: container, rootMargin: '-40% 0px -50% 0px', threshold: 0 });
     sections.forEach(s=>io.observe(s));
 
-    // 末尾まで到達したら Contact を選択中
     container.addEventListener('scroll', ()=>{
       const nearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 2;
       if(nearBottom){
