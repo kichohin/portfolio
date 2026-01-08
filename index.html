@@ -12,7 +12,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="KICHOHIN のサムネイル">
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="KICHOHIN">
@@ -22,23 +22,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KICHOHIN</title>
 
-  <!-- ✅ Tab icon / Favicon（assets配下に配置） -->
-  <link rel="icon" href="assets/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <!-- Favicon（assets に配置してください） -->
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
   <style>
     :root{
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
-      --tb-h:36px;
 
-      /* ✅ Cute scrollbar colors */
-      --scroll-track:#f2f1ff;
-      --scroll-thumb:#ff78b7;
-      --scroll-thumb-hover:#ff4da1;
+      --tb-h:36px;
+      --menu-h:44px; /* 既存の scroll-margin で想定していた高さ */
+      --scroll-offset:12px;
+
+      /* Scrollbar colors (テーマに合わせる) */
+      --sb-track: var(--chrome);
+      --sb-thumb: #000080;
+      --sb-thumb-border: var(--chrome);
+      --sb-line: #9b9b9b;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -50,7 +56,7 @@
     }
     a{color:inherit}
 
-    /* Window（固定サイズ・内側スクロール） */
+    /* Window（外枠は固定／スクロールは下の .content に移す） */
     .window{
       width:min(1100px,95vw);
       height:min(88vh,760px);
@@ -58,31 +64,8 @@
       border:2px solid var(--border);
       border-radius:8px;
       box-shadow:6px 6px 0 var(--shadow);
-      overflow:auto; overscroll-behavior:contain; scroll-behavior:smooth;
+      overflow:hidden;                /* ← ここが重要（上部にスクロールバーを出さない） */
       position:relative;
-      scrollbar-gutter:stable both-edges;
-
-      /* ✅ Scrollbar (standard props) */
-      scrollbar-width: thin;
-      scrollbar-color: var(--scroll-thumb) var(--scroll-track);
-    }
-
-    /* ✅ Scrollbar (WebKit) */
-    .window::-webkit-scrollbar{
-      width:12px;
-      height:12px;
-    }
-    .window::-webkit-scrollbar-track{
-      background:var(--scroll-track);
-      border-left:1px solid #111;
-    }
-    .window::-webkit-scrollbar-thumb{
-      background:var(--scroll-thumb);
-      border:2px solid var(--scroll-track);
-      border-radius:999px;
-    }
-    .window::-webkit-scrollbar-thumb:hover{
-      background:var(--scroll-thumb-hover);
     }
 
     /* Bars */
@@ -106,11 +89,44 @@
     .menu a{padding:4px 8px;text-decoration:none;border-radius:6px;flex:0 0 auto}
     .menu a[aria-current="page"]{background:#f0f6ff;border:1px solid #0f6bff;color:#0f3a9f}
 
+    /* ここが新設：メニューの下だけスクロール */
+    .content{
+      height: calc(100% - var(--tb-h) - var(--menu-h));
+      overflow:auto;
+      overscroll-behavior:contain;
+      scroll-behavior:smooth;
+
+      /* 反対側の白い帯を出しにくくする */
+      scrollbar-gutter: stable;
+
+      /* 標準（Firefox/Chromiumなど） */
+      scrollbar-width: thin;
+      scrollbar-color: var(--sb-thumb) var(--sb-track);
+    }
+
+    /* WebKit系（Chrome/Safari/Edge） */
+    .content::-webkit-scrollbar{
+      width: 12px;
+      height: 12px;
+    }
+    .content::-webkit-scrollbar-track{
+      background: var(--sb-track);
+      border-left: 1px solid var(--sb-line);
+    }
+    .content::-webkit-scrollbar-thumb{
+      background: var(--sb-thumb);
+      border: 2px solid var(--sb-thumb-border);
+      border-radius: 10px;
+    }
+    .content::-webkit-scrollbar-corner{
+      background: var(--sb-track);
+    }
+
     /* Profile */
     .profile{
       display:grid; grid-template-columns:96px 1fr; gap:14px;
       padding:16px; border-bottom:1px solid #e5e7eb; background:#fff;
-      scroll-margin-top:calc(var(--tb-h) + 44px);
+      scroll-margin-top: var(--scroll-offset);
     }
     .avatar{width:96px;height:96px;overflow:hidden;border:0;background:transparent}
     .avatar img{
@@ -135,7 +151,7 @@
     }
 
     /* Sections */
-    .lp-section{padding:16px;background:#fff;scroll-margin-top:calc(var(--tb-h) + 44px)}
+    .lp-section{padding:16px;background:#fff;scroll-margin-top: var(--scroll-offset)}
     .lp-title{font-size:18px;margin:0 0 12px}
 
     .panel{border:1px solid #111;border-radius:10px;padding:12px;background:#fafafa}
@@ -186,13 +202,16 @@
     .panel.center p{ margin:8px 0 }
     .panel.center .btn{ display:inline-block; }
 
-    /* ✅ Contact choices (Chatwork / Email) */
-    .contact-choices{
+    /* Contact 追加：相談導線（Chatwork/メール） */
+    .contact-actions{
       display:flex;
       gap:8px;
       justify-content:center;
       flex-wrap:wrap;
       margin-top:10px;
+    }
+    .contact-actions .btn{
+      border-radius:10px;
     }
 
     details{border:1px solid #111;border-radius:10px;padding:10px;background:#fff}
@@ -212,6 +231,9 @@
       .bio{grid-column:1 / -1;margin-top:6px;font-size:14px;line-height:1.8}
       .lp-section{padding:12px}
       .panels,.services,.steps,.prices,.voices{gap:10px}
+
+      /* モバイルでメニュー高さが変動しやすい場合の保険 */
+      :root{ --menu-h: 44px; }
     }
     @media (min-width: 641px) {
       .profile{row-gap:8px}
@@ -241,174 +263,169 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Profile -->
-    <section class="profile lp-section" id="top" aria-label="Profile">
-      <div class="avatar">
-        <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
-             alt="貴重品のプロフィール画像" width="96" height="96" decoding="async" loading="eager">
-      </div>
-      <div>
-        <h1 class="username">貴重品 ／ KICHOHIN</h1>
-        <div class="actions">
-          <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">FOLLOW</a>
-        </div>
-        <p class="bio">ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。既存構造を尊重しつつ、成果につながる設計と運用をご提案します。</p>
-      </div>
-    </section>
+    <!-- ★スクロール領域はここだけ -->
+    <div class="content" id="content">
 
-    <!-- Problems -->
-    <section class="lp-section" id="problems" aria-label="Problems">
-      <h2 class="lp-title">よくある課題</h2>
-      <div class="panels">
-        <div class="panel">
-          <ul>
-            <li>サイトが重い・表示が崩れる</li>
-            <li>OGP/SEO/構造化データが未整備</li>
-            <li>小改修だけお願いしたい</li>
-          </ul>
+      <!-- Profile -->
+      <section class="profile lp-section" id="top" aria-label="Profile">
+        <div class="avatar">
+          <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x"
+               alt="貴重品のプロフィール画像" width="96" height="96" decoding="async" loading="eager">
         </div>
-        <div class="panel">
-          <ul>
-            <li>GAS × LINE で業務を自動化したい</li>
-            <li>決済連動の帳票出力・通知を整えたい</li>
-            <li>運用しやすい手順がほしい</li>
-          </ul>
+        <div>
+          <h1 class="username">貴重品 ／ KICHOHIN</h1>
+          <div class="actions">
+            <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">FOLLOW</a>
+          </div>
+          <p class="bio">ウェブ構築や業務効率化などインターネットを用いたご支援を行っています。既存構造を尊重しつつ、成果につながる設計と運用をご提案します。</p>
         </div>
-        <div class="panel">
-          <ul>
-            <li>WooCommerce の多言語を最小手数で運用したい</li>
-            <li>既存テーマを壊さずに拡張したい</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Solution -->
-    <section class="lp-section" id="solution" aria-label="Solution">
-      <h2 class="lp-title">解決アプローチ</h2>
-      <div class="panels">
-        <div class="panel">
-          <h3>最小改修での復旧</h3>
-          <p>既存構造を維持し、影響範囲を限定した修正で短期復旧します。</p>
+      <!-- Problems -->
+      <section class="lp-section" id="problems" aria-label="Problems">
+        <h2 class="lp-title">よくある課題</h2>
+        <div class="panels">
+          <div class="panel">
+            <ul>
+              <li>サイトが重い・表示が崩れる</li>
+              <li>OGP/SEO/構造化データが未整備</li>
+              <li>小改修だけお願いしたい</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <ul>
+              <li>GAS × LINE で業務を自動化したい</li>
+              <li>決済連動の帳票出力・通知を整えたい</li>
+              <li>運用しやすい手順がほしい</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <ul>
+              <li>WooCommerce の多言語を最小手数で運用したい</li>
+              <li>既存テーマを壊さずに拡張したい</li>
+            </ul>
+          </div>
         </div>
-        <div class="panel">
-          <h3>運用に載る自動化</h3>
-          <p>GAS × LINE を中心に、通知・集計・帳票出力を実務目線で設計します。</p>
+      </section>
+
+      <!-- Solution -->
+      <section class="lp-section" id="solution" aria-label="Solution">
+        <h2 class="lp-title">解決アプローチ</h2>
+        <div class="panels">
+          <div class="panel">
+            <h3>最小改修での復旧</h3>
+            <p>既存構造を維持し、影響範囲を限定した修正で短期復旧します。</p>
+          </div>
+          <div class="panel">
+            <h3>運用に載る自動化</h3>
+            <p>GAS × LINE を中心に、通知・集計・帳票出力を実務目線で設計します。</p>
+          </div>
+          <div class="panel">
+            <h3>拡張に耐える設計</h3>
+            <p>後方互換・ドキュメントを重視し、将来の差し替えや多言語展開に備えます。</p>
+          </div>
         </div>
-        <div class="panel">
-          <h3>拡張に耐える設計</h3>
-          <p>後方互換・ドキュメントを重視し、将来の差し替えや多言語展開に備えます。</p>
+      </section>
+
+      <!-- Services -->
+      <section class="lp-section" id="services" aria-label="Services">
+        <h2 class="lp-title">提供サービス</h2>
+        <div class="services" id="svcList"></div>
+      </section>
+
+      <!-- Voices -->
+      <section class="lp-section" id="voices" aria-label="Voices">
+        <h2 class="lp-title">お客さまの声</h2>
+        <div class="voices" id="voicesWrap" aria-live="polite">
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Services -->
-    <section class="lp-section" id="services" aria-label="Services">
-      <h2 class="lp-title">提供サービス</h2>
-      <div class="services" id="svcList"></div>
-    </section>
-
-    <!-- Voices -->
-    <section class="lp-section" id="voices" aria-label="Voices">
-      <h2 class="lp-title">お客さまの声</h2>
-      <div class="voices" id="voicesWrap" aria-live="polite">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-      </div>
-    </section>
-
-    <!-- Flow -->
-    <section class="lp-section" id="flow" aria-label="Flow">
-      <h2 class="lp-title">導入の流れ</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="num">Step 1</div>
-          <h3>ヒアリング</h3>
-          <p>要件・制約・現行構成を確認し、影響範囲を整理します。</p>
+      <!-- Flow -->
+      <section class="lp-section" id="flow" aria-label="Flow">
+        <h2 class="lp-title">導入の流れ</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">Step 1</div>
+            <h3>ヒアリング</h3>
+            <p>要件・制約・現行構成を確認し、影響範囲を整理します。</p>
+          </div>
+          <div class="step">
+            <div class="num">Step 2</div>
+            <h3>設計・見積</h3>
+            <p>最小改修案とスケジュールを提示します。必要に応じて代替案も用意します。</p>
+          </div>
+          <div class="step">
+            <div class="num">Step 3</div>
+            <h3>実装・検証</h3>
+            <p>影響箇所を限定して実装。確認用環境での検証と運用ドキュメントを提供します。</p>
+          </div>
         </div>
-        <div class="step">
-          <div class="num">Step 2</div>
-          <h3>設計・見積</h3>
-          <p>最小改修案とスケジュールを提示します。必要に応じて代替案も用意します。</p>
+      </section>
+
+      <!-- Pricing -->
+      <section class="lp-section" id="pricing" aria-label="Pricing">
+        <h2 class="lp-title">料金の目安</h2>
+        <div class="prices">
+          <div class="price">
+            <h3>スポット改修</h3>
+            <p><strong>¥20,000〜</strong></p>
+            <p class="note">軽微な表示崩れ・OGP整備・小規模JS修正など</p>
+          </div>
+          <div class="price">
+            <h3>自動化ミニ</h3>
+            <p><strong>¥50,000〜</strong></p>
+            <p class="note">GAS × LINE の通知・集計の基本導入</p>
+          </div>
+          <div class="price">
+            <h3>多言語運用セット</h3>
+            <p><strong>¥80,000〜</strong></p>
+            <p class="note">WooCommerce の多言語・翻訳制御の最小実装</p>
+          </div>
         </div>
-        <div class="step">
-          <div class="num">Step 3</div>
-          <h3>実装・検証</h3>
-          <p>影響箇所を限定して実装。確認用環境での検証と運用ドキュメントを提供します。</p>
+        <p class="note">要件・現行構成により前後します。まずは状況を共有ください。</p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="lp-section" id="faq" aria-label="FAQ">
+        <h2 class="lp-title">よくある質問</h2>
+        <details>
+          <summary>既存テーマやプラグインを極力変えずに対応できますか。</summary>
+          <div>可能です。影響範囲を特定し、後方互換を優先します。</div>
+        </details>
+        <details>
+          <summary>ドキュメントや運用手順は提供されますか。</summary>
+          <div>納品時に簡潔な運用メモを提供します。</div>
+        </details>
+        <details>
+          <summary>保守は依頼できますか。</summary>
+          <div>月次・四半期など柔軟に対応します。</div>
+        </details>
+      </section>
+
+      <!-- Contact -->
+      <section class="lp-section" id="contact" aria-label="Contact">
+        <h2 class="lp-title">お問い合わせ</h2>
+        <div class="panel center">
+          <p>まずはお気軽にご相談ください。</p>
+          <p>
+            <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">まずは相談する</a>
+          </p>
+
+          <!-- 追加：相談の下に Chatwork / メール -->
+          <div class="contact-actions" aria-label="Other contact methods">
+            <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">Chatworkで相談</a>
+            <a class="btn" href="mailto:kichohinkichohin@gmail.com?subject=%E3%80%90%E7%9B%B8%E8%AB%87%E3%80%91%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">メールで相談</a>
+          </div>
+
+          <p class="note">状況（URL、スクリーンショット、制約条件）を添えていただけると判断が早いです。</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Pricing -->
-    <section class="lp-section" id="pricing" aria-label="Pricing">
-      <h2 class="lp-title">料金の目安</h2>
-      <div class="prices">
-        <div class="price">
-          <h3>スポット改修</h3>
-          <p><strong>¥20,000〜</strong></p>
-          <p class="note">軽微な表示崩れ・OGP整備・小規模JS修正など</p>
-        </div>
-        <div class="price">
-          <h3>自動化ミニ</h3>
-          <p><strong>¥50,000〜</strong></p>
-          <p class="note">GAS × LINE の通知・集計の基本導入</p>
-        </div>
-        <div class="price">
-          <h3>多言語運用セット</h3>
-          <p><strong>¥80,000〜</strong></p>
-          <p class="note">WooCommerce の多言語・翻訳制御の最小実装</p>
-        </div>
-      </div>
-      <p class="note">要件・現行構成により前後します。まずは状況を共有ください。</p>
-    </section>
-
-    <!-- FAQ -->
-    <section class="lp-section" id="faq" aria-label="FAQ">
-      <h2 class="lp-title">よくある質問</h2>
-      <details>
-        <summary>既存テーマやプラグインを極力変えずに対応できますか。</summary>
-        <div>可能です。影響範囲を特定し、後方互換を優先します。</div>
-      </details>
-      <details>
-        <summary>ドキュメントや運用手順は提供されますか。</summary>
-        <div>納品時に簡潔な運用メモを提供します。</div>
-      </details>
-      <details>
-        <summary>保守は依頼できますか。</summary>
-        <div>月次・四半期など柔軟に対応します。</div>
-      </details>
-    </section>
-
-    <!-- Contact -->
-    <section class="lp-section" id="contact" aria-label="Contact">
-      <h2 class="lp-title">お問い合わせ</h2>
-      <div class="panel center">
-        <p>まずはお気軽にご相談ください。</p>
-
-        <p>
-          <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">
-            まずは相談する
-          </a>
-        </p>
-
-        <!-- ✅ 相談の下に Chatwork / Email を追加 -->
-        <div class="contact-choices" aria-label="Other contact options">
-          <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">
-            Chatworkで相談する
-          </a>
-
-          <!-- TODO: YOUR_EMAIL_HERE を実アドレスに差し替え -->
-         <a class="btn" href="mailto:kichohinkichohin@gmail.com">
-            メールで相談する
-          </a>
-        </div>
-
-        <p class="note">※ご連絡手段は上記いずれでも問題ありません。</p>
-      </div>
-    </section>
-
-    <div class="footer"><span>© 2026 KICHOHIN</span></div>
+      <div class="footer"><span>© 2026 KICHOHIN</span></div>
+    </div>
   </main>
 
   <script>
@@ -476,8 +493,8 @@
       rot++;
     }, 2600);
 
-    /* ===== メニュー選択同期（内側スクロール） ===== */
-    const container = document.getElementById('app');
+    /* ===== メニュー選択同期（スクロール対象は .content） ===== */
+    const container = document.getElementById('content');  // ★変更
     const links=[...document.querySelectorAll('.menu a')];
     const sections=['top','problems','solution','services','voices','flow','pricing','faq','contact']
       .map(id=>document.getElementById(id)).filter(Boolean);
@@ -498,6 +515,7 @@
         }
       });
     },{ root: container, rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
     sections.forEach(s=>io.observe(s));
 
     container.addEventListener('scroll', ()=>{
