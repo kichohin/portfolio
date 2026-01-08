@@ -21,12 +21,23 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KICHOHIN</title>
+
+  <!-- ✅ Tab icon / Favicon（assets配下に配置） -->
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
   <style>
     :root{
       --bg:#c0c0c0; --ink:#111; --win:#fff; --bar:#000080; --bar-fg:#fff;
       --chrome:#d3d3d3; --border:#000; --shadow:#000; --muted:#6b7280; --accent:#0f6bff;
       --tb-h:36px;
+
+      /* ✅ Cute scrollbar colors */
+      --scroll-track:#f2f1ff;
+      --scroll-thumb:#ff78b7;
+      --scroll-thumb-hover:#ff4da1;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -49,10 +60,30 @@
       box-shadow:6px 6px 0 var(--shadow);
       overflow:auto; overscroll-behavior:contain; scroll-behavior:smooth;
       position:relative;
-      scrollbar-width:none;
       scrollbar-gutter:stable both-edges;
+
+      /* ✅ Scrollbar (standard props) */
+      scrollbar-width: thin;
+      scrollbar-color: var(--scroll-thumb) var(--scroll-track);
     }
-    .window::-webkit-scrollbar{ width:0; height:0 }
+
+    /* ✅ Scrollbar (WebKit) */
+    .window::-webkit-scrollbar{
+      width:12px;
+      height:12px;
+    }
+    .window::-webkit-scrollbar-track{
+      background:var(--scroll-track);
+      border-left:1px solid #111;
+    }
+    .window::-webkit-scrollbar-thumb{
+      background:var(--scroll-thumb);
+      border:2px solid var(--scroll-track);
+      border-radius:999px;
+    }
+    .window::-webkit-scrollbar-thumb:hover{
+      background:var(--scroll-thumb-hover);
+    }
 
     /* Bars */
     .title-bar{
@@ -154,6 +185,15 @@
     .panel.center{ text-align:center }
     .panel.center p{ margin:8px 0 }
     .panel.center .btn{ display:inline-block; }
+
+    /* ✅ Contact choices (Chatwork / Email) */
+    .contact-choices{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
 
     details{border:1px solid #111;border-radius:10px;padding:10px;background:#fff}
     details+details{margin-top:8px}
@@ -345,8 +385,26 @@
       <h2 class="lp-title">お問い合わせ</h2>
       <div class="panel center">
         <p>まずはお気軽にご相談ください。</p>
-        <p><a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">まずは相談する</a></p>
-        
+
+        <p>
+          <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">
+            まずは相談する
+          </a>
+        </p>
+
+        <!-- ✅ 相談の下に Chatwork / Email を追加 -->
+        <div class="contact-choices" aria-label="Other contact options">
+          <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">
+            Chatworkで相談する
+          </a>
+
+          <!-- TODO: YOUR_EMAIL_HERE を実アドレスに差し替え -->
+          <a class="btn" href="mailto:YOUR_EMAIL_HERE">
+            メールで相談する
+          </a>
+        </div>
+
+        <p class="note">※ご連絡手段は上記いずれでも問題ありません。</p>
       </div>
     </section>
 
