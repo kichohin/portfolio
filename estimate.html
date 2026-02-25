@@ -131,15 +131,14 @@
         margin-bottom: 24px; 
     }
 
+/* テーブルの基本スタイル (PC向け) */
     .table-responsive {
         width: 100%;
-        overflow-x: auto;
         margin-bottom: 16px;
     }
     table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 600px;
         font-size: 14px;
     }
     th, td {
@@ -157,6 +156,65 @@
     th.col-price { width: 25%; }
     
     td.price { font-weight: bold; }
+
+    /* ★スマホ向け：横スクロールをやめて「カード型」にする */
+    @media (max-width: 640px) {
+        table, thead, tbody, th, td, tr { 
+            display: block; 
+        }
+        thead { 
+            display: none; 
+        }
+        
+        tr {
+            margin-bottom: 16px;
+            border: 1px solid #111;
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-template-areas: 
+                "plan price"
+                "desc desc";
+            overflow: hidden;
+            box-shadow: 2px 2px 0 var(--chrome);
+        }
+        
+        td {
+            border: none !important;
+            padding: 8px 10px !important;
+        }
+        
+        /* 1列目：内容（下段・白背景） */
+        td:nth-child(1) {
+            grid-area: desc;
+            font-size: 13px;
+            line-height: 1.6;
+            background: #fff;
+        }
+        
+        /* 2列目：プラン名（上段・左側・グレー背景） */
+        td:nth-child(2) {
+            grid-area: plan;
+            font-weight: bold;
+            background: var(--chrome);
+            border-bottom: 1px solid #111 !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 3列目：価格（上段・右側・グレー背景） */
+        td:nth-child(3) {
+            grid-area: price;
+            text-align: right;
+            font-weight: bold;
+            background: var(--chrome);
+            border-bottom: 1px solid #111 !important;
+            border-left: 1px dotted #9b9b9b !important;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
     
     .btn { 
         display: inline-block; 
