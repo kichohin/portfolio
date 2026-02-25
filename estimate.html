@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>見積もり詳細 | KICHOHIN</title>
+  
+  <!-- ファビコン (トップページと同じ場所にある前提) -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* トップページと変数を合わせて統一感を出しています */
+    :root {
+        --bg: #c0c0c0;
+        --ink: #111;
+        --win: #fff;
+        --bar: #000080;
+        --chrome: #d3d3d3;
+    }
+    body { 
+        margin:0; 
+        padding:24px; 
+        background:var(--bg); 
+        font-family:"DotGothic16", sans-serif; 
+        color:var(--ink); 
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    .wrap { 
+        width: min(900px, 95vw);
+        height: fit-content;
+        background:var(--win); 
+        border:2px solid #000; 
+        border-radius:8px; 
+        box-shadow:6px 6px 0 #000; 
+        overflow: hidden;
+    }
+    .head { 
+        background:var(--bar); 
+        color:#fff; 
+        padding:10px 14px; 
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+    }
+    .body { padding:24px; }
+    
+    h1 { margin-top: 0; font-size: 24px; border-bottom: 2px solid #000; padding-bottom: 8px; }
+    h2 { font-size: 18px; margin-bottom: 8px; }
+
+    .card { 
+        border:1px solid #111; 
+        border-radius:8px; 
+        padding:16px; 
+        background:#fafafa; 
+        margin-bottom:16px; 
+    }
+    
+    .btn { 
+        display:inline-block; 
+        padding:8px 16px; 
+        border:1px solid #000; 
+        border-radius:4px; 
+        background:silver; 
+        color:#111; 
+        text-decoration:none; 
+        box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
+        cursor: pointer;
+    }
+    .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+    .btn.primary { background:#cce0ff; }
+    
+    .note { color:#6b7280; font-size:12px; margin-top: 20px; }
+    
+    /* リストのデザイン調整 */
+    ul { padding-left: 20px; margin: 0; }
+    li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="head">KICHOHIN.COM / Estimate</div>
+    <div class="body">
+      <h1>見積もり詳細</h1>
+      <p style="margin-bottom: 24px;">案件の内容・制約・既存環境により変動します。<br>以下は判断基準の目安です。</p>
+
+      <div class="card">
+        <h2>スポット改修（¥20,000〜）</h2>
+        <p>表示崩れ、OGP/SEO、小規模JS修正、既存構造を崩さない調整。</p>
+      </div>
+
+      <div class="card">
+        <h2>自動化ミニ（¥50,000〜）</h2>
+        <p>GAS / LINE連携、通知・集計・帳票出力の基本導入。</p>
+      </div>
+
+      <div class="card">
+        <h2>多言語運用セット（¥80,000〜）</h2>
+        <p>WooCommerce等の多言語表示制御、既存テーマ尊重の最小実装。</p>
+      </div>
+
+      <div class="card" style="background: #eaf2ff;">
+        <h2>見積もり時にあると早い情報</h2>
+        <ul>
+          <li>対象URL</li>
+          <li>現状の課題（何が、いつ、どこで起きるか）</li>
+          <li>スクリーンショット / エラーメッセージ</li>
+          <li>触ってよい範囲（テーマ/プラグイン/管理画面/コード）</li>
+          <li>希望納期</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 32px; text-align: center; display: flex; gap: 12px; justify-content: center;">
+        <a class="btn" href="index.html">トップへ戻る</a>
+        <a class="btn primary" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">相談する</a>
+      </div>
+
+      <p class="note">※内容により、段階対応（調査→実装）でお見積もりする場合があります。</p>
+    </div>
+  </main>
+</body>
+</html>
