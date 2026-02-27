@@ -142,7 +142,7 @@
                 <label class="sim-item"><input type="checkbox" name="option" value="10000"> 特急対応（要相談） (+¥10,000)</label>
             </div>
         </form>
-        <div class="sim-total-box">概算合計: <strong id="sim-total">¥20,000</strong> <span style="font-size:12px;">(税別)</span></div>
+        <div class="sim-total-box">概算合計: <strong id="sim-total">¥20,000</strong> </span></div>
         <button class="btn" onclick="applyToForm()">次へ (N) ></button>
       </div>
 
@@ -253,7 +253,7 @@
         const totalPrice = totalSpan.textContent;
 
         const messageBox = document.getElementById('message');
-        messageBox.value = `【ウィザードからのご相談】\n\n[基本]\n・${baseText}\n\n[規模]\n・${volumeText}${optionsText}\n\n[概算合計]\n${totalPrice} (税別)\n\n------------------------\nここに具体的なご相談内容（URLや希望納期など）を追記してください。\n`;
+        messageBox.value = `【ウィザードからのご相談】\n\n[基本]\n・${baseText}\n\n[規模]\n・${volumeText}${optionsText}\n\n[概算合計]\n${totalPrice}\n\n------------------------\nここに具体的なご相談内容（URLや希望納期など）を追記してください。\n`;
 
         stepForm.scrollIntoView({behavior: 'smooth'});
         setTimeout(() => messageBox.focus(), 500);
