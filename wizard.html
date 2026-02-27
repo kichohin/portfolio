@@ -10,12 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
   
   <style>
-    /* 共通変数と基本設定 */
     :root {
-        --bg: #008080; /* ウィザードっぽく背景色を少し変えても面白いかも(元の #c0c0c0 でもOK) */
+        --bg: #008080; 
         --ink: #111; --win: #c0c0c0; --bar: #000080; --bar-fg: #fff;
-        --chrome: #dfdfdf; --border: #000; --shadow: #000; --muted: #6b7280;
-        --tb-h: 36px; --accent: #0f6bff;
+        --chrome: #dfdfdf; --border: #000; --shadow: #000;
+        --tb-h: 36px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -27,7 +26,7 @@
     }
 
     .window { 
-        width: min(800px, 95vw); /* ウィザードなので少し横幅を狭めに */
+        width: min(800px, 95vw); 
         height: min(90vh, 700px);
         background: var(--chrome); border: 2px solid var(--border); 
         border-top-color: #fff; border-left-color: #fff; border-right-color: #000; border-bottom-color: #000;
@@ -50,7 +49,6 @@
         background: var(--chrome);
     }
 
-    /* ウィザード風の装飾 */
     .wizard-header { display: flex; align-items: center; gap: 16px; border-bottom: 2px groove #fff; padding-bottom: 16px; margin-bottom: 20px; }
     .wizard-header h1 { margin: 0; font-size: 20px; }
     .wizard-header p { margin: 4px 0 0; font-size: 14px; color: #333; }
@@ -58,7 +56,6 @@
     .card { border: 2px solid #fff; border-right-color: #808080; border-bottom-color: #808080; padding: 16px; background: #dfdfdf; margin-bottom: 24px; }
     h2 { font-size: 16px; margin-top: 0; margin-bottom: 12px; }
 
-    /* ボタン */
     .btn { 
         display: inline-block; padding: 6px 16px; border: 2px solid #fff; 
         border-right-color: #000; border-bottom-color: #000; background: silver; 
@@ -67,7 +64,6 @@
     .btn:active { border-top-color: #000; border-left-color: #000; border-right-color: #fff; border-bottom-color: #fff; padding: 7px 15px 5px 17px; }
     .btn.primary { font-weight: bold; border: 2px solid #000; outline: 1px solid #000; margin: 2px; }
 
-    /* フォーム部品 */
     input[type="text"], input[type="email"], textarea {
         width: 100%; padding: 8px; font-family: inherit; font-size: 14px;
         border: 2px solid #808080; border-right-color: #fff; border-bottom-color: #fff;
@@ -76,7 +72,6 @@
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 14px;}
 
-    /* シミュレーター要素 */
     .sim-group { margin-bottom: 16px; }
     .sim-group > label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 14px;}
     .sim-item { display: block; margin-bottom: 6px; font-size: 14px; cursor: pointer; }
@@ -84,7 +79,6 @@
     .sim-total-box { background: #fff; border: 2px inset #dfdfdf; padding: 12px; text-align: right; font-size: 16px; margin-bottom: 16px; }
     .sim-total-box strong { font-size: 24px; color: #000080; }
 
-    /* 診断要素 */
     .diag-question { font-size: 16px; margin-bottom: 16px; font-weight: bold; }
     .diag-result { font-weight: bold; color: #000080; font-size: 18px; margin-bottom: 10px;}
     .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -96,7 +90,8 @@
     <header class="title-bar">
       <div>KICHOHIN_Setup_Wizard.exe</div>
       <div class="ctrls" aria-hidden="true">
-          <div class="btn-ctrl" onclick="history.back()">×</div>
+          <!-- index.htmlに戻るようにしています -->
+          <div class="btn-ctrl" onclick="window.location.href='index.html'">×</div>
       </div>
     </header>
 
@@ -142,7 +137,7 @@
                 <label class="sim-item"><input type="checkbox" name="option" value="10000"> 特急対応（要相談） (+¥10,000)</label>
             </div>
         </form>
-        <div class="sim-total-box">概算合計: <strong id="sim-total">¥20,000</strong> </span></div>
+        <div class="sim-total-box">概算合計: <strong id="sim-total">¥20,000</strong> <span style="font-size:12px;">(税別)</span></div>
         <button class="btn" onclick="applyToForm()">次へ (N) ></button>
       </div>
 
@@ -165,7 +160,7 @@
                     <textarea id="message" rows="6" required placeholder="ここに具体的なご相談内容（URLや希望納期など）を追記してください。"></textarea>
                 </div>
                 <div class="action-btns" style="margin-top: 16px; justify-content: flex-end;">
-                    <button type="button" class="btn" onclick="history.back()">キャンセル</button>
+                    <button type="button" class="btn" onclick="window.location.href='index.html'">キャンセル</button>
                     <button type="submit" class="btn primary">送信 (S)</button>
                 </div>
             </form>
@@ -173,10 +168,14 @@
 
         <!-- サンクス画面 -->
         <div id="thanks-area" style="display: none; text-align: center; padding: 20px;">
-            <h3 style="color: #000080; margin-top:0;">処理が完了しました</h3>
-            <p>お問い合わせありがとうございます。<br>内容を確認のうえ、ご返信いたします。</p>
+            <h3 style="color: #000080; margin-top:0;">送信が完了しました！</h3>
+            <p style="font-size: 14px; line-height: 1.6;">
+                お問い合わせありがとうございます。<br>
+                ご入力いただいたメールアドレス宛に控えのメールを送信いたしました。<br>
+                内容を確認のうえ、24時間以内にご返信いたします。
+            </p>
             <div style="margin-top: 20px;">
-                <a href="index.html" class="btn primary">トップへ戻る</a> <!-- ★トップのURLに合わせて修正してください -->
+                <a href="index.html" class="btn primary">トップへ戻る</a>
             </div>
         </div>
       </div>
@@ -214,11 +213,10 @@
     }
 
     function activateSim(baseValue) {
-        // 診断結果に基づき、見積もりのラジオボタンを自動選択
         const baseRadio = document.querySelector(`input[name="base"][value="${baseValue}"]`);
         if(baseRadio) {
             baseRadio.checked = true;
-            calculateTotal(); // 再計算
+            calculateTotal();
         }
         stepSim.style.opacity = '1';
         stepSim.style.pointerEvents = 'auto';
@@ -253,23 +251,53 @@
         const totalPrice = totalSpan.textContent;
 
         const messageBox = document.getElementById('message');
-        messageBox.value = `【ウィザードからのご相談】\n\n[基本]\n・${baseText}\n\n[規模]\n・${volumeText}${optionsText}\n\n[概算合計]\n${totalPrice}\n\n------------------------\nここに具体的なご相談内容（URLや希望納期など）を追記してください。\n`;
+        messageBox.value = `【ウィザードからのご相談】\n\n[基本]\n・${baseText}\n\n[規模]\n・${volumeText}${optionsText}\n\n[概算合計]\n${totalPrice} (税別)\n\n------------------------\nここに具体的なご相談内容（URLや希望納期など）を追記してください。\n`;
 
         stepForm.scrollIntoView({behavior: 'smooth'});
         setTimeout(() => messageBox.focus(), 500);
     }
 
-    // 3. フォーム送信ロジック (擬似)
-    function submitForm(e) {
-        e.preventDefault();
+    // =========================================================
+    // 3. フォーム送信ロジック (ご指定のGASへデータをPOST送信)
+    // =========================================================
+    async function submitForm(e) {
+        e.preventDefault(); 
+        
         const btn = document.querySelector('button[type="submit"]');
         btn.textContent = "送信中...";
         btn.disabled = true;
 
-        setTimeout(() => {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        const payload = {
+            name: name,
+            email: email,
+            message: message
+        };
+
+        // ★いただいたURLをそのままセットしています
+        const endpoint = "https://script.google.com/macros/s/AKfycbxRQeY7BcSqRQOuml-4JnKro2IMFspQKOMfTutrzpgta-oqx7HBpjfFRgsP2OATrLg9/exec";
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            // GASからの応答を待ってからサンクス画面へ切り替え
             document.getElementById('form-area').style.display = 'none';
             document.getElementById('thanks-area').style.display = 'block';
-        }, 800);
+
+        } catch (error) {
+            alert("通信エラーが発生しました。お手数ですが、直接メールにてご連絡ください。");
+            btn.textContent = "送信 (S)";
+            btn.disabled = false;
+        }
     }
   </script>
 </body>
