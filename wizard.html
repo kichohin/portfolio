@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お見積りウィザード | KICHOHIN</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* 共通変数と基本設定 */
+    :root {
+        --bg: #008080; /* ウィザードっぽく背景色を少し変えても面白いかも(元の #c0c0c0 でもOK) */
+        --ink: #111; --win: #c0c0c0; --bar: #000080; --bar-fg: #fff;
+        --chrome: #dfdfdf; --border: #000; --shadow: #000; --muted: #6b7280;
+        --tb-h: 36px; --accent: #0f6bff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+
+    body { 
+        background: var(--bg); font-family: "DotGothic16", system-ui, sans-serif; 
+        color: var(--ink); display: flex; justify-content: center; align-items: center;
+        overflow: hidden; padding: 16px;
+    }
+
+    .window { 
+        width: min(800px, 95vw); /* ウィザードなので少し横幅を狭めに */
+        height: min(90vh, 700px);
+        background: var(--chrome); border: 2px solid var(--border); 
+        border-top-color: #fff; border-left-color: #fff; border-right-color: #000; border-bottom-color: #000;
+        box-shadow: 4px 4px 0 var(--shadow); 
+        display: flex; flex-direction: column;
+    }
+
+    .title-bar { 
+        flex-shrink: 0; background: var(--bar); color: var(--bar-fg); 
+        display: flex; align-items: center; justify-content: space-between;
+        height: var(--tb-h); padding: 0 10px; font-size: 14px;
+        margin: 2px;
+    }
+
+    .title-bar .ctrls { display: inline-flex; gap: 4px; }
+    .btn-ctrl { width: 16px; height: 14px; background: var(--chrome); border: 1px solid #000; border-top-color:#fff; border-left-color:#fff; display: grid; place-items: center; font-size: 10px; color: #111; cursor: pointer;}
+
+    .content {
+        flex: 1; overflow: auto; padding: 16px; scroll-behavior: smooth;
+        background: var(--chrome);
+    }
+
+    /* ウィザード風の装飾 */
+    .wizard-header { display: flex; align-items: center; gap: 16px; border-bottom: 2px groove #fff; padding-bottom: 16px; margin-bottom: 20px; }
+    .wizard-header h1 { margin: 0; font-size: 20px; }
+    .wizard-header p { margin: 4px 0 0; font-size: 14px; color: #333; }
+
+    .card { border: 2px solid #fff; border-right-color: #808080; border-bottom-color: #808080; padding: 16px; background: #dfdfdf; margin-bottom: 24px; }
+    h2 { font-size: 16px; margin-top: 0; margin-bottom: 12px; }
+
+    /* ボタン */
+    .btn { 
+        display: inline-block; padding: 6px 16px; border: 2px solid #fff; 
+        border-right-color: #000; border-bottom-color: #000; background: silver; 
+        color: #111; text-decoration: none; cursor: pointer; font-size: 14px; font-family: inherit;
+    }
+    .btn:active { border-top-color: #000; border-left-color: #000; border-right-color: #fff; border-bottom-color: #fff; padding: 7px 15px 5px 17px; }
+    .btn.primary { font-weight: bold; border: 2px solid #000; outline: 1px solid #000; margin: 2px; }
+
+    /* フォーム部品 */
+    input[type="text"], input[type="email"], textarea {
+        width: 100%; padding: 8px; font-family: inherit; font-size: 14px;
+        border: 2px solid #808080; border-right-color: #fff; border-bottom-color: #fff;
+        background: #fff; margin-bottom: 4px; outline: none;
+    }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 14px;}
+
+    /* シミュレーター要素 */
+    .sim-group { margin-bottom: 16px; }
+    .sim-group > label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 14px;}
+    .sim-item { display: block; margin-bottom: 6px; font-size: 14px; cursor: pointer; }
+    .sim-item input { margin-right: 6px; }
+    .sim-total-box { background: #fff; border: 2px inset #dfdfdf; padding: 12px; text-align: right; font-size: 16px; margin-bottom: 16px; }
+    .sim-total-box strong { font-size: 24px; color: #000080; }
+
+    /* 診断要素 */
+    .diag-question { font-size: 16px; margin-bottom: 16px; font-weight: bold; }
+    .diag-result { font-weight: bold; color: #000080; font-size: 18px; margin-bottom: 10px;}
+    .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <main class="window" aria-label="Wizard">
+    <header class="title-bar">
+      <div>KICHOHIN_Setup_Wizard.exe</div>
+      <div class="ctrls" aria-hidden="true">
+          <div class="btn-ctrl" onclick="history.back()">×</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="wizard-header">
+        <img src="assets/avatar.png" width="48" height="48" alt="アイコン" onerror="this.src='https://placehold.co/48x48'" style="border: 1px solid #000;">
+        <div>
+          <h1>お見積り＆ご相談ウィザード</h1>
+          <p>画面の案内に従って、現在の状況やご希望をお選びください。</p>
+        </div>
+      </div>
+
+      <!-- ▼ STEP 1: YES/NO 診断 ▼ -->
+      <div class="card" id="step-diag">
+        <h2>ステップ 1: 状況の診断</h2>
+        <div id="diag-container">
+            <p class="diag-question" id="diag-q">Q1. 既存サイトの表示崩れや、機能の不具合修正ですか？</p>
+            <div class="action-btns" id="diag-btns">
+                <button class="btn" onclick="nextDiag(1, true)">はい (Y)</button>
+                <button class="btn" onclick="nextDiag(1, false)">いいえ (N)</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- ▼ STEP 2: ポチポチ見積もり ▼ -->
+      <div class="card" id="step-sim" style="opacity: 0.5; pointer-events: none;">
+        <h2>ステップ 2: 概算お見積り</h2>
+        <form id="calc-form">
+            <div class="sim-group">
+                <label>ベースとなる作業内容</label>
+                <label class="sim-item"><input type="radio" name="base" value="20000" checked> スポット改修・不具合調査 (¥20,000)</label>
+                <label class="sim-item"><input type="radio" name="base" value="50000"> GAS・LINE等を用いた自動化 (¥50,000)</label>
+                <label class="sim-item"><input type="radio" name="base" value="80000"> ECサイト構築・多言語化ベース (¥80,000)</label>
+            </div>
+            <div class="sim-group">
+                <label>作業のボリューム</label>
+                <label class="sim-item"><input type="radio" name="volume" value="0" checked> 1〜2箇所 / 最小限 (+¥0)</label>
+                <label class="sim-item"><input type="radio" name="volume" value="20000"> 複数箇所 / 横断的な修正 (+¥20,000)</label>
+            </div>
+            <div class="sim-group">
+                <label>オプション（任意）</label>
+                <label class="sim-item"><input type="checkbox" name="option" value="15000"> 詳細な運用マニュアルの作成 (+¥15,000)</label>
+                <label class="sim-item"><input type="checkbox" name="option" value="10000"> 特急対応（要相談） (+¥10,000)</label>
+            </div>
+        </form>
+        <div class="sim-total-box">概算合計: <strong id="sim-total">¥20,000</strong> <span style="font-size:12px;">(税別)</span></div>
+        <button class="btn" onclick="applyToForm()">次へ (N) ></button>
+      </div>
+
+      <!-- ▼ STEP 3: お問い合わせフォーム ▼ -->
+      <div class="card" id="step-form" style="opacity: 0.5; pointer-events: none; margin-bottom: 0;">
+        <h2>ステップ 3: この内容で相談する</h2>
+        
+        <div id="form-area">
+            <form id="contact-form" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label>お名前 / 会社名 <span style="color:red">*</span></label>
+                    <input type="text" id="name" required placeholder="例：山田 太郎">
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス <span style="color:red">*</span></label>
+                    <input type="email" id="email" required placeholder="例：info@example.com">
+                </div>
+                <div class="form-group">
+                    <label>ご相談内容 <span style="color:red">*</span></label>
+                    <textarea id="message" rows="6" required placeholder="ここに具体的なご相談内容（URLや希望納期など）を追記してください。"></textarea>
+                </div>
+                <div class="action-btns" style="margin-top: 16px; justify-content: flex-end;">
+                    <button type="button" class="btn" onclick="history.back()">キャンセル</button>
+                    <button type="submit" class="btn primary">送信 (S)</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- サンクス画面 -->
+        <div id="thanks-area" style="display: none; text-align: center; padding: 20px;">
+            <h3 style="color: #000080; margin-top:0;">処理が完了しました</h3>
+            <p>お問い合わせありがとうございます。<br>内容を確認のうえ、ご返信いたします。</p>
+            <div style="margin-top: 20px;">
+                <a href="index.html" class="btn primary">トップへ戻る</a> <!-- ★トップのURLに合わせて修正してください -->
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // 1. 診断ロジック
+    const diagQ = document.getElementById('diag-q');
+    const diagBtns = document.getElementById('diag-btns');
+    const stepSim = document.getElementById('step-sim');
+
+    function resetDiag() {
+        diagQ.innerHTML = "Q1. 既存サイトの表示崩れや、機能の不具合修正ですか？";
+        diagBtns.innerHTML = `<button class="btn" onclick="nextDiag(1, true)">はい (Y)</button><button class="btn" onclick="nextDiag(1, false)">いいえ (N)</button>`;
+        stepSim.style.opacity = '0.5'; stepSim.style.pointerEvents = 'none';
+    }
+
+    function nextDiag(step, answer) {
+        if (step === 1) {
+            if (answer) {
+                diagQ.innerHTML = "Q2. 修正したい箇所や原因は明確に特定できていますか？";
+                diagBtns.innerHTML = `<button class="btn" onclick="showDiagResult('【スポット改修】がおすすめ！', '20000')">はい (Y)</button><button class="btn" onclick="showDiagResult('【調査＋複数原因対応】がおすすめ！', '40000')">いいえ (N)</button>`;
+            } else {
+                diagQ.innerHTML = "Q3. GASやLINE等を使った業務の自動化・効率化ですか？";
+                diagBtns.innerHTML = `<button class="btn" onclick="showDiagResult('【自動化ミニプラン】がおすすめ！', '50000')">はい (Y)</button><button class="btn" onclick="showDiagResult('詳細をお伺いしてプランをご提案します。', '20000')">いいえ (N)</button>`;
+            }
+        }
+    }
+
+    function showDiagResult(text, baseValue) {
+        diagQ.innerHTML = `<div class="diag-result">${text}</div>`;
+        diagBtns.innerHTML = `<button class="btn primary" onclick="activateSim('${baseValue}')">次へ (N) ></button><button class="btn" onclick="resetDiag()">やり直す</button>`;
+    }
+
+    function activateSim(baseValue) {
+        // 診断結果に基づき、見積もりのラジオボタンを自動選択
+        const baseRadio = document.querySelector(`input[name="base"][value="${baseValue}"]`);
+        if(baseRadio) {
+            baseRadio.checked = true;
+            calculateTotal(); // 再計算
+        }
+        stepSim.style.opacity = '1';
+        stepSim.style.pointerEvents = 'auto';
+        stepSim.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 2. 見積もり計算ロジック
+    const calcForm = document.getElementById('calc-form');
+    const totalSpan = document.getElementById('sim-total');
+
+    function calculateTotal() {
+        let total = 0;
+        total += parseInt(calcForm.querySelector('input[name="base"]:checked').value);
+        total += parseInt(calcForm.querySelector('input[name="volume"]:checked').value);
+        calcForm.querySelectorAll('input[name="option"]:checked').forEach(opt => total += parseInt(opt.value));
+        totalSpan.textContent = '¥' + total.toLocaleString();
+    }
+    calcForm.addEventListener('change', calculateTotal);
+
+    function applyToForm() {
+        const stepForm = document.getElementById('step-form');
+        stepForm.style.opacity = '1';
+        stepForm.style.pointerEvents = 'auto';
+
+        const baseText = calcForm.querySelector('input[name="base"]:checked').parentElement.textContent.trim();
+        const volumeText = calcForm.querySelector('input[name="volume"]:checked').parentElement.textContent.trim();
+        let optionsText = "";
+        const options = calcForm.querySelectorAll('input[name="option"]:checked');
+        if(options.length > 0) {
+            optionsText = "\n[オプション]\n" + Array.from(options).map(o => "・" + o.parentElement.textContent.trim()).join("\n");
+        }
+        const totalPrice = totalSpan.textContent;
+
+        const messageBox = document.getElementById('message');
+        messageBox.value = `【ウィザードからのご相談】\n\n[基本]\n・${baseText}\n\n[規模]\n・${volumeText}${optionsText}\n\n[概算合計]\n${totalPrice} (税別)\n\n------------------------\nここに具体的なご相談内容（URLや希望納期など）を追記してください。\n`;
+
+        stepForm.scrollIntoView({behavior: 'smooth'});
+        setTimeout(() => messageBox.focus(), 500);
+    }
+
+    // 3. フォーム送信ロジック (擬似)
+    function submitForm(e) {
+        e.preventDefault();
+        const btn = document.querySelector('button[type="submit"]');
+        btn.textContent = "送信中...";
+        btn.disabled = true;
+
+        setTimeout(() => {
+            document.getElementById('form-area').style.display = 'none';
+            document.getElementById('thanks-area').style.display = 'block';
+        }, 800);
+    }
+  </script>
+</body>
+</html>
