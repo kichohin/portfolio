@@ -9,25 +9,32 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
   
   <style>
-    /* 共通CSS (変更なし) */
-    :root { --bg: #c0c0c0; --ink: #111; --win: #fff; --bar: #000080; --bar-fg: #fff; --chrome: #d3d3d3; --border: #000; --shadow: #000; --muted: #6b7280; --tb-h: 36px; --sb-track: var(--chrome); --sb-thumb: #000080; --sb-thumb-border: var(--chrome); --sb-line: #9b9b9b; }
+    :root { --bg: #c0c0c0; --ink: #111; --win: #fff; --bar: #000080; --bar-fg: #fff; --chrome: #d3d3d3; --border: #000; --shadow: #000; --muted: #6b7280; --tb-h: 36px; }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body { background: var(--bg); font-family: "DotGothic16", system-ui, sans-serif; color: var(--ink); display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 16px; }
     .window { width: min(1100px, 95vw); height: min(88vh, 760px); background: var(--win); border: 2px solid var(--border); border-radius: 8px; box-shadow: 6px 6px 0 var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
     @media (max-width: 640px) { .window { height: 92vh; } }
+    
     .title-bar { flex-shrink: 0; background: var(--bar); color: var(--bar-fg); display: flex; align-items: center; justify-content: space-between; height: var(--tb-h); padding: 0 10px; font-size: 14px; }
     .title-bar .ctrls { display: inline-flex; gap: 6px; }
     .btn-ctrl { width: 18px; height: 16px; background: var(--chrome); border: 1px solid #000; border-radius: 3px; display: grid; place-items: center; font-size: 10px; cursor:pointer; color:#111;}
-    .content { flex: 1; overflow: auto; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--sb-thumb) var(--sb-track); background: #fff; }
-    .content::-webkit-scrollbar { width: 12px; height: 12px; }
-    .content::-webkit-scrollbar-track { background: var(--sb-track); border-left: 1px solid var(--sb-line); }
-    .content::-webkit-scrollbar-thumb { background: var(--sb-thumb); border: 2px solid var(--sb-thumb-border); border-radius: 10px; }
+    
+    .content { flex: 1; overflow: auto; scroll-behavior: smooth; background: #fff; }
+    
+    /* 修正済: Windows95風スクロールバー */
+    .content::-webkit-scrollbar { width: 16px; height: 16px; }
+    .content::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
+    .content::-webkit-scrollbar-thumb { background: silver; border: 2px solid; border-top-color: #fff; border-left-color: #fff; border-right-color: #808080; border-bottom-color: #808080; }
+    .content::-webkit-scrollbar-corner { background: #dfdfdf; }
+
     .body-inner { padding: 16px; }
     @media (min-width: 641px) { .body-inner { padding: 24px; } }
+    
     h1 { margin-top: 0; font-size: 24px; border-bottom: 2px solid #000; padding-bottom: 8px; }
     h2 { font-size: 18px; margin-bottom: 12px; border-left: 4px solid var(--bar); padding-left: 8px; }
     h3 { font-size: 16px; margin: 16px 0 8px; color: #333; }
+    
     .card { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; margin-bottom: 24px; }
     .table-responsive { width: 100%; margin-bottom: 16px; }
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -35,6 +42,7 @@
     th { background: var(--chrome); font-weight: bold; }
     th.col-desc { width: 55%; } th.col-plan { width: 20%; } th.col-price { width: 25%; }
     td.price { font-weight: bold; }
+    
     @media (max-width: 640px) {
         table, thead, tbody, th, td, tr { display: block; }
         thead { display: none; }
@@ -44,13 +52,16 @@
         td:nth-child(2) { grid-area: plan; font-weight: bold; background: var(--chrome); border-bottom: 1px solid #111 !important; display: flex; align-items: center; }
         td:nth-child(3) { grid-area: price; text-align: right; font-weight: bold; background: var(--chrome); border-bottom: 1px solid #111 !important; border-left: 1px dotted #9b9b9b !important; display: flex; align-items: center; justify-content: flex-end; }
     }
-    .btn { display: inline-block; padding: 8px 16px; border: 1px solid #000; border-radius: 4px; background: silver; color: #111; text-decoration: none; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; cursor: pointer; font-size: 14px; text-align:center;}
+    
+    /* ボタンのスタイル (縦ズレ修正) */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 16px; border: 1px solid #000; border-radius: 4px; background: silver; color: #111; text-decoration: none; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; cursor: pointer; font-size: 14px; }
     .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; padding: 9px 15px 7px 17px; }
     .btn.primary { background: #cce0ff; border-color: #000; color: #000; font-weight:bold;}
+    
     .note { color: var(--muted); font-size: 12px; margin-top: 8px; line-height: 1.6; }
     ul { padding-left: 20px; margin: 0; line-height: 1.6; font-size: 14px; }
     li { margin-bottom: 6px; }
-    details { border: 1px solid #111; border-radius: 4px; padding: 10px; background: #fff; margin-bottom: 8px; font-size: 14px; }
+    details { border: 1px solid #111; border-radius: 4px; padding: 12px; background: #fff; margin-bottom: 8px; font-size: 14px; }
     summary { cursor: pointer; font-weight: bold; }
     details > div { margin-top: 10px; line-height: 1.6; color: #333; }
   </style>
@@ -72,13 +83,12 @@
           お客様のビジネスの成長フェーズに合わせ、ムダのない最適なプランをご提案します。
         </p>
 
-        <!-- ウィザード誘導（心理的ハードルを下げる） -->
-        <div class="card" style="background: #eaf2ff; border-color: #000080; text-align: center; padding: 16px;">
+        <div class="card" style="background: #eaf2ff; border-color: #000080; text-align: center; padding: 20px;">
             <h2 style="margin-top: 0; border: none; color: #000080; justify-content: center; display: flex; font-size: 16px;">
                 💡 手っ取り早く概算を知りたい方へ
             </h2>
-            <p style="font-size: 13px; margin-bottom: 12px;"><strong>※お名前・連絡先の入力は不要です。</strong><br>ポチポチ選ぶだけで、AIを使わずとも10秒で目安の金額がわかります。</p>
-            <a href="wizard.html" class="btn primary" style="padding: 10px 24px;">
+            <p style="font-size: 13px; margin-bottom: 16px;"><strong>※お名前・連絡先の入力は不要です。</strong><br>ポチポチ選ぶだけで、AIを使わずとも10秒で目安の金額がわかります。</p>
+            <a href="wizard.html" class="btn primary" style="padding: 10px 24px; font-size: 15px;">
                 📊 匿名で簡単お見積り (無料)
             </a>
         </div>
@@ -102,13 +112,13 @@
         <div class="card">
           <h2>2. 業務自動化・運用保守 (本命・利益最大化)</h2>
           <p class="note">定常業務の自動化と、サイトの安定稼働を丸ごとお任せいただくプランです。</p>
-          <h3>GAS×LINE 自動化（人件費削減）</h3>
+          <h3>GAS 業務自動化（人件費削減）</h3>
           <div class="table-responsive">
             <table>
               <thead><tr><th class="col-desc">内容</th><th class="col-plan">プラン</th><th class="col-price">価格</th></tr></thead>
               <tbody>
                 <tr><td>単一フロー（例：フォーム受信→スプレッドシート反映）</td><td>ミニ</td><td class="price">¥30,000〜</td></tr>
-                <tr><td>Webhook 1本＋Drive保存/自動通知、簡易ログ</td><td>ベーシック</td><td class="price">¥50,000〜</td></tr>
+                <tr><td>Webhook連携＋Drive保存/自動通知、簡易ログ</td><td>ベーシック</td><td class="price">¥50,000〜</td></tr>
                 <tr><td>決済連動＋PDF帳票生成＋管理シート、運用マニュアル付</td><td>アドバンス</td><td class="price">¥100,000〜</td></tr>
               </tbody>
             </table>
@@ -129,11 +139,11 @@
 
         <div class="card" style="background: #eaf2ff; border-color: #000080; margin-top: 32px;">
           <h2 style="border-left-color: #000080; margin-top: 0;">まずは無料でご相談ください</h2>
-          <p style="font-size: 14px; margin-bottom: 12px;">
+          <p style="font-size: 14px; margin-bottom: 16px;">
             「自社の場合はどのプランになる？」「こんな自動化はできる？」など、お気軽にお問い合わせください。
           </p>
           <div style="text-align: center; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a class="btn primary" href="wizard.html" style="width: 100%; max-width: 300px; margin-bottom: 8px;">📊 ウィザードで計算して相談する</a>
+            <a class="btn primary" href="wizard.html" style="width: 100%; max-width: 320px; margin-bottom: 8px;">📊 ウィザードで計算して相談する</a>
             <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談</a>
             <a class="btn" href="mailto:kichohinkichohin@gmail.com?subject=【無料相談】">メールで相談</a>
           </div>
