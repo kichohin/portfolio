@@ -115,7 +115,7 @@
         
         .username { margin: 0 0 6px; font-size: 20px; }
         .status-badge { display: inline-block; background: #eaf2ff; color: #000080; border: 1px solid #000080; padding: 2px 8px; font-size: 12px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
-        .actions { display: flex; gap: 8px; margin-top: 8px; }
+        .actions { display: flex; gap: 8px; margin-top: 0; margin-left: auto; flex-shrink: 0; }
         .bio { margin: 10px 0 0; color: #333; line-height: 1.75; letter-spacing: 0.01em; word-break: break-word; font-size: 15px; }
 
         /* ボタンのスタイル (絵文字とテキストの縦ズレ修正) */
@@ -192,6 +192,13 @@
             .bio { grid-column: 1 / -1; font-size: 14px; margin-top: 4px;}
             .lp-section { padding: 16px 12px; }
         }
+        .profile-header {
+            display: flex;
+            justify-content: space-between; /* 左右に離して配置 */
+            align-items: flex-start; /* 上端で揃える */
+            flex-wrap: wrap; /* スマホなど画面が狭い時は自動で折り返す */
+            gap: 8px 12px; /* 縦・横の隙間 */
+        }
     </style>
 </head>
 
@@ -225,11 +232,15 @@
                 <div class="avatar">
                     <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x" alt="貴重品のプロフィール画像" width="96" height="96" decoding="async">
                 </div>
-                <div>
-                    <div class="status-badge">相談無料 / スポット即日対応可</div>
-                    <h1 class="username">貴重品 ／ KICHOHIN</h1>
-                    <div class="actions">
-                        <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラ実績</a>
+                <div class="profile-content">
+                    <div class="profile-header">
+                        <div class="profile-title-area">
+                            <div class="status-badge">相談無料 / スポット即日対応可</div>
+                            <h1 class="username">貴重品 ／ KICHOHIN</h1>
+                        </div>
+                        <div class="actions">
+                            <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラ実績</a>
+                        </div>
                     </div>
                     <p class="bio">
                         <strong>「他社が作ったサイトの保守」や「日々の面倒な手作業」でお困りではありませんか？</strong><br>
