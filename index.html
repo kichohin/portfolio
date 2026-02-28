@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KICHOHIN | Webサイトのスポット改修・GAS×LINE業務自動化</title>
-    <meta name="description" content="他社制作サイトの不具合修正から、GAS・LINEを用いた業務自動化、WooCommerce構築まで。既存環境を活かした「最小改修」で、運用コストを削減し利益を最大化する専門家です。">
-    <meta name="keywords" content="GAS, LINE自動化, 業務効率化, WordPress スポット修正, 他社制作 保守, WooCommerce, Shopify, Web制作">
+    <title>KICHOHIN | Webサイトのスポット改修・GAS業務自動化</title>
+    <meta name="description" content="他社制作サイトの不具合修正から、GASを用いた業務自動化、WooCommerce構築まで。既存環境を活かした「最小改修」で、運用コストを削減し利益を最大化する専門家です。">
+    <meta name="keywords" content="GAS, 業務自動化, WordPress スポット修正, 他社制作 保守, WooCommerce, Shopify, Web制作">
     <link rel="canonical" href="https://kichohin.com">
 
     <!-- OGP (SNSシェア用) -->
@@ -18,7 +18,6 @@
     <meta property="og:image" content="https://kichohin.com/assets/Group%202.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="KICHOHIN のサムネイル">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -26,14 +25,10 @@
     <meta name="twitter:description" content="既存環境を壊さない「最小改修」と、運用がラクになる「自動化」を提供します。">
     <meta name="twitter:image" content="https://kichohin.com/assets/Group%202.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
-
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
 
-    <!-- ★★★ AI・SEO対策用 構造化データ (JSON-LD) ★★★ -->
-    <!-- AI検索（ChatGPT等）に「何者か」「いくらか」「何が得意か」を正確に伝えるためのデータです -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -59,7 +54,7 @@
             "https://note.com/kichohin",
             "https://coconala.com/users/5218668"
           ],
-          "knowsAbout": ["Google Apps Script", "LINE API", "WordPress 保守", "バグ修正", "WooCommerce 多言語", "業務自動化"]
+          "knowsAbout": ["Google Apps Script", "WordPress 保守", "バグ修正", "WooCommerce 多言語", "業務自動化"]
         },
         {
           "@type": "ProfessionalService",
@@ -68,130 +63,134 @@
           "url": "https://kichohin.com",
           "priceRange": "¥20,000 - ¥500,000+",
           "address": { "@type": "PostalAddress", "addressCountry": "JP" },
-          "description": "他社制作のWordPressサイトの不具合修正・スポット改修、GASとLINEAPIを活用したバックオフィス業務の自動化システムの開発、および月額伴走支援。",
+          "description": "他社制作のWordPressサイトの不具合修正・スポット改修、GASを活用したバックオフィス業務の自動化システムの開発、および月額伴走支援。",
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "提供サービス一覧",
             "itemListElement": [
               { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WordPressスポット改修・バグ修正" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GAS×LINE 業務自動化システムの開発" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GAS 業務自動化システムの開発" } },
               { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Webサイト月額保守・伴走支援" } }
             ]
           }
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "他社が制作したサイトの修正や保守は依頼できますか？",
-              "acceptedAnswer": { "@type": "Answer", "text": "はい、大歓迎です。既存のコードやテーマを極力壊さない「最小改修」で、安全に不具合を修正し、継続的な保守も承ります。" }
-            },
-            {
-              "@type": "Question",
-              "name": "自社の業務に合った自動化ができるかわかりません。相談できますか？",
-              "acceptedAnswer": { "@type": "Answer", "text": "はい、無料でご相談可能です。現在の「手作業で行っているコピペや集計業務」をお伺いし、GASやLINEを用いた費用対効果の高い自動化プランをご提案します。" }
-            }
-          ]
         }
       ]
     }
     </script>
-    <!-- ★★★ 構造化データ終了 ★★★ -->
 
     <style>
-        /* CSSは変更なし（文字数節約のため省略せずに記載します） */
         :root {
             --bg: #c0c0c0; --ink: #111; --win: #fff; --bar: #000080; --bar-fg: #fff;
-            --chrome: #d3d3d3; --border: #000; --shadow: #000; --muted: #6b7280; --accent: #0f6bff;
+            --chrome: #d3d3d3; --border: #000; --shadow: #000; --muted: #6b7280;
             --tb-h: 36px; --menu-h: 44px; --scroll-offset: 12px;
-            --sb-track: var(--chrome); --sb-thumb: #000080; --sb-thumb-border: var(--chrome); --sb-line: #9b9b9b;
         }
-        * { box-sizing: border-box }
-        html, body { height: 100% }
-        body { margin: 0; background: var(--bg); font-family: "DotGothic16", system-ui, sans-serif; color: var(--ink); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; padding: 16px; }
-        a { color: inherit }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; }
+        body { background: var(--bg); font-family: "DotGothic16", system-ui, sans-serif; color: var(--ink); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; padding: 16px; }
+        a { color: inherit; }
+
         .window { width: min(1100px, 95vw); height: min(88vh, 760px); background: var(--win); border: 2px solid var(--border); border-radius: 8px; box-shadow: 6px 6px 0 var(--shadow); overflow: hidden; position: relative; }
-        .title-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; height: var(--tb-h); padding: 0 10px; background: var(--bar); color: var(--bar-fg); }
-        .title-bar .ctrls { display: inline-flex; gap: 6px }
-        .btn-ctrl { width: 18px; height: 16px; background: var(--chrome); border: 1px solid #000; border-radius: 3px; display: grid; place-items: center; font-size: 10px; user-select: none }
-        .menu { position: sticky; top: var(--tb-h); z-index: 2; display: flex; gap: 6px; padding: 6px 8px; background: var(--chrome); border-bottom: 1px solid #9b9b9b; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .menu::-webkit-scrollbar { display: none }
-        .menu a { padding: 4px 8px; text-decoration: none; border-radius: 6px; flex: 0 0 auto; }
-        .menu a[aria-current="page"] { background: #f0f6ff; border: 1px solid #0f6bff; color: #0f3a9f; transition: all 0.2s ease; }
-        .content { height: calc(100% - var(--tb-h) - var(--menu-h)); overflow: auto; overscroll-behavior: contain; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--sb-thumb) var(--sb-track); }
-        .content::-webkit-scrollbar { width: 12px; height: 12px; }
-        .content::-webkit-scrollbar-track { background: var(--sb-track); border-left: 1px solid var(--sb-line); }
-        .content::-webkit-scrollbar-thumb { background: var(--sb-thumb); border: 2px solid var(--sb-thumb-border); border-radius: 10px; }
-        .content::-webkit-scrollbar-corner { background: var(--sb-track); }
         
+        .title-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; height: var(--tb-h); padding: 0 10px; background: var(--bar); color: var(--bar-fg); font-size: 14px; }
+        .title-bar .ctrls { display: inline-flex; gap: 6px; }
+        .btn-ctrl { width: 18px; height: 16px; background: var(--chrome); border: 1px solid #000; border-radius: 3px; display: grid; place-items: center; font-size: 10px; user-select: none; color: #111; }
+
+        .menu { position: sticky; top: var(--tb-h); z-index: 2; display: flex; gap: 6px; padding: 6px 8px; background: var(--chrome); border-bottom: 1px solid #9b9b9b; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .menu::-webkit-scrollbar { display: none; }
+        .menu a { padding: 4px 8px; text-decoration: none; border-radius: 6px; flex: 0 0 auto; font-size: 14px; }
+        .menu a[aria-current="page"] { background: #f0f6ff; border: 1px solid #0f6bff; color: #0f3a9f; }
+
+        /* 完全なWindows95風のスクロールバー (Macでも青い線にならない) */
+        .content { height: calc(100% - var(--tb-h) - var(--menu-h)); overflow: auto; scroll-behavior: smooth; }
+        .content::-webkit-scrollbar { width: 16px; height: 16px; }
+        .content::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
+        .content::-webkit-scrollbar-thumb { background: silver; border: 2px solid; border-top-color: #fff; border-left-color: #fff; border-right-color: #808080; border-bottom-color: #808080; }
+        .content::-webkit-scrollbar-corner { background: #dfdfdf; }
+
+        /* プロフィール部分のレイアウト */
         .profile { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 16px; border-bottom: 1px solid #e5e7eb; background: #fff; scroll-margin-top: var(--scroll-offset); }
         .avatar { width: 96px; height: 96px; border: 0; }
         .avatar img { width: 100%; height: 100%; display: block; object-fit: cover; image-rendering: pixelated; }
-        .username { margin: 0 0 6px; font-size: 20px }
+        
+        .username { margin: 0 0 6px; font-size: 20px; }
         .status-badge { display: inline-block; background: #eaf2ff; color: #000080; border: 1px solid #000080; padding: 2px 8px; font-size: 12px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
-        .actions { display: flex; gap: 8px; margin-top: 8px }
-        
-        .btn { padding: 6px 14px; font-size: 14px; background: silver; border: 1px solid #000; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; border-radius: 4px; color: #111; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
-        .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; padding: 7px 13px 5px 15px; }
+        .actions { display: flex; gap: 8px; margin-top: 8px; }
+        .bio { margin: 10px 0 0; color: #333; line-height: 1.75; letter-spacing: 0.01em; word-break: break-word; font-size: 15px; }
+
+        /* ボタンのスタイル (絵文字とテキストの縦ズレ修正) */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 16px; font-size: 14px; background: silver; border: 1px solid #000; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; border-radius: 4px; color: #111; cursor: pointer; text-decoration: none; text-align: center; }
+        .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; padding: 7px 15px 5px 17px; }
         .btn.primary { background: #cce0ff; border-color: #000; color: #000; font-weight: bold; }
-        .bio { margin: 10px 0 0; color: #333; line-height: 1.75; letter-spacing: 0.01em; word-break: break-word }
+
+        @media (min-width: 641px) { .actions { margin-top: 0; align-self: start; } }
         
-        @media (min-width: 641px) { .actions { margin-top: 0; align-self: start } }
-        .lp-section { padding: 16px; background: #fff; scroll-margin-top: var(--scroll-offset) }
-        .lp-title { font-size: 18px; margin: 0 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+        .lp-section { padding: 16px 20px; background: #fff; scroll-margin-top: var(--scroll-offset); }
+        .lp-title { font-size: 18px; margin: 0 0 16px; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+        
         .panels, .services, .steps, .prices { display: grid; grid-template-columns: 1fr; gap: 12px; }
         @media (min-width: 900px) { .panels, .services, .steps, .prices { grid-template-columns: repeat(3, 1fr); } }
-        .panel { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fafafa }
-        .panel h3 { margin: 0 0 8px; color: #000080; }
-        .panel ul { padding-left: 20px; margin: 0; }
-        .panel li { margin-bottom: 6px; }
+        
+        .panel { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; }
+        .panel h3 { margin: 0 0 10px; color: #000080; font-size: 16px;}
+        .panel ul { padding-left: 20px; margin: 0; line-height: 1.6;}
+        .panel li { margin-bottom: 8px; }
+        .note { color: var(--muted); font-size: 12px; margin-top: 8px; line-height: 1.5;}
         
         .svc { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; transition: transform .06s ease; min-height: 120px; }
-        .svc:hover { background: #fff; transform: translateY(-1px) }
-        .svc h3 { margin: 0 0 6px; line-height: 1.6 }
-        .svc .btn { pointer-events: none }
+        .svc:hover { background: #fff; transform: translateY(-1px); }
+        .svc h3 { margin: 0 0 6px; line-height: 1.6; }
+        .svc .btn { pointer-events: none; }
         
         .works-list { display: grid; grid-template-columns: 1fr; gap: 10px; border: 1px solid #111; background: #fff; padding: 10px; border-radius: 4px; max-height: 320px; overflow-y: auto; }
+        /* Works用スクロールバー */
+        .works-list::-webkit-scrollbar { width: 12px; }
+        .works-list::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
+        .works-list::-webkit-scrollbar-thumb { background: silver; border: 1px solid #808080; }
+        
         @media (min-width: 641px) { .works-list { grid-template-columns: repeat(2, 1fr); } }
-        .work-item { display: flex; flex-direction: column; gap: 4px; padding: 10px; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 4px; }
-        .work-title { font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 6px;}
-        .work-desc { font-size: 12px; color: var(--muted); line-height: 1.5; padding-left: 24px;}
+        .work-item { display: flex; flex-direction: column; gap: 6px; padding: 12px; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 4px; }
+        .work-title { font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px;}
+        .work-desc { font-size: 13px; color: var(--muted); line-height: 1.6; padding-left: 26px;}
         
         .voices-wrapper { overflow: hidden; white-space: nowrap; position: relative; background: #fafafa; border: 1px solid #111; border-radius: 8px; padding: 16px 0; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
         .voices-track { display: inline-flex; gap: 16px; padding-left: 16px; animation: scrollLeft 150s linear infinite; }
         .voices-track:hover { animation-play-state: paused; }
-        .bubble { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #111; border-radius: 8px; padding: 12px 16px; font-size: 14px; white-space: normal; width: max-content; max-width: 250px; line-height: 1.5; }
+        .bubble { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #111; border-radius: 8px; padding: 12px 16px; font-size: 14px; white-space: normal; width: max-content; max-width: 250px; line-height: 1.6; }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         
-        .step { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fff; position: relative; padding-top: 44px }
-        .step .num { position: absolute; left: 8px; top: 8px; border: 1px solid #111; border-radius: 4px; padding: 2px 6px; background: #f0f6ff; font-weight: bold; }
-        .step h3 { margin: 6px 0 6px }
+        .step { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; position: relative; padding-top: 48px; }
+        .step .num { position: absolute; left: 12px; top: 12px; border: 1px solid #111; border-radius: 4px; padding: 2px 8px; background: #f0f6ff; font-weight: bold; font-size: 12px; }
+        .step h3 { margin: 6px 0 8px; font-size: 15px; }
+        .step p { margin: 0; font-size: 14px; line-height: 1.6; color: #333;}
         
-        .price { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fff }
-        .price h3 { margin: 0 0 6px; color: #000080; }
-        .price strong { font-size: 20px }
-        .note { color: var(--muted); font-size: 12px; margin-top: 8px; }
-        .panel.center { text-align: center }
-        .contact-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
-        details { border: 1px solid #111; border-radius: 8px; padding: 10px; background: #fff }
-        details+details { margin-top: 8px }
-        summary { cursor: pointer; font-weight: bold; }
-        details div { margin-top: 8px; font-size: 14px; line-height: 1.6; }
+        .price { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; }
+        .price h3 { margin: 0 0 8px; color: #000080; font-size: 15px;}
+        .price strong { font-size: 22px; }
         
-        .footer { padding: 12px; border-top: 1px solid #e5e7eb; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; background: #fff }
+        .panel.center { text-align: center; }
+        .contact-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
         
-        .social-links { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+        details { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fff; }
+        details+details { margin-top: 8px; }
+        summary { cursor: pointer; font-weight: bold; font-size: 15px;}
+        details div { margin-top: 12px; font-size: 14px; line-height: 1.6; }
+        
+        .footer { padding: 16px; border-top: 1px solid #e5e7eb; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; background: #fff; }
+        
+        .social-links { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
         @media (min-width: 641px) { .social-links { grid-template-columns: repeat(2, 1fr); } }
         .social-link { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 10px 12px; background: #fafafa; transition: transform .06s ease; }
         .social-link:hover { background: #fff; transform: translateY(-1px); }
-        .social-mark { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #111; border-radius: 4px; background: #eaf2ff; font-size: 11px; }
+        .social-mark { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #111; border-radius: 4px; background: #eaf2ff; font-size: 11px; font-weight:bold;}
 
         @media (max-width: 640px) {
-            .window { height: 92vh }
-            .profile { grid-template-columns: 80px 1fr; padding: 12px; gap: 12px }
+            .window { height: 92vh; }
+            .profile { grid-template-columns: 80px 1fr; padding: 12px; gap: 12px; }
+            .avatar { width: 80px; height: 80px; }
             .username { font-size: 18px; }
-            .bio { grid-column: 1 / -1; font-size: 14px; }
+            .bio { grid-column: 1 / -1; font-size: 14px; margin-top: 4px;}
+            .lp-section { padding: 16px 12px; }
         }
     </style>
 </head>
@@ -221,22 +220,22 @@
 
         <div class="content" id="content">
 
+            <!-- 【修正済】pタグをdivの中に入れて、レイアウト崩れを解消 -->
             <section class="profile lp-section" id="top" aria-label="Profile">
                 <div class="avatar">
                     <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x" alt="貴重品のプロフィール画像" width="96" height="96" decoding="async">
                 </div>
                 <div>
-                    <!-- FVで安心感と稼働状況をアピール -->
                     <div class="status-badge">🟢 相談無料 / スポット即日対応可</div>
                     <h1 class="username">貴重品 ／ KICHOHIN</h1>
                     <div class="actions">
                         <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラ実績</a>
                     </div>
+                    <p class="bio">
+                        <strong>「他社が作ったサイトの保守」や「日々の面倒な手作業」でお困りではありませんか？</strong><br>
+                        既存の環境を極力壊さない『最小改修』による不具合修正から、GASを用いた『バックオフィス業務の自動化』まで、ビジネスの利益を最大化するご支援を行っています。スポット依頼から月額伴走まで柔軟に対応します。
+                    </p>
                 </div>
-                <p class="bio">
-                    <strong>「他社が作ったサイトの保守」や「日々の面倒な手作業」でお困りではありませんか？</strong><br>
-                    既存の環境を極力壊さない『最小改修』による不具合修正から、GAS×LINEを用いた『バックオフィス業務の自動化』まで、ビジネスの利益を最大化するご支援を行っています。スポット依頼から月額伴走まで柔軟に対応します。
-                </p>
             </section>
 
             <section class="lp-section" id="problems" aria-label="Problems">
@@ -258,7 +257,7 @@
                             <li>顧客への予約通知や請求書発行を自動化したい</li>
                             <li>専用システムを入れる予算はない</li>
                         </ul>
-                        <p class="note">→ 今あるツール（GAS×LINE等）を繋ぎ、低コストで月数十時間の作業をゼロにします。</p>
+                        <p class="note">→ 今あるツール（GAS等）を繋ぎ、低コストで月数十時間の作業をゼロにします。</p>
                     </div>
                     <div class="panel">
                         <h3>📈 EC構築・運用伴走</h3>
@@ -280,13 +279,12 @@
             <section class="lp-section" id="works" aria-label="Works">
                 <h2 class="lp-title">制作実績 (Works) - Before/After</h2>
                 <div class="works-list">
-                    <!-- 数字・成果を入れた実績に書き換え -->
                     <div class="work-item">
                         <div class="work-title"><span>🩹</span>WordPressの表示崩れ・白画面復旧</div>
                         <div class="work-desc">原因不明のエラーを特定し、ご依頼から<strong>24時間以内</strong>にスピード復旧。機会損失を最小限に。</div>
                     </div>
                     <div class="work-item">
-                        <div class="work-title"><span>⚙️</span>GAS×LINE連動 予約・通知システム</div>
+                        <div class="work-title"><span>⚙️</span>GAS連動 予約・通知システム</div>
                         <div class="work-desc">手作業の転記・連絡業務を自動化し、担当者の事務作業を<strong>月間約30時間削減</strong>。</div>
                     </div>
                     <div class="work-item">
@@ -350,7 +348,7 @@
                     <div class="price">
                         <h3>[構築] 自動化システム</h3>
                         <p><strong>¥50,000〜 ¥150,000</strong></p>
-                        <p class="note">GAS×LINEを用いた業務効率化。人件費を大幅に削減できる投資対効果の高いプランです。</p>
+                        <p class="note">GASを用いた業務効率化。人件費を大幅に削減できる投資対効果の高いプランです。</p>
                     </div>
                     <div class="price">
                         <h3>[継続] 月額伴走・保守</h3>
@@ -359,16 +357,15 @@
                     </div>
                 </div>
 
-                <!-- CVRを高めるウィザードへの誘導 -->
-                <div class="panel center" style="margin-top: 16px; background: #eaf2ff; border-color: #000080; border-width: 2px;">
+                <div class="panel center" style="margin-top: 20px; background: #eaf2ff; border-color: #000080; border-width: 2px;">
                     <h3 style="margin-top: 0; color: #000080; font-size: 16px;">自社の場合はいくらになる？</h3>
-                    <p style="font-size: 13px; margin-bottom: 8px;"><strong>※お名前やメールアドレスの入力不要！</strong></p>
-                    <p style="font-size: 13px; margin-bottom: 12px;">簡単な質問にポチポチ答えるだけで、10秒で目安のお見積りが出せます。</p>
-                    <a href="wizard.html" class="btn primary" style="font-size: 14px; padding: 10px 20px;">
+                    <p style="font-size: 14px; margin-bottom: 8px;"><strong>※お名前やメールアドレスの入力不要！</strong></p>
+                    <p style="font-size: 13px; margin-bottom: 16px;">簡単な質問にポチポチ答えるだけで、10秒で目安のお見積りが出せます。</p>
+                    <a href="wizard.html" class="btn primary" style="font-size: 15px; padding: 10px 24px;">
                         📊 匿名で簡単お見積り (無料)
                     </a>
-                    <div style="margin-top: 12px;">
-                        <a href="estimate.html" style="font-size: 12px; color: #000080; text-decoration: underline;">細かい料金表を見たい方はこちら</a>
+                    <div style="margin-top: 16px;">
+                        <a href="estimate.html" style="font-size: 13px; color: #000080; text-decoration: underline;">細かい料金表を見たい方はこちら</a>
                     </div>
                 </div>
             </section>
@@ -392,17 +389,18 @@
             <section class="lp-section" id="contact" aria-label="Contact">
                 <h2 class="lp-title">お問い合わせ・無料相談</h2>
                 <div class="panel center">
-                    <p>「とりあえず話を聞いてみたい」「今すぐ直してほしい」どちらも歓迎です。</p>
-                    <p>
+                    <p style="font-size: 15px; margin-bottom: 16px;">「とりあえず話を聞いてみたい」「今すぐ直してほしい」どちらも歓迎です。</p>
+                    
+                    <div>
                         <a class="btn primary" href="wizard.html" target="_self">📊 お見積りウィザードから相談する</a>
-                    </p>
+                    </div>
                     
                     <div class="contact-actions">
                         <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談</a>
                         <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">Chatworkで相談</a>
                         <a class="btn" href="mailto:kichohinkichohin@gmail.com?subject=【無料相談】">メールで相談</a>
                     </div>
-                    <p class="note">※現在のURLやエラー画面のスクショを添えていただくと、より早いご提案が可能です。</p>
+                    <p class="note" style="margin-top: 16px;">※現在のURLやエラー画面のスクショを添えていただくと、より早いご提案が可能です。</p>
                 </div>
             </section>
 
