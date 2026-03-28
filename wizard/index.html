@@ -280,9 +280,179 @@
       background: transparent;
       text-align: left;
     }
+
+    /* ===== メンテナンスオーバーレイ ===== */
+    .maintenance-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(128, 128, 128, 0.86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: "DotGothic16", system-ui, sans-serif;
+    }
+
+    .maintenance-panel {
+      width: min(720px, 100%);
+      background: #d3d3d3;
+      border: 2px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      color: #111;
+    }
+
+    .maintenance-titlebar {
+      background: #000080;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-bottom: 2px solid #000;
+    }
+
+    .maintenance-body {
+      padding: 24px 20px;
+      text-align: center;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .maintenance-body p {
+      margin: 0 0 14px;
+    }
+
+    .maintenance-mail {
+      display: inline-block;
+      color: #111;
+      text-decoration: underline;
+      word-break: break-all;
+      margin-top: 4px;
+    }
+
+    .maintenance-links {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .maintenance-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(460px, 100%);
+      min-height: 48px;
+      padding: 10px 14px;
+      background: silver;
+      border: 1px solid #000;
+      box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
+      color: #111;
+      text-decoration: none;
+      text-align: center;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .maintenance-link:active {
+      box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+      }
+
+      .window {
+        width: 100%;
+        height: 92vh;
+      }
+
+      .content {
+        padding: 12px;
+      }
+
+      .wizard-header {
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .wizard-header h1 {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .wizard-header p {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .card {
+        padding: 12px;
+      }
+
+      .action-btns {
+        flex-direction: column;
+      }
+
+      .action-btns .btn,
+      .back-top-wrap .btn {
+        width: 100%;
+      }
+
+      .maintenance-overlay {
+        padding: 12px;
+        align-items: flex-start;
+        overflow-y: auto;
+      }
+
+      .maintenance-panel {
+        width: 100%;
+        margin: auto 0;
+        box-shadow: 4px 4px 0 #000;
+      }
+
+      .maintenance-titlebar {
+        font-size: 13px;
+        padding: 9px 12px;
+      }
+
+      .maintenance-body {
+        padding: 18px 14px;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .maintenance-link {
+        width: 100%;
+        min-height: 44px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <div class="maintenance-overlay" aria-label="サイト改修中のお知らせ">
+    <div class="maintenance-panel" role="dialog" aria-modal="true" aria-labelledby="maintenance-title">
+      <div class="maintenance-titlebar" id="maintenance-title">KICHOHIN.COM</div>
+      <div class="maintenance-body">
+        <p>現在サイト改修中でございます。</p>
+        <p>
+          大変恐れ入りますが、ご相談ごとは<br>
+          <a class="maintenance-mail" href="mailto:kichohinkichohin@gmail.com">kichohinkichohin@gmail.com</a>
+        </p>
+        <div class="maintenance-links">
+          <a class="maintenance-link" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">
+            チャットワーク
+          </a>
+          <a class="maintenance-link" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">
+            ココナラ 貴重品ページ
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <main class="window" aria-label="Wizard">
     <header class="title-bar">
