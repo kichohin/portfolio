@@ -91,7 +91,7 @@
         a { color: inherit; }
 
         .window { width: min(1100px, 95vw); height: min(88vh, 760px); background: var(--win); border: 2px solid var(--border); border-radius: 8px; box-shadow: 6px 6px 0 var(--shadow); overflow: hidden; position: relative; }
-        
+
         .title-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; height: var(--tb-h); padding: 0 10px; background: var(--bar); color: var(--bar-fg); font-size: 14px; }
         .title-bar .ctrls { display: inline-flex; gap: 6px; }
         .btn-ctrl { width: 18px; height: 16px; background: var(--chrome); border: 1px solid #000; border-radius: 3px; display: grid; place-items: center; font-size: 10px; user-select: none; color: #111; }
@@ -101,88 +101,169 @@
         .menu a { padding: 4px 8px; text-decoration: none; border-radius: 6px; flex: 0 0 auto; font-size: 14px; }
         .menu a[aria-current="page"] { background: #f0f6ff; border: 1px solid #0f6bff; color: #0f3a9f; }
 
-        /* 完全なWindows95風のスクロールバー (Macでも青い線にならない) */
         .content { height: calc(100% - var(--tb-h) - var(--menu-h)); overflow: auto; scroll-behavior: smooth; }
         .content::-webkit-scrollbar { width: 16px; height: 16px; }
         .content::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
         .content::-webkit-scrollbar-thumb { background: silver; border: 2px solid; border-top-color: #fff; border-left-color: #fff; border-right-color: #808080; border-bottom-color: #808080; }
         .content::-webkit-scrollbar-corner { background: #dfdfdf; }
 
-        /* プロフィール部分のレイアウト */
         .profile { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 16px; border-bottom: 1px solid #e5e7eb; background: #fff; scroll-margin-top: var(--scroll-offset); }
         .avatar { width: 96px; height: 96px; border: 0; }
         .avatar img { width: 100%; height: 100%; display: block; object-fit: cover; image-rendering: pixelated; }
-        
+
         .username { margin: 0 0 6px; font-size: 20px; }
         .status-badge { display: inline-block; background: #eaf2ff; color: #000080; border: 1px solid #000080; padding: 2px 8px; font-size: 12px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
         .actions { display: flex; gap: 8px; margin-top: 0; margin-left: auto; flex-shrink: 0; }
         .bio { margin: 10px 0 0; color: #333; line-height: 1.75; letter-spacing: 0.01em; word-break: break-word; font-size: 15px; }
 
-        /* ボタンのスタイル (絵文字とテキストの縦ズレ修正) */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 16px; font-size: 14px; background: silver; border: 1px solid #000; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; border-radius: 4px; color: #111; cursor: pointer; text-decoration: none; text-align: center; }
         .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; padding: 7px 15px 5px 17px; }
         .btn.primary { background: #cce0ff; border-color: #000; color: #000; font-weight: bold; }
 
         @media (min-width: 641px) { .actions { margin-top: 0; align-self: start; } }
-        
+
         .lp-section { padding: 16px 20px; background: #fff; scroll-margin-top: var(--scroll-offset); }
         .lp-title { font-size: 18px; margin: 0 0 16px; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
-        
+
         .panels, .services, .steps, .prices { display: grid; grid-template-columns: 1fr; gap: 12px; }
         @media (min-width: 900px) { .panels, .services, .steps, .prices { grid-template-columns: repeat(3, 1fr); } }
-        
+
         .panel { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; }
         .panel h3 { margin: 0 0 10px; color: #000080; font-size: 16px;}
         .panel ul { padding-left: 20px; margin: 0; line-height: 1.6;}
         .panel li { margin-bottom: 8px; }
         .note { color: var(--muted); font-size: 12px; margin-top: 8px; line-height: 1.5;}
-        
+
         .svc { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; transition: transform .06s ease; min-height: 120px; }
         .svc:hover { background: #fff; transform: translateY(-1px); }
         .svc h3 { margin: 0 0 6px; line-height: 1.6; }
         .svc .btn { pointer-events: none; }
-        
+
         .works-list { display: grid; grid-template-columns: 1fr; gap: 10px; border: 1px solid #111; background: #fff; padding: 10px; border-radius: 4px; max-height: 320px; overflow-y: auto; }
-        /* Works用スクロールバー */
         .works-list::-webkit-scrollbar { width: 12px; }
         .works-list::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
         .works-list::-webkit-scrollbar-thumb { background: silver; border: 1px solid #808080; }
-        
+
         @media (min-width: 641px) { .works-list { grid-template-columns: repeat(2, 1fr); } }
         .work-item { display: flex; flex-direction: column; gap: 6px; padding: 12px; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 4px; }
         .work-title { font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px;}
         .work-desc { font-size: 13px; color: var(--muted); line-height: 1.6; padding-left: 26px;}
-        
+
         .voices-wrapper { overflow: hidden; white-space: nowrap; position: relative; background: #fafafa; border: 1px solid #111; border-radius: 8px; padding: 16px 0; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
         .voices-track { display: inline-flex; gap: 16px; padding-left: 16px; animation: scrollLeft 150s linear infinite; }
         .voices-track:hover { animation-play-state: paused; }
         .bubble { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #111; border-radius: 8px; padding: 12px 16px; font-size: 14px; white-space: normal; width: max-content; max-width: 250px; line-height: 1.6; }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
+
         .step { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; position: relative; padding-top: 48px; }
         .step .num { position: absolute; left: 12px; top: 12px; border: 1px solid #111; border-radius: 4px; padding: 2px 8px; background: #f0f6ff; font-weight: bold; font-size: 12px; }
         .step h3 { margin: 6px 0 8px; font-size: 15px; }
         .step p { margin: 0; font-size: 14px; line-height: 1.6; color: #333;}
-        
+
         .price { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; }
         .price h3 { margin: 0 0 8px; color: #000080; font-size: 15px;}
         .price strong { font-size: 22px; }
-        
+
         .panel.center { text-align: center; }
         .contact-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-        
+
         details { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fff; }
         details+details { margin-top: 8px; }
         summary { cursor: pointer; font-weight: bold; font-size: 15px;}
         details div { margin-top: 12px; font-size: 14px; line-height: 1.6; }
-        
+
         .footer { padding: 16px; border-top: 1px solid #e5e7eb; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; background: #fff; }
-        
+
         .social-links { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
         @media (min-width: 641px) { .social-links { grid-template-columns: repeat(2, 1fr); } }
         .social-link { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 10px 12px; background: #fafafa; transition: transform .06s ease; }
         .social-link:hover { background: #fff; transform: translateY(-1px); }
         .social-mark { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #111; border-radius: 4px; background: #eaf2ff; font-size: 11px; font-weight:bold;}
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        /* ===== メンテナンスオーバーレイ ===== */
+        .maintenance-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(128, 128, 128, 0.86);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: "DotGothic16", system-ui, sans-serif;
+        }
+
+        .maintenance-panel {
+            width: min(720px, 100%);
+            background: #d3d3d3;
+            border: 2px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            color: #111;
+        }
+
+        .maintenance-titlebar {
+            background: #000080;
+            color: #fff;
+            padding: 10px 14px;
+            font-size: 14px;
+            border-bottom: 2px solid #000;
+        }
+
+        .maintenance-body {
+            padding: 24px 20px;
+            text-align: center;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .maintenance-body p {
+            margin: 0 0 14px;
+        }
+
+        .maintenance-mail {
+            display: inline-block;
+            color: #111;
+            text-decoration: underline;
+            word-break: break-all;
+            margin-top: 4px;
+        }
+
+        .maintenance-links {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .maintenance-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: min(460px, 100%);
+            min-height: 48px;
+            padding: 10px 14px;
+            background: silver;
+            border: 1px solid #000;
+            box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
+            color: #111;
+            text-decoration: none;
+            text-align: center;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        .maintenance-link:active {
+            box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
+        }
 
         @media (max-width: 640px) {
             .window { height: 92vh; }
@@ -191,18 +272,61 @@
             .username { font-size: 18px; }
             .bio { grid-column: 1 / -1; font-size: 14px; margin-top: 4px;}
             .lp-section { padding: 16px 12px; }
-        }
-        .profile-header {
-            display: flex;
-            justify-content: space-between; /* 左右に離して配置 */
-            align-items: flex-start; /* 上端で揃える */
-            flex-wrap: wrap; /* スマホなど画面が狭い時は自動で折り返す */
-            gap: 8px 12px; /* 縦・横の隙間 */
+
+            .maintenance-overlay {
+                padding: 12px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            .maintenance-panel {
+                width: 100%;
+                margin: auto 0;
+                box-shadow: 4px 4px 0 #000;
+            }
+
+            .maintenance-titlebar {
+                font-size: 13px;
+                padding: 9px 12px;
+            }
+
+            .maintenance-body {
+                padding: 18px 14px;
+                font-size: 14px;
+                line-height: 1.8;
+            }
+
+            .maintenance-link {
+                width: 100%;
+                min-height: 44px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="maintenance-overlay" aria-label="サイト改修中のお知らせ">
+        <div class="maintenance-panel" role="dialog" aria-modal="true" aria-labelledby="maintenance-title">
+            <div class="maintenance-titlebar" id="maintenance-title">KICHOHIN.COM</div>
+            <div class="maintenance-body">
+                <p>現在サイト改修中でございます。</p>
+                <p>
+                    大変恐れ入りますが、ご相談ごとは<br>
+                    <a class="maintenance-mail" href="mailto:kichohinkichohin@gmail.com">kichohinkichohin@gmail.com</a>
+                </p>
+                <div class="maintenance-links">
+                    <a class="maintenance-link" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">
+                        チャットワーク
+                    </a>
+                    <a class="maintenance-link" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">
+                        ココナラ 貴重品ページ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main class="window" id="app" aria-label="Portfolio">
         <header class="title-bar">
             <div>KICHOHIN.COM</div>
@@ -226,8 +350,6 @@
         </nav>
 
         <div class="content" id="content">
-
-            <!-- 【修正済】pタグをdivの中に入れて、レイアウト崩れを解消 -->
             <section class="profile lp-section" id="top" aria-label="Profile">
                 <div class="avatar">
                     <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x" alt="貴重品のプロフィール画像" width="96" height="96" decoding="async">
@@ -312,7 +434,6 @@
                         <div class="work-desc">画像最適化と構造化データの整備により、サイト表示速度を劇的に改善。</div>
                     </div>
                 </div>
-                
             </section>
 
             <section class="lp-section" id="voices" aria-label="Voices">
@@ -399,11 +520,11 @@
                 <h2 class="lp-title">お問い合わせ・無料相談</h2>
                 <div class="panel center">
                     <p style="font-size: 15px; margin-bottom: 16px;">「とりあえず話を聞いてみたい」「今すぐ直してほしい」どちらも歓迎です。</p>
-                    
+
                     <div>
                         <a class="btn primary" href="/wizard/" target="_self">📊 お見積りウィザードから相談する</a>
                     </div>
-                    
+
                     <div class="contact-actions">
                         <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談</a>
                         <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">Chatworkで相談</a>
@@ -412,8 +533,9 @@
                     <p class="note" style="margin-top: 16px;">※現在のURLやエラー画面のスクショを添えていただくと、より早いご提案が可能です。</p>
                 </div>
             </section>
+
             <footer class="footer">
-              <span>© 2026 KICHOHIN Web Service.</span>
+                <span>© 2026 KICHOHIN Web Service.</span>
             </footer>
         </div>
     </main>
@@ -486,4 +608,5 @@
         sections.forEach(s => io.observe(s));
     </script>
 </body>
+
 </html>
