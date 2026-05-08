@@ -1,612 +1,1675 @@
 <!DOCTYPE html>
+
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KICHOHIN | Webサイトのスポット改修・GAS業務自動化</title>
-    <meta name="description" content="他社制作サイトの不具合修正から、GASを用いた業務自動化、WooCommerce構築まで。既存環境を活かした「最小改修」で、運用コストを削減し利益を最大化する専門家です。">
-    <meta name="keywords" content="GAS, 業務自動化, WordPress スポット修正, 他社制作 保守, WooCommerce, Shopify, Web制作">
-    <link rel="canonical" href="https://kichohin.com">
-
-    <!-- OGP (SNSシェア用) -->
-    <meta property="og:site_name" content="KICHOHIN">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="KICHOHIN | Webサイトのスポット改修・業務自動化">
-    <meta property="og:description" content="既存環境を壊さない「最小改修」と、運用がラクになる「自動化」を提供。相談無料・ウィザードで即座に見積もり可能です。">
-    <meta property="og:url" content="https://kichohin.com">
-    <meta property="og:image" content="https://kichohin.com/assets/Group%202.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="KICHOHIN | 業務自動化とWeb保守の専門家">
-    <meta name="twitter:description" content="既存環境を壊さない「最小改修」と、運用がラクになる「自動化」を提供します。">
-    <meta name="twitter:image" content="https://kichohin.com/assets/Group%202.png">
-
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
-
-    <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KICHOHIN.COM | 他社制作サイトの修正・GAS自動化・GA4/GTM確認</title>
+<meta content="WordPress・Wix・Shopifyなど他社制作サイトの修正、GAS自動化、GA4/GTM・広告計測確認を対応。既存環境を大きく壊さず、Webと日々の手作業を整えます。" name="description"/>
+<link href="https://kichohin.com/" rel="canonical"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="KICHOHIN.COM" property="og:site_name"/>
+<meta content="KICHOHIN.COM | 他社制作サイトの修正・GAS自動化・GA4/GTM確認" property="og:title"/>
+<meta content="既存環境を大きく壊さず、Web修正・EC運用・GAS自動化・広告計測確認を整えます。" property="og:description"/>
+<meta content="https://kichohin.com/" property="og:url"/>
+<meta content="https://kichohin.com/ogp.jpg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="KICHOHIN.COM | Web修正・GAS自動化・計測確認" name="twitter:title"/>
+<meta content="他社制作サイトの修正、日々の手作業の自動化、GA4/GTM・広告計測確認を対応します。" name="twitter:description"/>
+<meta content="https://kichohin.com/ogp.jpg" name="twitter:image"/>
+<script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "WebSite",
+      "@id": "https://kichohin.com/#website",
+      "url": "https://kichohin.com/",
+      "name": "KICHOHIN.COM",
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://kichohin.com/#person",
+      "name": "貴重品",
+      "alternateName": "KICHOHIN",
+      "url": "https://kichohin.com/",
+      "knowsAbout": [
+        "WordPress修正",
+        "Wix修正",
+        "Shopify運用",
+        "WooCommerce運用",
+        "Google Apps Script",
+        "GA4",
+        "Google Tag Manager",
+        "Search Console",
+        "Webサイト保守",
+        "業務自動化"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://kichohin.com/#business",
+      "name": "KICHOHIN.COM",
+      "url": "https://kichohin.com/",
+      "email": "info@kichohin.com",
+      "description": "WordPress・Wix・ShopifyなどのWeb修正、GAS自動化、GA4/GTM・広告計測確認を行うWeb実務改善サービス。",
+      "founder": {
+        "@id": "https://kichohin.com/#person"
+      },
+      "areaServed": [
+        "JP",
+        "Worldwide"
+      ],
+      "availableLanguage": [
+        "ja"
+      ],
+      "serviceType": [
+        "Webサイト修正",
+        "EC運用改善",
+        "GAS自動化",
+        "GA4/GTM設定確認",
+        "広告計測確認",
+        "AI業務テンプレート作成"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://kichohin.com/#service-webfix",
+      "name": "他社制作サイトの修正・保守",
+      "provider": {
+        "@id": "https://kichohin.com/#business"
+      },
+      "serviceType": "Webサイト修正",
+      "description": "WordPress、Wix、Shopify、WooCommerceなど既存サイトの表示崩れ、フォーム、導線、SEO/OGPを整えるサービス。"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://kichohin.com/#service-automation",
+      "name": "GAS・通知・管理自動化",
+      "provider": {
+        "@id": "https://kichohin.com/#business"
+      },
+      "serviceType": "業務自動化",
+      "description": "Googleスプレッドシート、GAS、メール、LINE、Chatwork、PDF生成などを組み合わせて手作業を減らすサービス。"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://kichohin.com/#service-tracking",
+      "name": "GA4/GTM・広告計測確認",
+      "provider": {
+        "@id": "https://kichohin.com/#business"
+      },
+      "serviceType": "アクセス解析・広告計測確認",
+      "description": "GA4、Google Tag Manager、Search Console、広告コンバージョン計測の状態を確認し、改善方針を整理するサービス。"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kichohin.com/#faq",
+      "mainEntity": [
         {
-          "@type": "WebSite",
-          "@id": "https://kichohin.com/#website",
-          "url": "https://kichohin.com",
-          "name": "KICHOHIN",
-          "description": "Web構築・業務自動化・スポット改修・他社制作サイトの保守サービス",
-          "inLanguage": "ja"
+          "@type": "Question",
+          "name": "他社が制作したサイトでも依頼できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。既存構造やテーマ更新に配慮し、影響範囲を絞った最小改修を優先します。"
+          }
         },
         {
-          "@type": "Person",
-          "@id": "https://kichohin.com/#person",
-          "name": "貴重品",
-          "alternateName": "KICHOHIN",
-          "url": "https://kichohin.com",
-          "image": "https://kichohin.com/assets/avatar.png",
-          "jobTitle": "Webエンジニア / 業務改善コンサルタント",
-          "sameAs": [
-            "https://x.com/kichohinX",
-            "https://note.com/kichohin",
-            "https://coconala.com/users/5218668"
-          ],
-          "knowsAbout": ["Google Apps Script", "WordPress 保守", "バグ修正", "WooCommerce 多言語", "業務自動化"]
+          "@type": "Question",
+          "name": "要件が固まっていなくても相談できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。まずは現状整理から入り、対応可否・必要情報・概算を整理します。"
+          }
         },
         {
-          "@type": "ProfessionalService",
-          "name": "KICHOHIN Web & Automation Service",
-          "image": "https://kichohin.com/assets/Group%202.png",
-          "url": "https://kichohin.com",
-          "priceRange": "¥20,000 - ¥500,000+",
-          "address": { "@type": "PostalAddress", "addressCountry": "JP" },
-          "description": "他社制作のWordPressサイトの不具合修正・スポット改修、GASを活用したバックオフィス業務の自動化システムの開発、および月額伴走支援。",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "提供サービス一覧",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WordPressスポット改修・バグ修正" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GAS 業務自動化システムの開発" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Webサイト月額保守・伴走支援" } }
-            ]
+          "@type": "Question",
+          "name": "GA4やGTMの計測確認だけでも相談できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。GA4、GTM、Search Console、広告コンバージョン計測の状態確認と改善方針の整理に対応します。"
           }
         }
       ]
     }
-    </script>
+  ]
+}
+  </script>
+<link href="https://kichohin.com/" hreflang="ja" rel="alternate"/>
 
-    <style>
-        :root {
-            --bg: #c0c0c0; --ink: #111; --win: #fff; --bar: #000080; --bar-fg: #fff;
-            --chrome: #d3d3d3; --border: #000; --shadow: #000; --muted: #6b7280;
-            --tb-h: 36px; --menu-h: 44px; --scroll-offset: 12px;
-        }
+<link href="https://kichohin.com/" hreflang="x-default" rel="alternate"/>
+<style>
+    :root {
+      --paper: #f6f1e8;
+      --paper2: #fffaf2;
+      --ink: #1f252b;
+      --sub: #667071;
+      --line: #1f252b;
+      --red: #d94b34;
+      --blue: #2f6f92;
+      --green: #547d62;
+      --yellow: #f0c45c;
+      --shadow: 7px 7px 0 rgba(31,37,43,.16);
+      --radius: 18px;
+      --max: 1120px;
+    }
 
-        * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; }
-        body { background: var(--bg); font-family: "DotGothic16", system-ui, sans-serif; color: var(--ink); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; padding: 16px; }
-        a { color: inherit; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(31,37,43,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31,37,43,.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 22px 22px;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.78;
+      letter-spacing: .02em;
+    }
 
-        .window { width: min(1100px, 95vw); height: min(88vh, 760px); background: var(--win); border: 2px solid var(--border); border-radius: 8px; box-shadow: 6px 6px 0 var(--shadow); overflow: hidden; position: relative; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 36px)); margin: 0 auto; }
+    .section { padding: 76px 0; }
 
-        .title-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; height: var(--tb-h); padding: 0 10px; background: var(--bar); color: var(--bar-fg); font-size: 14px; }
-        .title-bar .ctrls { display: inline-flex; gap: 6px; }
-        .btn-ctrl { width: 18px; height: 16px; background: var(--chrome); border: 1px solid #000; border-radius: 3px; display: grid; place-items: center; font-size: 10px; user-select: none; color: #111; }
+    .top-notice {
+      background: var(--ink);
+      color: var(--paper2);
+      font-size: 13px;
+      padding: 8px 0;
+    }
+    .top-notice .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
-        .menu { position: sticky; top: var(--tb-h); z-index: 2; display: flex; gap: 6px; padding: 6px 8px; background: var(--chrome); border-bottom: 1px solid #9b9b9b; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .menu::-webkit-scrollbar { display: none; }
-        .menu a { padding: 4px 8px; text-decoration: none; border-radius: 6px; flex: 0 0 auto; font-size: 14px; }
-        .menu a[aria-current="page"] { background: #f0f6ff; border: 1px solid #0f6bff; color: #0f3a9f; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(246,241,232,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--line);
+    }
+    .nav-inner { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .08em; }
+    .brand-box {
+      width: 38px; height: 38px;
+      border: 2px solid var(--line);
+      background: var(--yellow);
+      display: grid; place-items: center;
+      box-shadow: 4px 4px 0 rgba(31,37,43,.18);
+    }
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; color: var(--sub); font-weight: 700; }
+    .nav-links a:hover { color: var(--red); }
+    .btn.nav-cta {
+      height: 38px;
+      min-height: 38px;
+      padding: 0 14px;
+      font-size: 13px;
+      line-height: 1;
+      white-space: nowrap;
+      box-shadow: 3px 3px 0 rgba(31,37,43,.18);
+    }
 
-        .content { height: calc(100% - var(--tb-h) - var(--menu-h)); overflow: auto; scroll-behavior: smooth; }
-        .content::-webkit-scrollbar { width: 16px; height: 16px; }
-        .content::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
-        .content::-webkit-scrollbar-thumb { background: silver; border: 2px solid; border-top-color: #fff; border-left-color: #fff; border-right-color: #808080; border-bottom-color: #808080; }
-        .content::-webkit-scrollbar-corner { background: #dfdfdf; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 20px;
+      min-height: 50px;
+      background: var(--paper2);
+      color: var(--ink);
+      font-weight: 900;
+      box-shadow: 4px 4px 0 rgba(31,37,43,.18);
+      transition: .16s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(31,37,43,.18); }
+    .btn-main { background: var(--red); color: #fff; }
+    .btn-blue { background: #d7ecf4; }
+    .btn-flat { box-shadow: none; background: transparent; }
 
-        .profile { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 16px; border-bottom: 1px solid #e5e7eb; background: #fff; scroll-margin-top: var(--scroll-offset); }
-        .avatar { width: 96px; height: 96px; border: 0; }
-        .avatar img { width: 100%; height: 100%; display: block; object-fit: cover; image-rendering: pixelated; }
+    .hero { padding: 58px 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 38px; align-items: center; }
+    .stamp {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid var(--line);
+      background: var(--paper2);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 3px 3px 0 rgba(31,37,43,.13);
+    }
+    .stamp:before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--green); display: inline-block; }
+    h1 { margin: 22px 0 18px; font-size: clamp(38px, 6.2vw, 78px); line-height: 1.02; letter-spacing: -.055em; }
+    .lead { color: var(--sub); font-size: clamp(16px, 2vw, 20px); max-width: 720px; }
+    .lead strong { color: var(--ink); background: linear-gradient(transparent 62%, rgba(240,196,92,.72) 0); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
-        .username { margin: 0 0 6px; font-size: 20px; }
-        .status-badge { display: inline-block; background: #eaf2ff; color: #000080; border: 1px solid #000080; padding: 2px 8px; font-size: 12px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
-        .actions { display: flex; gap: 8px; margin-top: 0; margin-left: auto; flex-shrink: 0; }
-        .bio { margin: 10px 0 0; color: #333; line-height: 1.75; letter-spacing: 0.01em; word-break: break-word; font-size: 15px; }
+    .face-card {
+      border: 2px solid var(--line);
+      background: var(--paper2);
+      box-shadow: var(--shadow);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .windowbar { display: flex; align-items: center; justify-content: space-between; background: #e8dfd1; border-bottom: 2px solid var(--line); padding: 10px 14px; font-weight: 900; }
+    .window-icons { display: flex; gap: 8px; }
+    .window-icons span { width: 14px; height: 14px; border: 2px solid var(--line); display: block; background: #fff; }
+    .face-body { padding: 24px; display: grid; gap: 18px; }
+    .avatar-row { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: center; }
+    .avatar {
+      width: 112px; height: 112px;
+      border: 2px solid var(--line);
+      background: linear-gradient(135deg, #fff, #e9f3f6);
+      border-radius: 22px;
+      display: grid; place-items: center;
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--red);
+    }
+    .profile-copy h2 { margin: 0 0 4px; font-size: 24px; line-height: 1.2; }
+    .profile-copy p { margin: 0; color: var(--sub); font-size: 14px; }
+    .proof-list { display: grid; gap: 10px; }
+    .proof-item { border: 2px solid var(--line); border-radius: 14px; padding: 12px 14px; background: #fff; font-weight: 800; }
+    .proof-item span { color: var(--sub); font-weight: 700; font-size: 13px; display: block; }
 
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 16px; font-size: 14px; background: silver; border: 1px solid #000; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; border-radius: 4px; color: #111; cursor: pointer; text-decoration: none; text-align: center; }
-        .btn:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; padding: 7px 15px 5px 17px; }
-        .btn.primary { background: #cce0ff; border-color: #000; color: #000; font-weight: bold; }
+    .marquee { border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); background: var(--yellow); overflow: hidden; }
+    .marquee-track { width: max-content; display: flex; gap: 28px; padding: 10px 0; animation: move 24s linear infinite; font-weight: 900; white-space: nowrap; }
+    @keyframes move { to { transform: translateX(-50%); } }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-track span { display: inline-flex; align-items: center; gap: 12px; }
+    .marquee-track b { display: inline-flex; align-items: center; border: 2px solid var(--line); background: var(--paper2); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
+    .marquee-track i { font-style: normal; }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
 
-        @media (min-width: 641px) { .actions { margin-top: 0; align-self: start; } }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 28px; }
+    .kicker { color: var(--red); font-weight: 900; letter-spacing: .12em; font-size: 13px; text-transform: uppercase; margin: 0; }
+    h2.section-title { margin: 6px 0 0; font-size: clamp(30px, 4.5vw, 54px); line-height: 1.08; letter-spacing: -.04em; }
+    .section-desc { color: var(--sub); max-width: 540px; margin: 0; }
 
-        .lp-section { padding: 16px 20px; background: #fff; scroll-margin-top: var(--scroll-offset); }
-        .lp-title { font-size: 18px; margin: 0 0 16px; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+    .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .pain {
+      border: 2px solid var(--line);
+      background: var(--paper2);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.12);
+    }
+    .pain h3 { margin: 0 0 10px; font-size: 21px; }
+    .pain ul { margin: 0; padding-left: 20px; color: var(--sub); }
+    .answer { margin-top: 16px; border-top: 2px dashed rgba(31,37,43,.25); padding-top: 12px; font-weight: 900; color: var(--green); }
 
-        .panels, .services, .steps, .prices { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        @media (min-width: 900px) { .panels, .services, .steps, .prices { grid-template-columns: repeat(3, 1fr); } }
+    .wizard {
+      border: 2px solid var(--line);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .wizard-head { background: #e9f3f6; border-bottom: 2px solid var(--line); padding: 20px 24px; display: flex; justify-content: space-between; gap: 18px; }
+    .wizard-head h2 { margin: 0; font-size: clamp(24px, 3vw, 38px); line-height: 1.15; letter-spacing: -.035em; }
+    .wizard-head p { margin: 6px 0 0; color: var(--sub); }
+    .badge { align-self: start; white-space: nowrap; border: 2px solid var(--line); border-radius: 999px; background: var(--paper2); padding: 9px 12px; font-weight: 900; }
+    .wizard-body { display: grid; grid-template-columns: 1fr .86fr; gap: 0; }
+    .picker { padding: 24px; border-right: 2px solid var(--line); }
+    .result { padding: 24px; background: #fff8e5; }
+    .question { font-weight: 900; margin: 22px 0 10px; }
+    .question:first-child { margin-top: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      border: 2px solid var(--line);
+      background: var(--paper2);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+    .chip.selected { background: var(--ink); color: var(--paper2); }
+    .result-label { font-size: 13px; font-weight: 900; color: var(--red); letter-spacing: .1em; }
+    .result h3 { margin: 6px 0 8px; font-size: 25px; line-height: 1.22; }
+    .price { font-size: 28px; font-weight: 950; margin: 12px 0; }
+    .memo { width: 100%; min-height: 156px; border: 2px solid var(--line); border-radius: 14px; background: #fff; padding: 13px; resize: vertical; }
 
-        .panel { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; }
-        .panel h3 { margin: 0 0 10px; color: #000080; font-size: 16px;}
-        .panel ul { padding-left: 20px; margin: 0; line-height: 1.6;}
-        .panel li { margin-bottom: 8px; }
-        .note { color: var(--muted); font-size: 12px; margin-top: 8px; line-height: 1.5;}
+    .service-row { display: grid; gap: 16px; }
+    .service {
+      display: grid;
+      grid-template-columns: 180px 1fr 180px;
+      gap: 18px;
+      align-items: center;
+      border: 2px solid var(--line);
+      background: var(--paper2);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.10);
+    }
+    .service-mark { font-weight: 950; font-size: 14px; color: var(--red); }
+    .service h3 { margin: 0 0 6px; font-size: 22px; }
+    .service p { margin: 0; color: var(--sub); }
+    .service-price { font-weight: 950; text-align: right; }
 
-        .svc { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fafafa; transition: transform .06s ease; min-height: 120px; }
-        .svc:hover { background: #fff; transform: translateY(-1px); }
-        .svc h3 { margin: 0 0 6px; line-height: 1.6; }
-        .svc .btn { pointer-events: none; }
+    .works { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .work { border: 2px solid var(--line); background: #fff; border-radius: 20px; padding: 22px; }
+    .work small { color: var(--red); font-weight: 900; letter-spacing: .08em; }
+    .work h3 { margin: 6px 0 8px; }
+    .work p { margin: 0; color: var(--sub); }
 
-        .works-list { display: grid; grid-template-columns: 1fr; gap: 10px; border: 1px solid #111; background: #fff; padding: 10px; border-radius: 4px; max-height: 320px; overflow-y: auto; }
-        .works-list::-webkit-scrollbar { width: 12px; }
-        .works-list::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #999; }
-        .works-list::-webkit-scrollbar-thumb { background: silver; border: 1px solid #808080; }
+    .policy { border: 2px solid var(--line); background: var(--ink); color: var(--paper2); border-radius: 24px; padding: 28px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; }
+    .policy p { color: #d7dedb; margin: 0; }
+    .policy strong { color: #fff; }
 
-        @media (min-width: 641px) { .works-list { grid-template-columns: repeat(2, 1fr); } }
-        .work-item { display: flex; flex-direction: column; gap: 6px; padding: 12px; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 4px; }
-        .work-title { font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px;}
-        .work-desc { font-size: 13px; color: var(--muted); line-height: 1.6; padding-left: 26px;}
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .step { border: 2px solid var(--line); background: var(--paper2); padding: 18px; border-radius: 18px; }
+    .step b { color: var(--red); }
+    .step h3 { margin: 8px 0 6px; }
+    .step p { margin: 0; color: var(--sub); font-size: 14px; }
 
-        .voices-wrapper { overflow: hidden; white-space: nowrap; position: relative; background: #fafafa; border: 1px solid #111; border-radius: 8px; padding: 16px 0; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
-        .voices-track { display: inline-flex; gap: 16px; padding-left: 16px; animation: scrollLeft 150s linear infinite; }
-        .voices-track:hover { animation-play-state: paused; }
-        .bubble { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #111; border-radius: 8px; padding: 12px 16px; font-size: 14px; white-space: normal; width: max-content; max-width: 250px; line-height: 1.6; }
-        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .contact { border: 2px solid var(--line); background: var(--paper2); border-radius: 24px; box-shadow: var(--shadow); display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; padding: 28px; }
+    .form { display: grid; gap: 12px; }
+    label { font-weight: 900; font-size: 13px; color: var(--sub); display: block; margin-bottom: 5px; }
+    input, select, textarea { width: 100%; border: 2px solid var(--line); border-radius: 12px; padding: 12px 13px; background: #fff; }
+    textarea { min-height: 130px; resize: vertical; }
 
-        .step { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; position: relative; padding-top: 48px; }
-        .step .num { position: absolute; left: 12px; top: 12px; border: 1px solid #111; border-radius: 4px; padding: 2px 8px; background: #f0f6ff; font-weight: bold; font-size: 12px; }
-        .step h3 { margin: 6px 0 8px; font-size: 15px; }
-        .step p { margin: 0; font-size: 14px; line-height: 1.6; color: #333;}
+    details { border: 2px solid var(--line); background: #fff; border-radius: 16px; padding: 16px 18px; }
+    summary { font-weight: 900; cursor: pointer; }
+    details p { color: var(--sub); }
+    .faq { display: grid; gap: 12px; }
 
-        .price { border: 1px solid #111; border-radius: 8px; padding: 16px; background: #fff; }
-        .price h3 { margin: 0 0 8px; color: #000080; font-size: 15px;}
-        .price strong { font-size: 22px; }
+    footer { padding: 36px 0; border-top: 2px solid var(--line); color: var(--sub); }
+    .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 
-        .panel.center { text-align: center; }
-        .contact-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+    @media (max-width: 930px) {
+      .hero-grid, .wizard-body, .policy, .contact { grid-template-columns: 1fr; }
+      .picker { border-right: 0; border-bottom: 2px solid var(--line); }
+      .pain-grid, .works { grid-template-columns: 1fr; }
+      .service { grid-template-columns: 1fr; }
+      .service-price { text-align: left; }
+      .flow { grid-template-columns: repeat(2, 1fr); }
+      .nav-links a { display: none; }
+    }
+    @media (max-width: 560px) {
+      .section { padding: 56px 0; }
+      .hero { padding-top: 42px; }
+      .avatar-row { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .wizard-head { display: block; }
+      .badge { display: inline-block; margin-top: 12px; }
+    }
+  
 
-        details { border: 1px solid #111; border-radius: 8px; padding: 12px; background: #fff; }
-        details+details { margin-top: 8px; }
-        summary { cursor: pointer; font-weight: bold; font-size: 15px;}
-        details div { margin-top: 12px; font-size: 14px; line-height: 1.6; }
+  /* === Mobile responsive fix patch: preserve existing copy, adjust layout only === */
+  .review-link-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
 
-        .footer { padding: 16px; border-top: 1px solid #e5e7eb; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; background: #fff; }
+  main, section, div, article, aside, header, footer, nav {
+    min-width: 0;
+  }
 
-        .social-links { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
-        @media (min-width: 641px) { .social-links { grid-template-columns: repeat(2, 1fr); } }
-        .social-link { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid #111; border-radius: 8px; padding: 10px 12px; background: #fafafa; transition: transform .06s ease; }
-        .social-link:hover { background: #fff; transform: translateY(-1px); }
-        .social-mark { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #111; border-radius: 4px; background: #eaf2ff; font-size: 11px; font-weight:bold;}
+  @media (max-width: 930px) {
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 12px;
+    }
 
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 8px 12px;
-        }
+    .section-desc {
+      max-width: none;
+      margin-top: 2px;
+    }
+  }
 
-        /* ===== メンテナンスオーバーレイ ===== */
-        .maintenance-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: rgba(128, 128, 128, 0.86);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            font-family: "DotGothic16", system-ui, sans-serif;
-        }
+  @media (max-width: 640px) {
+    .wrap {
+      width: min(var(--max), calc(100% - 28px));
+    }
 
-        .maintenance-panel {
-            width: min(720px, 100%);
-            background: #d3d3d3;
-            border: 2px solid #000;
-            box-shadow: 6px 6px 0 #000;
-            color: #111;
-        }
+    .top-notice {
+      display: none;
+    }
 
-        .maintenance-titlebar {
-            background: #000080;
-            color: #fff;
-            padding: 10px 14px;
-            font-size: 14px;
-            border-bottom: 2px solid #000;
-        }
+    .nav-inner {
+      height: 58px;
+      gap: 10px;
+    }
 
-        .maintenance-body {
-            padding: 24px 20px;
-            text-align: center;
-            line-height: 1.9;
-            font-size: 16px;
-        }
+    .brand {
+      gap: 9px;
+      font-size: 13px;
+      letter-spacing: .05em;
+      min-width: 0;
+    }
 
-        .maintenance-body p {
-            margin: 0 0 14px;
-        }
+    .brand-box {
+      width: 30px;
+      height: 30px;
+      box-shadow: 3px 3px 0 rgba(31,37,43,.16);
+      flex: 0 0 auto;
+    }
 
-        .maintenance-mail {
-            display: inline-block;
-            color: #111;
-            text-decoration: underline;
-            word-break: break-all;
-            margin-top: 4px;
-        }
+    .nav-links {
+      display: none;
+    }
 
-        .maintenance-links {
-            margin-top: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-        }
+    .btn.nav-cta {
+      height: 34px;
+      min-height: 34px;
+      padding: 0 12px;
+      font-size: 12px;
+      box-shadow: 3px 3px 0 rgba(31,37,43,.18);
+      flex: 0 0 auto;
+    }
 
-        .maintenance-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: min(460px, 100%);
-            min-height: 48px;
-            padding: 10px 14px;
-            background: silver;
-            border: 1px solid #000;
-            box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
-            color: #111;
-            text-decoration: none;
-            text-align: center;
-            word-break: break-word;
-            overflow-wrap: anywhere;
-        }
+    .hero {
+      padding: 34px 0 48px;
+    }
 
-        .maintenance-link:active {
-            box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
-        }
+    .hero-grid {
+      gap: 26px;
+    }
 
-        @media (max-width: 640px) {
-            .window { height: 92vh; }
-            .profile { grid-template-columns: 80px 1fr; padding: 12px; gap: 12px; }
-            .avatar { width: 80px; height: 80px; }
-            .username { font-size: 18px; }
-            .bio { grid-column: 1 / -1; font-size: 14px; margin-top: 4px;}
-            .lp-section { padding: 16px 12px; }
+    .stamp {
+      max-width: 100%;
+      white-space: normal;
+      line-height: 1.55;
+      font-size: 12px;
+      padding: 7px 10px;
+    }
 
-            .maintenance-overlay {
-                padding: 12px;
-                align-items: flex-start;
-                overflow-y: auto;
-            }
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(42px, 13vw, 52px);
+      line-height: 1.06;
+      letter-spacing: -.052em;
+    }
 
-            .maintenance-panel {
-                width: 100%;
-                margin: auto 0;
-                box-shadow: 4px 4px 0 #000;
-            }
+    .lead {
+      font-size: 15px;
+      line-height: 1.85;
+    }
 
-            .maintenance-titlebar {
-                font-size: 13px;
-                padding: 9px 12px;
-            }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 22px;
+    }
 
-            .maintenance-body {
-                padding: 18px 14px;
-                font-size: 14px;
-                line-height: 1.8;
-            }
+    .actions .btn,
+    .review-link-row .btn {
+      width: 100%;
+    }
 
-            .maintenance-link {
-                width: 100%;
-                min-height: 44px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    .btn {
+      min-height: 46px;
+      padding: 11px 15px;
+      font-size: 14px;
+      line-height: 1.35;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .face-body {
+      padding: 18px;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 18px;
+      font-size: 32px;
+    }
+
+    .avatar-row {
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+    }
+
+    .profile-copy h2 {
+      font-size: 20px;
+    }
+
+    .profile-copy p,
+    .proof-item span {
+      font-size: 13px;
+    }
+
+    .marquee-track {
+      gap: 18px;
+      font-size: 13px;
+      animation-duration: 34s;
+    }
+
+    .section {
+      padding: 52px 0;
+    }
+
+    .kicker {
+      font-size: 12px;
+      letter-spacing: .1em;
+    }
+
+    h2.section-title {
+      font-size: clamp(28px, 8.4vw, 36px);
+      line-height: 1.16;
+      letter-spacing: -.035em;
+      margin-top: 4px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .pain,
+    .work,
+    .step,
+    details {
+      padding: 18px;
+      border-radius: 18px;
+    }
+
+    .pain h3,
+    .service h3,
+    .work h3,
+    .step h3 {
+      font-size: 19px;
+      line-height: 1.45;
+    }
+
+    .wizard,
+    .contact,
+    .policy,
+    .face-card {
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.12);
+    }
+
+    .wizard-head {
+      padding: 18px;
+    }
+
+    .wizard-head h2 {
+      font-size: 24px;
+      line-height: 1.22;
+    }
+
+    .wizard-head p {
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .picker,
+    .result {
+      padding: 18px;
+    }
+
+    .question {
+      margin: 20px 0 10px;
+      font-size: 14px;
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+    }
+
+    .chip {
+      width: 100%;
+      text-align: left;
+      border-radius: 14px;
+      padding: 10px 12px;
+      line-height: 1.45;
+    }
+
+    .result h3 {
+      font-size: 22px;
+    }
+
+    .price {
+      font-size: 25px;
+      line-height: 1.25;
+    }
+
+    .memo {
+      min-height: 176px;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .service-row {
+      gap: 14px;
+    }
+
+    .service {
+      padding: 18px;
+      border-radius: 18px;
+      gap: 10px;
+    }
+
+    .service-mark {
+      font-size: 12px;
+    }
+
+    .service p,
+    .work p,
+    .step p,
+    details p,
+    .pain ul {
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .service-price {
+      margin-top: 2px;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .works {
+      gap: 14px;
+    }
+
+    .policy {
+      padding: 20px;
+    }
+
+    .flow {
+      gap: 12px;
+    }
+
+    .contact {
+      padding: 20px;
+      gap: 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+      padding: 11px 12px;
+    }
+
+    label {
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 24px 0;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .wrap {
+      width: min(var(--max), calc(100% - 24px));
+    }
+
+    .brand {
+      font-size: 12px;
+    }
+
+    .btn.nav-cta {
+      padding: 0 10px;
+    }
+
+    h1 {
+      font-size: 41px;
+    }
+
+    h2.section-title {
+      font-size: 28px;
+    }
+
+    .avatar-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  /* === v2 mobile balance patch === */
+  .profile-copy h2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .profile-en {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    padding: 2px 8px;
+    background: #fff;
+    font-size: .58em;
+    letter-spacing: .08em;
+    line-height: 1.35;
+  }
+
+  .section-ticker {
+    overflow: hidden;
+    border-top: 2px solid var(--line);
+    border-bottom: 2px solid var(--line);
+    background: #e9f3f6;
+  }
+
+  .section-ticker-soft {
+    background: #fff8e5;
+  }
+
+  .section-ticker-track {
+    display: flex;
+    width: max-content;
+    gap: 10px;
+    padding: 8px 0;
+    white-space: nowrap;
+    animation: sectionTickerMove 32s linear infinite;
+  }
+
+  .section-ticker-track span {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper2);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  @keyframes sectionTickerMove {
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-ticker-track { animation: none; }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 28px 0 34px;
+    }
+
+    .hero-grid {
+      gap: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 11.2vw, 42px);
+      line-height: 1.08;
+      margin: 14px 0 12px;
+    }
+
+    .lead {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .hero .actions {
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .hero .actions .btn:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .hero .actions .btn {
+      min-height: 42px;
+      padding: 9px 11px;
+      font-size: 13px;
+    }
+
+    .face-card {
+      margin-top: 2px;
+    }
+
+    .windowbar {
+      padding: 9px 12px;
+      font-size: 12px;
+    }
+
+    .window-icons span {
+      width: 11px;
+      height: 11px;
+    }
+
+    .face-body {
+      gap: 12px;
+    }
+
+    .avatar-row {
+      grid-template-columns: 76px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      font-size: 30px;
+    }
+
+    .profile-copy h2 {
+      margin-bottom: 5px;
+      font-size: 18px;
+      line-height: 1.2;
+      gap: 6px;
+    }
+
+    .profile-en {
+      font-size: 12px;
+      padding: 1px 7px;
+    }
+
+    .profile-copy p {
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    .proof-list {
+      gap: 8px;
+    }
+
+    .proof-item {
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .proof-item span {
+      font-size: 11.5px;
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    .section-ticker-track {
+      animation-duration: 38s;
+    }
+
+    .wizard-head {
+      padding: 18px 18px 16px;
+    }
+
+    .wizard-body {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .picker,
+    .result {
+      padding: 16px;
+    }
+
+    .chips {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .chip[data-value="smallfix"],
+    .chip[data-value="partner"],
+    .chip[data-value="monthly"] {
+      grid-column: 1 / -1;
+    }
+
+    .result .actions {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .avatar-row {
+      grid-template-columns: 72px 1fr;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+    }
+
+    .profile-copy h2 {
+      font-size: 17px;
+    }
+
+    .profile-en {
+      font-size: 11px;
+    }
+  }
+
+
+  /* === v3 balance patch: mobile hero, work desk, quick check, ticker === */
+  .hero .btn-flat {
+    background: var(--paper2);
+    box-shadow: 4px 4px 0 rgba(31,37,43,.18);
+  }
+
+  .hero .btn-flat:hover {
+    box-shadow: 2px 2px 0 rgba(31,37,43,.18);
+  }
+
+  .hero-title {
+    max-width: 720px;
+    letter-spacing: -.048em;
+  }
+
+  .profile-copy h2 {
+    display: block;
+    font-weight: 950;
+  }
+
+  .section-ticker {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .section-ticker {
+      display: block;
+    }
+
+    .hero {
+      padding: 24px 0 30px;
+    }
+
+    .hero-title {
+      font-size: clamp(35px, 10.2vw, 40px);
+      line-height: 1.12;
+      letter-spacing: -.042em;
+      margin: 14px 0 12px;
+    }
+
+    .hero .actions .btn {
+      box-shadow: 4px 4px 0 rgba(31,37,43,.18);
+    }
+
+    .hero .actions .btn:hover {
+      box-shadow: 2px 2px 0 rgba(31,37,43,.18);
+    }
+
+    .avatar-row,
+    .avatar-row:where(*) {
+      grid-template-columns: 74px minmax(0, 1fr) !important;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 16px;
+      font-size: 30px;
+    }
+
+    .profile-copy h2 {
+      font-size: 18px;
+      line-height: 1.25;
+      margin: 0 0 5px;
+      white-space: normal;
+    }
+
+    .profile-copy p {
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    .wizard-head {
+      position: relative;
+      display: block !important;
+      padding: 18px 18px 16px;
+    }
+
+    .wizard-head .badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      margin: 0;
+      padding: 7px 10px;
+      font-size: 12px;
+      line-height: 1.1;
+      background: var(--paper2);
+    }
+
+    .wizard-head .kicker {
+      padding-right: 112px;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+    }
+
+    .wizard-head h2 {
+      font-size: 24px;
+      line-height: 1.22;
+      margin-top: 4px;
+    }
+
+    .chips {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .chip {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 13px;
+      line-height: 1.32;
+      padding: 9px 10px;
+    }
+
+    .chip[data-value="smallfix"],
+    .chip[data-value="ai"],
+    .chip[data-value="partner"],
+    .chip[data-value="monthly"] {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title {
+      font-size: 34px;
+    }
+
+    .avatar-row,
+    .avatar-row:where(*) {
+      grid-template-columns: 70px minmax(0, 1fr) !important;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+    }
+
+    .profile-copy h2 {
+      font-size: 17px;
+    }
+
+    .wizard-head .badge {
+      right: 14px;
+      top: 16px;
+      font-size: 11px;
+      padding: 7px 9px;
+    }
+
+    .wizard-head .kicker {
+      padding-right: 100px;
+    }
+  }
+
+
+  /* === v4 patch: keep hero copy, rebalance by styling only === */
+  .hero-title-retain {
+    display: grid;
+    justify-items: start;
+    gap: 2px;
+    max-width: 700px;
+    line-height: .96;
+    letter-spacing: -.06em;
+    text-wrap: balance;
+  }
+
+  .hero-title-retain span {
+    display: block;
+  }
+
+  .hero-title-web {
+    display: inline-block !important;
+    width: fit-content;
+    font-size: .70em;
+    line-height: 1;
+    letter-spacing: -.035em;
+    padding: .08em .22em .12em;
+    margin-bottom: .03em;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    background: var(--yellow);
+    box-shadow: 4px 4px 0 rgba(31,37,43,.16);
+    transform: rotate(-1deg);
+  }
+
+  .hero-title-quote {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title-quote::after {
+    content: "";
+    position: absolute;
+    left: .04em;
+    right: .02em;
+    bottom: .05em;
+    height: .18em;
+    background: rgba(240,196,92,.72);
+    z-index: -1;
+    border-radius: 999px;
+  }
+
+  .hero-title-bottom {
+    transform: translateX(.02em);
+  }
+
+  @media (max-width: 640px) {
+    .hero-title-retain {
+      font-size: clamp(36px, 10.8vw, 42px);
+      line-height: .98;
+      gap: 4px;
+      margin: 15px 0 14px;
+      letter-spacing: -.055em;
+    }
+
+    .hero-title-web {
+      font-size: .66em;
+      border-radius: 11px;
+      box-shadow: 3px 3px 0 rgba(31,37,43,.16);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title-retain {
+      font-size: 35px;
+      letter-spacing: -.06em;
+    }
+  }
+
+
+  /* === v7 visual adjustment patch: hero label overlap + mobile heading inset === */
+  .hero-title-quote::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .hero-title-quote {
+    background: none !important;
+    background-image: none !important;
+    transform: none !important;
+  }
+
+  .hero-title-web {
+    position: relative;
+    z-index: 3;
+    transform: rotate(-3.2deg) !important;
+    transform-origin: center center;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .hero-title-web::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title-retain {
+      justify-items: center;
+      align-items: center;
+      text-align: center;
+      gap: 0;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .hero-title-web {
+      transform: translate(-44px, 10px) rotate(-3.2deg) !important;
+      margin-bottom: -8px;
+    }
+
+    .hero-title-quote,
+    .hero-title-bottom {
+      text-align: center;
+    }
+
+    .section-head {
+      padding-left: 18px;
+      padding-right: 4px;
+    }
+
+    .section-head .kicker,
+    .section-head .section-title,
+    .section-head .section-desc {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title-web {
+      transform: translate(-38px, 10px) rotate(-3.2deg) !important;
+      margin-bottom: -8px;
+    }
+
+    .section-head {
+      padding-left: 16px;
+      padding-right: 2px;
+    }
+  }
+
+  
+
+  /* === v8 quick fix: move hero label upward to avoid covering the headline === */
+  @media (max-width: 640px) {
+    .hero-title-retain {
+      gap: 2px !important;
+    }
+
+    .hero-title-web {
+      transform: translate(-42px, -3px) rotate(-3.2deg) !important;
+      margin-bottom: -1px !important;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title-web {
+      transform: translate(-36px, -3px) rotate(-3.2deg) !important;
+      margin-bottom: -1px !important;
+    }
+  }
+
+
+
+  /* === v9 patch: label further left + balanced mobile section headings === */
+  @media (max-width: 640px) {
+    .hero-title-web {
+      transform: translate(-56px, -3px) rotate(-3.2deg) !important;
+      margin-bottom: -1px !important;
+    }
+
+    /* セクション見出しは、左だけ詰めず左右同じ余白にする */
+    .section-head {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+
+    /* CONTACTはsection-headではないため、スマホ時だけ同じ見出し余白に寄せる */
+    .contact > div:first-child {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    /* PC用に入れた強制改行はスマホでは解除して自然に折り返す */
+    .section-title br {
+      display: none;
+    }
+
+    h2.section-title {
+      font-size: clamp(25px, 7.4vw, 32px) !important;
+      line-height: 1.18 !important;
+      letter-spacing: -.035em;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      line-height: 1.85;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title-web {
+      transform: translate(-50px, -3px) rotate(-3.2deg) !important;
+      margin-bottom: -1px !important;
+    }
+
+    .section-head {
+      padding-left: 9px !important;
+      padding-right: 9px !important;
+    }
+
+    h2.section-title {
+      font-size: 25px !important;
+    }
+  }
+
+  
+
+  /* === v10 uniform section spacing patch ===
+     目的：MENU / WORKS / WHY / CONTACT / FAQ などのセクション間を、
+     流れるバー→PROBLEM の間隔に近い見え方へ揃える。
+     フォーム・GAS送信処理には影響なし。
+  */
+  .section {
+    padding-top: 46px !important;
+    padding-bottom: 46px !important;
+  }
+
+  .section-head {
+    margin-bottom: 22px !important;
+  }
+
+  .marquee + .section,
+  .section-ticker + .section {
+    padding-top: 38px !important;
+  }
+
+  .section + .section {
+    margin-top: 0 !important;
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding-top: 28px !important;
+      padding-bottom: 28px !important;
+    }
+
+    .section-head {
+      margin-bottom: 16px !important;
+    }
+
+    .marquee + .section,
+    .section-ticker + .section {
+      padding-top: 30px !important;
+    }
+  }
+
+  </style>
 </head>
-
 <body>
-    <div class="maintenance-overlay" aria-label="サイト改修中のお知らせ">
-        <div class="maintenance-panel" role="dialog" aria-modal="true" aria-labelledby="maintenance-title">
-            <div class="maintenance-titlebar" id="maintenance-title">KICHOHIN.COM</div>
-            <div class="maintenance-body">
-                <p>現在サイト改修中でございます。</p>
-                <p>
-                    大変恐れ入りますが、ご相談ごとは<br>
-                    <a class="maintenance-mail" href="mailto:kichohinkichohin@gmail.com">kichohinkichohin@gmail.com</a>
-                </p>
-                <div class="maintenance-links">
-                    <a class="maintenance-link" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">
-                        チャットワーク
-                    </a>
-                    <a class="maintenance-link" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">
-                        ココナラ 貴重品ページ
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="top-notice">
+<div class="wrap">
+<span>現在稼働中：Web修理 / 業務自動化 / 計測確認 / 既存環境を壊さない最小改修</span>
 
-    <main class="window" id="app" aria-label="Portfolio">
-        <header class="title-bar">
-            <div>KICHOHIN.COM</div>
-            <div class="ctrls" aria-hidden="true">
-                <div class="btn-ctrl">_</div>
-                <div class="btn-ctrl">□</div>
-                <div class="btn-ctrl">×</div>
-            </div>
-        </header>
+<span>info@kichohin.com</span>
+</div>
+</div>
+<nav class="nav">
+<div class="wrap nav-inner">
+<a class="brand" href="#top"><span class="brand-box">K</span><span>KICHOHIN.COM</span></a>
+<div class="nav-links">
+<a href="#check">30秒相談</a>
+<a href="#services">対応内容</a>
+<a href="#works">実績</a>
+<a href="#contact">相談する</a>
 
-        <nav class="menu" role="navigation" id="menu">
-            <a href="#top" aria-current="page">Top</a>
-            <a href="#problems">課題と解決</a>
-            <a href="#services">サービス</a>
-            <a href="#works">実績</a>
-            <a href="#voices">評価</a>
-            <a href="#flow">流れ</a>
-            <a href="#pricing">料金/見積</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">相談する</a>
-        </nav>
+</div>
+<a class="btn btn-main nav-cta" href="#contact">相談する</a>
+</div>
+</nav>
+<main id="top">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<span class="stamp">相談無料 / まずはお気軽にご相談ください</span>
+<h1 class="hero-title hero-title-retain"><span class="hero-title-web">WEBまわり</span><span class="hero-title-quote">「諦める」を</span><span class="hero-title-bottom">諦めませんか？</span></h1>
+<p class="lead"><strong>既存の環境を大きく壊さない最小改修</strong>と、<strong>日々の面倒な作業を減らす自動化</strong>を、必要な内容を整理しながら進めます。</p>
+<div class="actions">
+<a class="btn btn-main" href="#check">30秒で悩みを整理する</a>
+<a class="btn btn-blue" href="#contact">対応可否を相談する</a>
+<a class="btn btn-flat" href="#works">実績を見る</a>
+</div>
+</div>
+<div class="face-card">
+<div class="windowbar"><span>KICHOHIN WORK DESK</span><div class="window-icons"><span></span><span></span><span></span></div></div>
+<div class="face-body">
+<div class="avatar-row">
+<div class="avatar">貴</div>
+<div class="profile-copy"><h2>貴重品 ／ KICHOHIN</h2><p>Web修理・EC運用・計測確認・GAS自動化。相談内容を整理し、作業・確認・報告まで進めます。</p></div>
+</div>
+<div class="proof-list">
+<div class="proof-item">他社制作サイトの復旧・修正 <span>既存テーマや運用をなるべく壊さない方針</span></div>
+<div class="proof-item">GAS・通知・予約・決済まわり <span>今あるツールを活かして小さく自動化</span></div>
+<div class="proof-item">GA4/GTM/Search Console確認 <span>広告・SEO・CV判断に必要な計測を整理</span></div>
+</div>
+</div>
+</div>
+</div>
 
-        <div class="content" id="content">
-            <section class="profile lp-section" id="top" aria-label="Profile">
-                <div class="avatar">
-                    <img src="assets/avatar.png" srcset="assets/avatar.png 1x, assets/avatar@2x.png 2x" alt="貴重品のプロフィール画像" width="96" height="96" decoding="async">
-                </div>
-                <div class="profile-content">
-                    <div class="profile-header">
-                        <div class="profile-title-area">
-                            <div class="status-badge">相談無料 / スポット即日対応可</div>
-                            <h1 class="username">貴重品 ／ KICHOHIN</h1>
-                        </div>
-                    </div>
-                    <p class="bio">
-                        <strong>「他社が作ったサイトの保守」や「日々の面倒な手作業」でお困りではありませんか？</strong><br>
-                        既存の環境を極力壊さない『最小改修』による不具合修正から、GASを用いた『バックオフィス業務の自動化』まで、ビジネスの利益を最大化するご支援を行っています。スポット依頼から月額伴走まで柔軟に対応します。
-                    </p>
-                </div>
-            </section>
+</section>
+<div class="marquee"><div class="marquee-track">
+<span><b>相談あるある</b><i>フォームが届かない</i> / <i>GA4が0件のまま</i> / <i>WordPressが白い</i> / <i>Shopifyの商品IDが合わない</i> / <i>毎日コピペしている</i> / <i>保守先がいない</i> / <i>Chatworkに飛ばしたい</i> / <i>GASが急に止まった</i> / <i>どこに頼むか分からない</i> / </span>
+<span><b>相談あるある</b><i>フォームが届かない</i> / <i>GA4が0件のまま</i> / <i>WordPressが白い</i> / <i>Shopifyの商品IDが合わない</i> / <i>毎日コピペしている</i> / <i>保守先がいない</i> / <i>Chatworkに飛ばしたい</i> / <i>GASが急に止まった</i> / <i>どこに頼むか分からない</i> / </span>
 
-            <section class="lp-section" id="problems" aria-label="Problems">
-                <h2 class="lp-title">こんな「運用・保守」の課題を解決します</h2>
-                <div class="panels">
-                    <div class="panel">
-                        <h3>🩹 サイト保守・バグ修正</h3>
-                        <ul>
-                            <li>制作会社に保守を断られてしまった</li>
-                            <li>画面が真っ白に！大至急復旧したい</li>
-                            <li>既存テーマを変えずに機能追加したい</li>
-                        </ul>
-                        <p class="note">→ 影響範囲を絞った「最小改修」で、他社コードでも安全に即日復旧・拡張します。</p>
-                    </div>
-                    <div class="panel">
-                        <h3>🤖 事務作業の自動化</h3>
-                        <ul>
-                            <li>毎日のメール集計・転記が手作業で辛い</li>
-                            <li>顧客への予約通知や請求書発行を自動化したい</li>
-                            <li>専用システムを入れる予算はない</li>
-                        </ul>
-                        <p class="note">→ 今あるツール（GAS等）を繋ぎ、低コストで月数十時間の作業をゼロにします。</p>
-                    </div>
-                    <div class="panel">
-                        <h3>📈 EC構築・運用伴走</h3>
-                        <ul>
-                            <li>WooCommerceで多言語対応したい</li>
-                            <li>決済と連動して社内通知を飛ばしたい</li>
-                            <li>保守運用も丸投げしたい</li>
-                        </ul>
-                        <p class="note">→ 売上に直結する設計と、四半期ごとのメンテなど伴走型の支援を行います。</p>
-                    </div>
-                </div>
-            </section>
+</div></div>
+<section class="section">
+<div class="wrap">
+<div class="section-head"><div><p class="kicker">PROBLEM</p><h2 class="section-title">いま止まっている実務<br/>前に進めます。</h2></div><p class="section-desc">「どこに、どう頼めばいいか分からない」「制作会社には小さすぎる」「でも放置をして機会損失を生みたくない」ご相談ください。</p></div>
+<div class="pain-grid">
+<div class="pain"><h3>サイト保守・バグ修正</h3><ul><li>他社制作で保守先がない</li><li>白画面・表示崩れ・フォーム不具合</li><li>既存テーマを変えずに直したい</li></ul><div class="answer">→ 影響範囲を絞って最小改修</div></div>
+<div class="pain"><h3>事務作業の自動化</h3><ul><li>転記・通知・集計が手作業</li><li>予約・決済・顧客管理が散らばる</li><li>専用システムは重すぎる</li></ul><div class="answer">→ GAS等で小さく自動化</div></div>
+<div class="pain"><h3>広告・SEOの計測確認</h3><ul><li>CVが取れているか不安</li><li>GA4/GTM/Search Consoleが曖昧</li><li>報告文に落とせない</li></ul><div class="answer">→ 設定・発火・報告を整理</div></div>
+</div>
+</div>
 
-            <section class="lp-section" id="services" aria-label="Services">
-                <h2 class="lp-title">提供サービス（パッケージ）</h2>
-                <div class="services" id="svcList"></div>
-            </section>
+</section>
+<div class="section-ticker" aria-hidden="true"><div class="section-ticker-track"><span>小規模修正 15,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span><span>小規模修正 15,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span></div></div>
+<section class="section" id="check">
+<div class="wrap">
+<div class="wizard">
+<div class="wizard-head"><div><p class="kicker">QUICK CHECK</p><h2>まずはお困りごとを整理しましょう</h2><p>名前やメールアドレスを入れる前に、まず相談内容だけ整理できます。<br>金額は概算となります。ご予算に合わせてご案内いたします。</p></div><span class="badge">30秒でわかる</span></div>
+<div class="wizard-body">
+<div class="picker">
+<div class="question">1. 一番近い困りごとは？</div>
+<div class="chips" data-group="problem"><button class="chip" data-value="smallfix">小規模修正・確認</button><button class="chip" data-value="web">サイトを直したい</button><button class="chip" data-value="auto">手作業を減らしたい</button><button class="chip" data-value="track">計測を確認したい</button><button class="chip" data-value="ec">EC運用を整えたい</button><button class="chip" data-value="ai">AI活用を業務に入れたい</button><button class="chip" data-value="partner">外部パートナーを探している</button></div>
+<div class="question">2. 急ぎ度は？</div>
+<div class="chips" data-group="urgency"><button class="chip" data-value="now">早めに確認したい</button><button class="chip" data-value="month">今月中に進めたい</button><button class="chip" data-value="plan">まず整理したい</button></div>
+<div class="question">3. 予算感は？</div>
+<div class="chips" data-group="budget"><button class="chip" data-value="mini">1.5〜5万円</button><button class="chip" data-value="small">5万円前後</button><button class="chip" data-value="mid">10〜30万円</button><button class="chip" data-value="large">30万円以上</button><button class="chip" data-value="monthly">月額で相談</button></div>
+</div>
+<div class="result">
+<div class="result-label">相談メモ</div>
+<h3 id="resultTitle">初回スコープ整理</h3>
+<div class="price" id="resultPrice">50,000円 ~ </div>
+<p id="resultSummary">選択内容に応じて、相談内容の下書きを作成します。</p>
+<textarea class="memo" id="memo" readonly="">【相談内容】
+現状の困りごとについて、対応可否・概算・必要な確認事項を整理したいです。</textarea>
+<div class="actions"><button class="btn btn-main" id="copyBtn" type="button">コピー</button><a class="btn btn-blue" href="#contact">この内容で相談する</a></div>
+</div>
+</div>
+</div>
 
-            <section class="lp-section" id="works" aria-label="Works">
-                <h2 class="lp-title">制作実績 (Works) - Before/After</h2>
-                <div class="works-list">
-                    <div class="work-item">
-                        <div class="work-title"><span>🩹</span>WordPressの表示崩れ・白画面復旧</div>
-                        <div class="work-desc">原因不明のエラーを特定し、ご依頼から<strong>24時間以内</strong>にスピード復旧。機会損失を最小限に。</div>
-                    </div>
-                    <div class="work-item">
-                        <div class="work-title"><span>⚙️</span>GAS連動 予約・通知システム</div>
-                        <div class="work-desc">手作業の転記・連絡業務を自動化し、担当者の事務作業を<strong>月間約30時間削減</strong>。</div>
-                    </div>
-                    <div class="work-item">
-                        <div class="work-title"><span>📈</span>GTM計測環境の不具合修正</div>
-                        <div class="work-desc">GA4/広告タグの発火エラーを修正し、正確なCV計測を実現。ROAS改善に貢献。</div>
-                    </div>
-                    <div class="work-item">
-                        <div class="work-title"><span>🛒</span>WooCommerce / Shopify EC構築</div>
-                        <div class="work-desc">多言語対応とStripe決済を連携。運用手順書も納品し、<strong>社内での自走運用</strong>を実現。</div>
-                    </div>
-                    <div class="work-item">
-                        <div class="work-title"><span>👥</span>会員サイト・アンケート型LPの実装</div>
-                        <div class="work-desc">既存テーマに影響を与えず、後方互換を維持したまま独自の会員機能をアドオン開発。</div>
-                    </div>
-                    <div class="work-item">
-                        <div class="work-title"><span>🔍</span>Core Web Vitals・SEO改善</div>
-                        <div class="work-desc">画像最適化と構造化データの整備により、サイト表示速度を劇的に改善。</div>
-                    </div>
-                </div>
-            </section>
+</div>
+</section>
+<section class="section" id="services">
+<div class="wrap">
+<div class="section-head"><div><p class="kicker">MENU</p><h2 class="section-title">「損失の大きさ」<br/>本当に適切ですか？</h2></div><p class="section-desc">小さな修正も可能です。現在のご状況に合わせて、事業改善・計測・自動化・継続運用に繋がるサービスをご案内いたします。</p></div>
+<div class="service-row">
+<div class="service"><div class="service-mark">00 / SMALL</div><div><h3>小規模修正・確認窓口</h3><p>テキスト・画像差し替え、軽微な表示崩れ、フォーム確認など、短時間で完了できる範囲を確認します。</p></div><div class="service-price">15,000円 ~ 50,000円</div></div>
+<div class="service"><div class="service-mark">01 / SCOPE</div><div><h3>初回スコープ整理</h3><p>URL、画面、現状を確認し、対応可否・必要情報・見積り範囲を整理します。</p></div><div class="service-price">50,000円 ~ </div></div>
+<div class="service"><div class="service-mark">02 / FIX</div><div><h3>Web・EC改善</h3><p>WordPress/Wix/Shopify/WooCommerceの修正、フォーム、導線、SEO/OGPを整えます。</p></div><div class="service-price"> ~ 500,000円</div></div>
+<div class="service"><div class="service-mark">03 / AUTO</div><div><h3>GAS・通知・管理自動化</h3><p>スプレッドシート、Chatwork、LINE、メール、PDF生成などを組み合わせます。</p></div><div class="service-price"> ~ 600,000円</div></div>
+<div class="service"><div class="service-mark">04 / TRACK</div><div><h3>GA4/GTM・広告計測確認</h3><p>CV・イベント・タグ・Search Consoleなど、判断に必要な計測環境を整理します。</p></div><div class="service-price"> ~ 300,000円</div></div>
+<div class="service"><div class="service-mark">05 / PARTNER</div><div><h3>外部パートナー対応</h3><p>制作会社・広告代理店・EC支援会社様の細かな実装・確認・資料化を巻き取ります。</p></div><div class="service-price">月額150,000円 ~ </div></div>
+</div>
+</div>
 
-            <section class="lp-section" id="voices" aria-label="Voices">
-                <h2 class="lp-title">お客さま・ディレクター様の声</h2>
-                <div class="voices-wrapper">
-                    <div class="voices-track" id="voicesTrack" aria-live="polite"></div>
-                </div>
-                <div style="text-align:right; margin-top:10px;">
-                    <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener" style="font-size:12px;">実績とお客様の声</a>
-                </div>
-            </section>
+</section>
+<section class="section" id="works">
+<div class="wrap">
+<div class="section-head"><div><p class="kicker">WORKS</p><h2 class="section-title">AIが主流な時代だからこそ、<br/>実際の経験とお客様の声からお選びください。</h2></div></div>
+<div class="works">
+<div class="work"><small>RECOVERY</small><h3>WordPressの表示崩れ・白画面復旧</h3><p>原因不明のエラーを特定し、既存テーマへの影響を抑えて復旧。機会損失を最小限に。</p></div>
+<div class="work"><small>AUTOMATION</small><h3>GAS連動 予約・通知システム</h3><p>手作業の転記・連絡業務を自動化し、事務作業の負担を削減。</p></div>
+<div class="work"><small>TRACKING</small><h3>GTM計測環境の不具合修正</h3><p>GA4/広告タグの発火条件を確認し、正確なCV計測に必要な状態へ整理。</p></div>
+<div class="work"><small>EC</small><h3>WooCommerce / Shopify EC構築・運用</h3><p>多言語対応、Stripe決済、運用手順書作成など、運用しやすい形で整備。</p></div>
+<div class="review-link-row"><a class="btn btn-flat" href="https://coconala.com/users/5218668" rel="noopener" target="_blank">評価・実績を見る</a></div>
+</div>
+</div>
 
-            <section class="lp-section" id="flow" aria-label="Flow">
-                <h2 class="lp-title">ご依頼の流れ</h2>
-                <div class="steps">
-                    <div class="step">
-                        <div class="num">1. 無料相談</div>
-                        <h3>現状のヒアリング</h3>
-                        <p>現状のURLや「こんなことで困っている」という内容をフォームやチャットでお送りください。</p>
-                    </div>
-                    <div class="step">
-                        <div class="num">2. 設計・お見積り</div>
-                        <h3>最小改修案のご提案</h3>
-                        <p>影響範囲を調査し、最短・最安で解決できるプランとお見積りをご提示します。</p>
-                    </div>
-                    <div class="step">
-                        <div class="num">3. 実装・保守</div>
-                        <h3>テストと納品・伴走</h3>
-                        <p>検証環境でのテスト後、本番反映。必要に応じて運用マニュアルの作成や月額保守へ移行します。</p>
-                    </div>
-                </div>
-            </section>
+</section>
+<section class="section">
+<div class="wrap">
+<div class="section-head"><div><p class="kicker">WHY KICHOHIN</p><h2 class="section-title">無駄な修正・ご案内は一切いたしません。</h2></div><p class="section-desc">新規開発や大規模リニューアルだけが正解ではありません。今ある環境を活かしながら、機会損失・手作業・計測の不安を減らします。</p></div>
+<div class="pain-grid">
+<div class="pain"><h3>既存環境を尊重</h3><ul><li>テーマや運用を急に変えない</li><li>影響範囲を確認して進める</li><li>必要な部分から小さく直す</li></ul><div class="answer">→ 壊さず、整える</div></div>
+<div class="pain"><h3>実務に近い改善</h3><ul><li>報告だけで終わらせない</li><li>作業・確認・文章化まで対応</li><li>運用しやすさを重視</li></ul><div class="answer">→ 使える形で納品</div></div>
+<div class="pain"><h3>相談前の整理</h3><ul><li>要件が曖昧でも相談可能</li><li>30秒相談で内容整理</li><li>対応可否と概算を確認</li></ul><div class="answer">→ 相談の入口を軽くする</div></div>
+</div>
+</div>
 
-            <section class="lp-section" id="pricing" aria-label="Pricing">
-                <h2 class="lp-title">料金の目安（フロント〜バックエンド）</h2>
-                <div class="prices">
-                    <div class="price">
-                        <h3>[単発] スポット改修</h3>
-                        <p><strong>¥5,000 〜</strong></p>
-                        <p class="note">お試しとして最適。他社サイトのバグ修正・小規模JS修正などを即座に解決します。</p>
-                    </div>
-                    <div class="price">
-                        <h3>[構築] 自動化システム</h3>
-                        <p><strong>¥30,000 〜 ¥150,000</strong></p>
-                        <p class="note">GASを用いた業務効率化。人件費を大幅に削減できる投資対効果の高いプランです。</p>
-                    </div>
-                    <div class="price">
-                        <h3>[継続] 月額伴走・保守</h3>
-                        <p><strong>¥10,000 〜 / 月</strong></p>
-                        <p class="note">改修完了後、丸ごとお任せいただくプラン。死活監視、小修正を含みます。</p>
-                    </div>
-                </div>
+</section>
+<div class="section-ticker section-ticker-soft" aria-hidden="true"><div class="section-ticker-track"><span>相談前の整理</span><span>対応可否</span><span>概算確認</span><span>必要情報の整理</span><span>メールで相談</span><span>相談前の整理</span><span>対応可否</span><span>概算確認</span><span>必要情報の整理</span><span>メールで相談</span></div></div>
+<section class="section" id="contact">
+<div class="wrap contact">
+<div><p class="kicker">CONTACT</p><h2 class="section-title">お困りごとを<br/>教えてください。<br/>一緒に進めます。</h2><p class="section-desc">30秒相談のご内容をペーストして貼るだけでも構いません。<br/>
+          対応可否・概算・必要な確認事項を整理します。</p><div class="actions"><a class="btn btn-main" href="mailto:info@kichohin.com?subject=KICHOHIN%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87">メールで相談する</a><a class="btn btn-blue" href="#check">相談メモを作る</a></div></div>
+<form class="form" id="contactForm">
+<div><label>相談種別</label><select name="category" required><option value="小規模修正・確認">小規模修正・確認</option><option value="Web / EC修正">Web / EC修正</option><option value="GA4 / GTM / 広告計測">GA4 / GTM / 広告計測</option><option value="GAS / 自動化">GAS / 自動化</option><option value="AI活用">AI活用</option><option value="外部パートナー相談">外部パートナー相談</option></select></div>
+<div><label>お名前 / 会社名</label><input name="name" placeholder="例：株式会社〇〇 / ご担当者名" required/></div>
+<div><label>メールアドレス</label><input name="email" placeholder="example@example.com" type="email" required/></div>
+<div><label>相談内容</label><textarea name="message" placeholder="相談メモ、URL、スクショの内容、希望納期などをご記入ください。" required></textarea></div>
+<input autocomplete="off" id="website" name="website" style="display:none;" tabindex="-1" type="text"/>
+<button class="btn btn-main" id="submitBtn" type="submit">相談内容を送信する</button>
+<p id="formStatus" style="margin: 6px 0 0; font-weight: 900;"></p>
+</form>
+</div>
 
-                <div class="panel center" style="margin-top: 20px; background: #eaf2ff; border-color: #000080; border-width: 2px;">
-                    <h3 style="margin-top: 0; color: #000080; font-size: 16px;">自社の場合はいくらになる？</h3>
-                    <p style="font-size: 14px; margin-bottom: 8px;"><strong>※お名前やメールアドレスの入力不要！</strong></p>
-                    <p style="font-size: 13px; margin-bottom: 16px;">簡単な質問にポチポチ答えるだけで、10秒で目安のお見積りが出せます。</p>
-                    <a href="/wizard/" class="btn primary" style="font-size: 15px; padding: 10px 24px;">
-                        📊 匿名で簡単お見積り (無料)
-                    </a>
-                    <div style="margin-top: 16px;">
-                        <a href="/estimate/" style="font-size: 13px; color: #000080; text-decoration: underline;">細かい料金表を見たい方はこちら</a>
-                    </div>
-                </div>
-            </section>
+</section>
+<section class="section">
+<div class="wrap"><div class="section-head"><div><p class="kicker">FAQ</p><h2 class="section-title">よくある質問</h2></div></div><div class="faq"><details open=""><summary>他社が制作したサイトでも依頼できますか？</summary><p>可能です。既存構造やテーマ更新に配慮し、影響範囲を絞った最小改修を優先します。</p></details><details><summary>GA4やGTMの計測確認だけでも相談できますか？</summary><p>可能です。GA4、GTM、Search Console、広告コンバージョン計測の状態確認と改善方針の整理に対応します。</p></details><details><summary>要件が固まっていなくても相談できますか？</summary><p>可能です。まずは現状整理から入り、対応可否・必要情報・概算を整理します。</p></details></div></div>
 
-            <section class="lp-section" id="faq" aria-label="FAQ">
-                <h2 class="lp-title">よくある質問</h2>
-                <details>
-                    <summary>他社が制作したサイト（既存テーマ等）の修正でも依頼できますか？</summary>
-                    <div>はい、大歓迎です。既存の構造やテーマのアップデートを邪魔しない「後方互換」を優先した改修を行います。</div>
-                </details>
-                <details>
-                    <summary>どんな業務が自動化できるのか、アイデアから相談できますか？</summary>
-                    <div>可能です。現在「コピペで転記している」「手動でメールを送っている」業務を教えていただければ、最適なツール連携をご提案します。</div>
-                </details>
-                <details>
-                    <summary>スポット依頼の後、毎月の保守を任せることは可能ですか？</summary>
-                    <div>はい、多くのお客様が単発の不具合修正で実力をご確認いただいた後、月額の保守・伴走プランへ移行されています。</div>
-                </details>
-            </section>
+</section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 KICHOHIN.COM</span></div></footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const state = { problem: '', urgency: '', budget: '' };
 
-            <section class="lp-section" id="contact" aria-label="Contact">
-                <h2 class="lp-title">お問い合わせ・無料相談</h2>
-                <div class="panel center">
-                    <p style="font-size: 15px; margin-bottom: 16px;">「とりあえず話を聞いてみたい」「今すぐ直してほしい」どちらも歓迎です。</p>
+      const jpMap = {
+        smallfix: ['小規模修正・確認', '15,000円 ~ 50,000円', 'テキスト・画像差し替え、軽微な表示崩れ、フォーム確認など、短時間で完了できる範囲を確認します。'],
+        web: ['Web・EC改善', '100,000円 ~ 500,000円', '既存サイト・ECの修正、導線、フォーム、SEO/OGPなどを、影響範囲を絞って整えます。'],
+        auto: ['GAS・通知・管理自動化', '100,000円 ~ 600,000円', 'スプレッドシート、通知、メール、PDF、LINE/Chatworkなどを組み合わせて手作業を減らします。'],
+        track: ['GA4/GTM・広告計測確認', '80,000円 ~ 300,000円', 'CV、イベント、タグ、Search Consoleなど、判断に必要な計測状態を整理します。'],
+        ec: ['EC運用整理・改善', '100,000円 ~ 500,000円', 'Shopify/WooCommerce/決済/通知/商品管理/多言語周辺を運用しやすい形に整えます。'],
+        ai: ['AI活用・業務テンプレート整備', '50,000円 ~ 200,000円', '返信文、営業文、報告書、業務プロンプト、手順書などを実務で使える形にします。'],
+        partner: ['外部パートナー対応', '月額150,000円 ~ ', '制作会社・広告代理店・EC支援会社様の細かな実装・確認・資料化を巻き取ります。']
+      };
 
-                    <div>
-                        <a class="btn primary" href="/wizard/" target="_self">📊 お見積りウィザードから相談する</a>
-                    </div>
+      const labelsJa = {
+        problem: { smallfix: '小規模修正・確認', web: 'サイト修正', auto: '自動化', track: '計測確認', ec: 'EC運用', ai: 'AI活用', partner: '外部パートナー' },
+        urgency: { now: '早めに確認', month: '今月中', plan: 'まず整理' },
+        budget: { mini: '1.5〜5万円', small: '5万円前後', mid: '10〜30万円', large: '30万円以上', monthly: '月額相談' }
+      };
 
-                    <div class="contact-actions">
-                        <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談</a>
-                        <a class="btn" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">Chatworkで相談</a>
-                        <a class="btn" href="mailto:kichohinkichohin@gmail.com?subject=【無料相談】">メールで相談</a>
-                    </div>
-                    <p class="note" style="margin-top: 16px;">※現在のURLやエラー画面のスクショを添えていただくと、より早いご提案が可能です。</p>
-                </div>
-            </section>
+      function getLabel(dict, key, val, fallback) {
+        return (dict[key] && dict[key][val]) || fallback;
+      }
 
-            <footer class="footer">
-                <span>© 2026 KICHOHIN Web Service.</span>
-            </footer>
-        </div>
-    </main>
+      function setText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
 
-    <script>
-        const products = [
-            { title: "広告タグ・GA4計測エラーを即修正", url: "https://coconala.com/services/3673839" },
-            { title: "電子帳簿法の証憑を自動保存", url: "https://coconala.com/services/3856798" },
-            { title: "LINE連携の予約管理を構築", url: "https://coconala.com/services/3812684" }
-        ];
-        document.getElementById('svcList').innerHTML = products.map(p => `
-        <a class="svc" href="${p.url}" target="_blank" rel="noopener" aria-label="${p.title}">
-          <h3>${p.title}</h3><span class="btn primary" aria-hidden="true">詳しく見る</span>
-        </a>`).join('');
+      function setValue(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.value = value;
+      }
 
-        const voiceTexts = [
-            "他社制作でブラックボックス化していたサイトを、既存コードを壊さずに見事復旧してくれました。",
-            "手作業だった集計業務がGASで全自動化され、事務スタッフの残業がゼロになりました。",
-            "単なるスポット修正だけでなく、その後の運用を見据えた保守提案をいただき、丸投げしています。",
-            "説明がロジカルで分かりやすく、ディレクター目線でも安心してクライアント案件を任せられます。",
-            "即日対応のスピード感に驚きました。まさに駆け込み寺です。",
-            "WooCommerceの多言語化という複雑な要件も、最小構成でスマートに実現していただきました。"
-        ];
+      function updateJa() {
+        const data = jpMap[state.problem] || ['初回スコープ整理', '50,000円 ~ ', '選択内容に応じて、相談内容の下書きを作成します。'];
+        setText('resultTitle', data[0]);
+        setText('resultPrice', data[1]);
+        setText('resultSummary', data[2]);
+        setValue('memo', `【相談内容】
+${getLabel(labelsJa, 'problem', state.problem, '未選択')}について相談したいです。
 
-        const track = document.getElementById('voicesTrack');
-        const bubblesHtml = voiceTexts.map(text => `<div class="bubble">${text}</div>`).join('');
-        track.innerHTML = bubblesHtml + bubblesHtml;
+【急ぎ度】
+${getLabel(labelsJa, 'urgency', state.urgency, '未選択')}
 
-        const container = document.getElementById('content');
-        const menuContainer = document.getElementById('menu');
-        const links = [...document.querySelectorAll('.menu a')];
-        const sections = ['top', 'problems', 'services', 'works', 'voices', 'flow', 'pricing', 'faq', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
+【予算感】
+${getLabel(labelsJa, 'budget', state.budget, '未選択')}
 
-        let isClickScrolling = false;
-        let scrollTimeout = null;
+【希望】
+対応可否、概算費用、必要な確認事項、進行方法を整理いただきたいです。
 
-        function setActiveMenu(hash) {
-            links.forEach(a => {
-                if (a.getAttribute('href') === hash) {
-                    a.setAttribute('aria-current', 'page');
-                    const menuRect = menuContainer.getBoundingClientRect();
-                    const aRect = a.getBoundingClientRect();
-                    if (aRect.left < menuRect.left || aRect.right > menuRect.right) {
-                        menuContainer.scrollTo({ left: a.offsetLeft - menuContainer.clientWidth / 2 + a.clientWidth / 2, behavior: 'smooth' });
-                    }
-                } else {
-                    a.setAttribute('aria-current', 'false');
-                }
-            });
-        }
+【補足】
+対象URL、エラー画面、管理画面の状況、現在困っている内容は必要に応じて共有いたします。`);
+      }
 
-        menuContainer.addEventListener('click', (e) => {
-            const a = e.target.closest('a[href^="#"]');
-            if (!a) return;
-            e.preventDefault();
-            const hash = a.getAttribute('href');
-            setActiveMenu(hash);
-            isClickScrolling = true;
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => { isClickScrolling = false; }, 800);
-            const target = document.querySelector(hash);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.chips').forEach(function (group) {
+        group.addEventListener('click', function (event) {
+          const btn = event.target.closest('.chip');
+          if (!btn) return;
+          group.querySelectorAll('.chip').forEach(function (chip) { chip.classList.remove('selected'); });
+          btn.classList.add('selected');
+          const groupName = group.dataset.group;
+          state[groupName] = btn.dataset.value;
+          updateJa();
         });
+      });
 
-        const io = new IntersectionObserver(entries => {
-            if (isClickScrolling) return;
-            entries.forEach(ent => { if (ent.isIntersecting) setActiveMenu('#' + ent.target.id); });
-        }, { root: container, rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      function copyToClipboard(id, btn) {
+        const el = document.getElementById(id);
+        if (!el || !btn) return;
+        el.focus();
+        el.select();
+        document.execCommand('copy');
+        const original = btn.textContent;
+        btn.textContent = 'コピーしました';
+        setTimeout(function () { btn.textContent = original; }, 1200);
+      }
 
-        sections.forEach(s => io.observe(s));
-    </script>
+      const copyBtn = document.getElementById('copyBtn');
+      if (copyBtn) copyBtn.addEventListener('click', function (event) { copyToClipboard('memo', event.currentTarget); });
+
+      const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzocQi03JwTVzQN4votfTZnCWLvWa3Rev-wNwrb7yn5WYpWstBRwWOcUwEEvqlcr-UW/exec';
+      const contactForm = document.getElementById('contactForm');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          const honeypot = document.getElementById('website');
+          if (honeypot && honeypot.value) return;
+
+          const submitBtn = document.getElementById('submitBtn');
+          const status = document.getElementById('formStatus');
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData.entries());
+
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+          }
+          if (status) {
+            status.textContent = '';
+            status.style.color = '';
+          }
+
+          try {
+            await fetch(GAS_ENDPOINT, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+              },
+              body: JSON.stringify(data)
+            });
+
+            if (status) {
+              status.textContent = '送信が完了しました。内容を確認のうえ返信いたします。';
+              status.style.color = 'var(--green)';
+            }
+            contactForm.reset();
+          } catch (error) {
+            if (status) {
+              status.textContent = '送信に失敗しました。恐れ入りますが、メールで直接ご連絡ください。';
+              status.style.color = 'var(--red)';
+            }
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = '相談内容を送信する';
+            }
+          }
+        });
+      }
+    });
+  </script>
 </body>
-
 </html>
