@@ -7,17 +7,24 @@
 <title>KICHOHIN.COM | 他社制作サイトの修正・GAS自動化・GA4/GTM確認</title>
 <meta content="WordPress・Wix・Shopifyなど他社制作サイトの修正、GAS自動化、GA4/GTM・広告計測確認を対応。既存環境を大きく壊さず、Webと日々の手作業を整えます。" name="description"/>
 <link href="https://kichohin.com/" rel="canonical"/>
+<link href="assets/favicon.png" rel="icon" type="image/png"/>
+<link href="assets/favicon.png" rel="apple-touch-icon"/>
 <meta content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" name="robots"/>
 <meta content="website" property="og:type"/>
 <meta content="KICHOHIN.COM" property="og:site_name"/>
-<meta content="KICHOHIN.COM | 他社制作サイトの修正・GAS自動化・GA4/GTM確認" property="og:title"/>
-<meta content="既存環境を大きく壊さず、Web修正・EC運用・GAS自動化・広告計測確認を整えます。" property="og:description"/>
+<meta content="KICHOHIN.COM | Webまわりの修正・自動化・計測確認" property="og:title"/>
+<meta content="他社制作サイトの修正、GAS自動化、GA4/GTM確認を、今ある環境を活かして進めます。" property="og:description"/>
 <meta content="https://kichohin.com/" property="og:url"/>
-<meta content="https://kichohin.com/ogp.jpg" property="og:image"/>
+<meta content="https://kichohin.com/assets/ogp.png" property="og:image"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="KICHOHIN.COM Web修正・GAS自動化・GA4/GTM確認の相談案内" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="KICHOHIN.COM | Web修正・GAS自動化・計測確認" name="twitter:title"/>
-<meta content="他社制作サイトの修正、日々の手作業の自動化、GA4/GTM・広告計測確認を対応します。" name="twitter:description"/>
-<meta content="https://kichohin.com/ogp.jpg" name="twitter:image"/>
+<meta content="KICHOHIN.COM | Webまわりの修正・自動化・計測確認" name="twitter:title"/>
+<meta content="他社制作サイトの修正、GAS自動化、GA4/GTM確認を、今ある環境を活かして進めます。" name="twitter:description"/>
+<meta content="https://kichohin.com/assets/ogp.png" name="twitter:image"/>
+<meta content="KICHOHIN.COM Web修正・GAS自動化・GA4/GTM確認の相談案内" name="twitter:image:alt"/>
 <script type="application/ld+json">
   {
   "@context": "https://schema.org",
@@ -1378,6 +1385,35 @@
     }
   }
 
+
+  /* === v11 asset image patch === */
+  .brand-box {
+    overflow: hidden;
+    background: #11127f;
+  }
+
+  .brand-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+
+  .avatar.avatar-image {
+    overflow: hidden;
+    background: #e9f3f6;
+    padding: 0;
+  }
+
+  .avatar.avatar-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+
   </style>
 </head>
 <body>
@@ -1390,7 +1426,7 @@
 </div>
 <nav class="nav">
 <div class="wrap nav-inner">
-<a class="brand" href="#top"><span class="brand-box">K</span><span>KICHOHIN.COM</span></a>
+<a class="brand" href="#top"><span class="brand-box"><img src="assets/iconsample1.png" alt="KICHOHIN.COM ロゴ"/></span><span>KICHOHIN.COM</span></a>
 <div class="nav-links">
 <a href="#check">30秒相談</a>
 <a href="#services">対応内容</a>
@@ -1418,7 +1454,7 @@
 <div class="windowbar"><span>KICHOHIN WORK DESK</span><div class="window-icons"><span></span><span></span><span></span></div></div>
 <div class="face-body">
 <div class="avatar-row">
-<div class="avatar">貴</div>
+<div class="avatar avatar-image"><img src="assets/avatar@2x.png" alt="貴重品のアバター"/></div>
 <div class="profile-copy"><h2>貴重品 ／ KICHOHIN</h2><p>Web修理・EC運用・計測確認・GAS自動化。相談内容を整理し、作業・確認・報告まで進めます。</p></div>
 </div>
 <div class="proof-list">
