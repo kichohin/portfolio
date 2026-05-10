@@ -15,7 +15,8 @@
 <meta content="KICHOHIN.COM | Webまわりの修正・自動化・計測確認" property="og:title"/>
 <meta content="他社制作サイトの修正、GAS自動化、GA4/GTM確認を、今ある環境を活かして進めます。" property="og:description"/>
 <meta content="https://kichohin.com/" property="og:url"/>
-<meta content="https://kichohin.com/assets/ogp.png" property="og:image"/>
+<meta content="https://kichohin.com/assets/ogp.png?v=20260510" property="og:image"/>
+<meta content="https://kichohin.com/assets/ogp.png?v=20260510" property="og:image:secure_url"/>
 <meta content="image/png" property="og:image:type"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
@@ -23,7 +24,7 @@
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="KICHOHIN.COM | Webまわりの修正・自動化・計測確認" name="twitter:title"/>
 <meta content="他社制作サイトの修正、GAS自動化、GA4/GTM確認を、今ある環境を活かして進めます。" name="twitter:description"/>
-<meta content="https://kichohin.com/assets/ogp.png" name="twitter:image"/>
+<meta content="https://kichohin.com/assets/ogp.png?v=20260510" name="twitter:image"/>
 <meta content="KICHOHIN.COM Web修正・GAS自動化・GA4/GTM確認の相談案内" name="twitter:image:alt"/>
 <script type="application/ld+json">
   {
@@ -1414,6 +1415,39 @@
     image-rendering: pixelated;
   }
 
+  
+  /* === v12 consultation actions + memo paste patch === */
+  .contact-channel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .contact-channel-actions .btn {
+    min-height: 46px;
+  }
+
+  .btn-coconala {
+    background: #fff;
+  }
+
+  .btn-chatwork {
+    background: #e9f3f6;
+  }
+
+  @media (max-width: 640px) {
+    .contact-channel-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .contact-channel-actions .btn {
+      width: 100%;
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -1504,7 +1538,7 @@
 <p id="resultSummary">選択内容に応じて、相談内容の下書きを作成します。</p>
 <textarea class="memo" id="memo" readonly="">【相談内容】
 現状の困りごとについて、対応可否・概算・必要な確認事項を整理したいです。</textarea>
-<div class="actions"><button class="btn btn-main" id="copyBtn" type="button">コピー</button><a class="btn btn-blue" href="#contact">この内容で相談する</a></div>
+<div class="actions"><button class="btn btn-main" id="copyBtn" type="button">コピー</button><button class="btn btn-blue" id="pasteMemoBtn" type="button">相談に貼る</button></div>
 </div>
 </div>
 </div>
@@ -1553,7 +1587,7 @@
 <section class="section" id="contact">
 <div class="wrap contact">
 <div><p class="kicker">CONTACT</p><h2 class="section-title">お困りごとを<br/>教えてください。<br/>一緒に進めます。</h2><p class="section-desc">30秒相談のご内容をペーストして貼るだけでも構いません。<br/>
-          対応可否・概算・必要な確認事項を整理します。</p><div class="actions"><a class="btn btn-main" href="mailto:info@kichohin.com?subject=KICHOHIN%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87">メールで相談する</a><a class="btn btn-blue" href="#check">相談メモを作る</a></div></div>
+          対応可否・概算・必要な確認事項を整理します。</p><div class="actions contact-channel-actions"><a class="btn btn-main" href="mailto:info@kichohin.com?subject=KICHOHIN%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87">メールで相談する</a><a class="btn btn-blue btn-coconala" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談する</a><a class="btn btn-chatwork" href="https://www.chatwork.com/kichohin" target="_blank" rel="noopener">Chatworkで相談する</a><a class="btn btn-flat" href="#check">相談メモを作る</a></div></div>
 <form class="form" id="contactForm">
 <div><label>相談種別</label><select name="category" required><option value="小規模修正・確認">小規模修正・確認</option><option value="Web / EC修正">Web / EC修正</option><option value="GA4 / GTM / 広告計測">GA4 / GTM / 広告計測</option><option value="GAS / 自動化">GAS / 自動化</option><option value="AI活用">AI活用</option><option value="外部パートナー相談">外部パートナー相談</option></select></div>
 <div><label>お名前 / 会社名</label><input name="name" placeholder="例：株式会社〇〇 / ご担当者名" required/></div>
@@ -1655,6 +1689,57 @@ ${getLabel(labelsJa, 'budget', state.budget, '未選択')}
 
       const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzocQi03JwTVzQN4votfTZnCWLvWa3Rev-wNwrb7yn5WYpWstBRwWOcUwEEvqlcr-UW/exec';
       const contactForm = document.getElementById('contactForm');
+
+      function pasteMemoToContact() {
+        const memo = document.getElementById('memo');
+        const contactSection = document.getElementById('contact');
+        if (!memo || !contactForm) return;
+
+        const messageField = contactForm.querySelector('textarea[name="message"]');
+        const categoryField = contactForm.querySelector('select[name="category"]');
+        const status = document.getElementById('formStatus');
+
+        if (messageField) {
+          messageField.value = memo.value;
+        }
+
+        if (categoryField) {
+          const categoryMap = {
+            smallfix: '小規模修正・確認',
+            web: 'Web / EC修正',
+            auto: 'GAS / 自動化',
+            track: 'GA4 / GTM / 広告計測',
+            ec: 'Web / EC修正',
+            ai: 'AI活用',
+            partner: '外部パートナー相談'
+          };
+          const nextCategory = categoryMap[state.problem];
+          if (nextCategory) {
+            categoryField.value = nextCategory;
+          }
+        }
+
+        if (status) {
+          status.textContent = '相談メモを貼り付けました。必要に応じてURLや補足を追記してください。';
+          status.style.color = 'var(--green)';
+        }
+
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (messageField) {
+          setTimeout(function () {
+            messageField.focus({ preventScroll: true });
+          }, 450);
+        }
+      }
+
+      const pasteMemoBtn = document.getElementById('pasteMemoBtn');
+      if (pasteMemoBtn) {
+        pasteMemoBtn.addEventListener('click', pasteMemoToContact);
+      }
+
 
       if (contactForm) {
         contactForm.addEventListener('submit', async function (event) {
