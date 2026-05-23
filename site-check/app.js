@@ -1,6 +1,6 @@
 const CONFIG = {
-  // Cloudflare Pages Functionsを使う場合は /api/scan のままで動きます。
-  SCAN_ENDPOINT: "https://kichohin-site-check-api.kichohinkichohin.workers.dev/scan"
+  // Cloudflare Worker API
+  SCAN_ENDPOINT: "https://kichohin-site-check-api.kichohinkichohin.workers.dev/scan",
 
   // Stripe Payment Linksを作成後、ここにURLを入れてください。
   STRIPE_PRO_LINK: "https://buy.stripe.com/REPLACE_PRO_LINK",
