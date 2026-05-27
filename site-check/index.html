@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kichohin Site Check | Webサイト無料診断</title>
-  <meta name="description" content="URLを入力するだけでSEO・OGP・リンク・フォーム・広告タグ・計測タグの状態を診断し、修正依頼文まで生成するWeb診断ツールです。" />
-  <meta property="og:title" content="Kichohin Site Check" />
-  <meta property="og:description" content="Webページ上で確認できる範囲のSEO・OGP・タグ・リンク・フォームを診断します。" />
+  <title>広告CV計測チェック | KICHOHIN.COM</title>
+  <meta name="description" content="Shopify・LP・WordPressの広告配信前に、GA4・GTM・Google広告・Meta Pixel・LINEタグなどのCV計測リスクをURLから簡易チェックします。" />
+  <meta property="og:title" content="広告CV計測チェック | KICHOHIN.COM" />
+  <meta property="og:description" content="広告費を使う前に、CV計測の抜け漏れ候補をURLから簡易チェックします。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://kichohin.com/assets/ogp.png?v=20260510" />
   <link rel="canonical" href="https://kichohin.com/site-check/" />
@@ -22,6 +22,7 @@
   --blue: #2f6f92;
   --green: #547d62;
   --yellow: #f0c45c;
+  --cream: #fff8e5;
   --shadow: 6px 6px 0 rgba(31,37,43,.14);
   --soft-shadow: 3px 3px 0 rgba(31,37,43,.12);
   --radius: 20px;
@@ -29,9 +30,7 @@
 }
 
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   margin: 0;
   color: var(--ink);
@@ -46,7 +45,7 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-button, input, textarea { font: inherit; }
+button, input, textarea, select { font: inherit; }
 
 .site-header {
   width: min(var(--max), calc(100% - 36px));
@@ -60,26 +59,18 @@ button, input, textarea { font: inherit; }
   border-bottom: 2px solid var(--line);
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+.brand { display: flex; align-items: center; gap: 12px; }
 .brand-mark {
   width: 42px;
   height: 42px;
   border: 2px solid var(--line);
   background: var(--yellow);
-  color: var(--ink);
   display: grid;
   place-items: center;
   font-weight: 950;
   box-shadow: var(--soft-shadow);
 }
-
-.eyebrow,
-.label {
+.eyebrow,.label {
   margin: 0;
   color: var(--red);
   font-size: 12px;
@@ -87,14 +78,7 @@ button, input, textarea { font: inherit; }
   letter-spacing: .12em;
   text-transform: uppercase;
 }
-
-h1 {
-  margin: 2px 0 0;
-  font-size: 17px;
-  line-height: 1.35;
-  letter-spacing: -.02em;
-}
-
+h1 { margin: 2px 0 0; font-size: 17px; line-height: 1.35; letter-spacing: -.02em; }
 .header-nav {
   display: flex;
   flex-wrap: wrap;
@@ -104,25 +88,18 @@ h1 {
   font-size: 13px;
   font-weight: 850;
 }
-
 .header-nav a {
   padding: 6px 10px;
   border: 2px solid transparent;
   border-radius: 999px;
 }
-
-.header-nav a:hover {
-  border-color: var(--line);
-  color: var(--ink);
-  background: var(--paper2);
-}
+.header-nav a:hover { border-color: var(--line); color: var(--ink); background: var(--paper2); }
 
 main {
   width: min(var(--max), calc(100% - 36px));
   margin: 0 auto;
   padding: 34px 0 64px;
 }
-
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr);
@@ -130,55 +107,33 @@ main {
   align-items: stretch;
   margin-bottom: 22px;
 }
-
-.hero-copy,
-.hero-card,
-.panel,
-.sub-panel,
-.price-card,
-.category-card,
-.detail-item {
+.hero-copy,.hero-card,.panel,.sub-panel,.price-card,.category-card,.detail-item,.field-card {
   border: 2px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper2);
   box-shadow: var(--shadow);
 }
-
-.hero-copy {
-  padding: clamp(26px, 4vw, 44px);
-}
-
+.hero-copy { padding: clamp(26px, 4vw, 44px); }
 .hero-copy h2 {
   margin: 10px 0 18px;
   font-size: clamp(32px, 5vw, 60px);
   line-height: 1.04;
   letter-spacing: -.055em;
 }
-
 .hero-copy h2::first-line {
   text-decoration: underline;
   text-decoration-thickness: .18em;
   text-decoration-color: rgba(240,196,92,.65);
   text-underline-offset: -.1em;
 }
-
-.lead {
-  margin: 0;
-  max-width: 760px;
-  color: var(--sub);
-  font-size: clamp(15px, 1.8vw, 18px);
-}
-
-.hero-actions,
-.scan-form,
-.option-row,
-.result-actions {
+.lead { margin: 0; max-width: 760px; color: var(--sub); font-size: clamp(15px, 1.8vw, 18px); }
+.lead strong { color: var(--ink); background: linear-gradient(transparent 62%, rgba(240,196,92,.70) 0); }
+.hero-actions,.scan-form,.result-actions,.mini-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
 }
-
 .hero-actions { margin-top: 26px; }
 
 .button {
@@ -195,93 +150,109 @@ main {
   align-items: center;
   justify-content: center;
   transition: .16s ease;
+  text-align: center;
 }
+.button:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(31,37,43,.16); }
+.button.primary { background: var(--red); color: #fff; }
+.button.secondary { background: #d7ecf4; color: var(--ink); }
+.button.dark { background: var(--ink); color: var(--paper2); }
+.button.ghost { background: #fff; color: var(--ink); box-shadow: none; }
+.button[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
 
-.button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 rgba(31,37,43,.16);
-}
-
-.button.primary {
-  background: var(--red);
-  color: #fff;
-}
-
-.button.secondary {
-  background: #d7ecf4;
-  color: var(--ink);
-}
-
-.hero-card {
-  padding: 26px;
-  background: #fff8e5;
-}
-
-.card-title {
-  margin: 0 0 12px;
-  font-size: 15px;
-  font-weight: 950;
-  letter-spacing: .06em;
-}
-
-.check-list {
-  margin: 0;
-  padding-left: 20px;
-  color: var(--sub);
-}
-
+.hero-card { padding: 26px; background: var(--cream); }
+.card-title { margin: 0 0 12px; font-size: 15px; font-weight: 950; letter-spacing: .06em; }
+.check-list { margin: 0; padding-left: 20px; color: var(--sub); }
 .check-list li { margin: 8px 0; }
 
-.panel {
-  margin: 22px 0;
-  padding: clamp(22px, 3vw, 32px);
-}
-
-.panel-head {
-  margin-bottom: 18px;
-}
-
+.panel { margin: 22px 0; padding: clamp(22px, 3vw, 32px); }
+.panel-head { margin-bottom: 18px; }
 .panel-head h2 {
   margin: 4px 0 4px;
   font-size: clamp(25px, 3.6vw, 38px);
   line-height: 1.15;
   letter-spacing: -.04em;
 }
+.panel-head p:not(.label) { margin: 0; color: var(--sub); }
 
-.panel-head p:not(.label) {
-  margin: 0;
-  color: var(--sub);
-}
-
-.scan-form {
+.form-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 14px;
   margin: 18px 0 12px;
 }
-
-.scan-form input {
-  flex: 1;
-  min-width: 260px;
-  min-height: 50px;
+.field-card {
+  padding: 14px;
+  box-shadow: var(--soft-shadow);
+  background: #fff;
+}
+.field-card.full { grid-column: 1 / -1; }
+.field-card label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--sub);
+  font-size: 13px;
+  font-weight: 900;
+}
+.field-card input,.field-card select {
+  width: 100%;
+  min-height: 48px;
   border: 2px solid var(--line);
-  border-radius: 999px;
-  padding: 12px 16px;
+  border-radius: 14px;
+  padding: 10px 13px;
   background: #fff;
   color: var(--ink);
 }
-
-.option-row {
-  color: var(--sub);
-  font-size: 14px;
-  font-weight: 800;
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
 }
-
-.option-row label {
-  display: inline-flex;
-  gap: 6px;
+.platform-grid label {
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+  min-width: 0;
+  min-height: 48px;
   border: 2px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 12px;
+  border-radius: 14px;
+  padding: 10px 12px;
   background: #fff;
+  font-weight: 850;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.platform-grid input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  flex: 0 0 22px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  display: grid;
+  place-content: center;
+}
+.platform-grid input[type="checkbox"]::after {
+  content: "";
+  width: 11px;
+  height: 6px;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(-45deg) scale(0);
+  transform-origin: center;
+}
+.platform-grid input[type="checkbox"]:checked {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+.platform-grid input[type="checkbox"]:checked::after {
+  transform: rotate(-45deg) scale(1);
 }
 
 .status {
@@ -292,9 +263,7 @@ main {
   padding: 12px 14px;
   font-weight: 900;
 }
-
 .hidden { display: none !important; }
-
 .result { margin-top: 22px; }
 
 .score-card {
@@ -305,20 +274,19 @@ main {
   padding: 20px;
   border: 2px solid var(--line);
   border-radius: var(--radius);
-  background: #fff8e5;
+  background: var(--cream);
   box-shadow: var(--soft-shadow);
 }
-
 .score-card h2 {
   margin: 4px 0 0;
   font-size: clamp(23px, 3vw, 36px);
   line-height: 1.16;
   letter-spacing: -.035em;
 }
-
+.score-card p { color: var(--sub); margin: 6px 0 0; }
 .score-ring {
-  width: 84px;
-  height: 84px;
+  width: 88px;
+  height: 88px;
   border: 2px solid var(--line);
   border-radius: 50%;
   background: var(--red);
@@ -326,33 +294,19 @@ main {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 950;
   box-shadow: var(--soft-shadow);
 }
-
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 14px;
   margin: 18px 0;
 }
-
-.category-card {
-  padding: 15px;
-  box-shadow: var(--soft-shadow);
-}
-
-.category-card strong {
-  display: block;
-  margin: 8px 0 3px;
-  font-size: 15px;
-}
-
-.category-card small {
-  color: var(--sub);
-}
-
+.category-card { padding: 15px; box-shadow: var(--soft-shadow); }
+.category-card strong { display: block; margin: 8px 0 3px; font-size: 15px; }
+.category-card small { color: var(--sub); }
 .badge {
   display: inline-flex;
   align-items: center;
@@ -362,21 +316,10 @@ main {
   font-weight: 950;
   font-size: 12px;
 }
-
-.badge.ok {
-  color: var(--green);
-  background: #edf7ed;
-}
-
-.badge.warn {
-  color: #7a5200;
-  background: #fff8e5;
-}
-
-.badge.ng {
-  color: #fff;
-  background: var(--red);
-}
+.badge.ok { color: var(--green); background: #edf7ed; }
+.badge.warn { color: #7a5200; background: #fff8e5; }
+.badge.ng { color: #fff; background: var(--red); }
+.badge.info { color: var(--ink); background: #d7ecf4; }
 
 .two-col {
   display: grid;
@@ -384,112 +327,41 @@ main {
   gap: 18px;
   margin: 18px 0;
 }
+.sub-panel { padding: 18px; box-shadow: var(--soft-shadow); }
+.sub-panel h3 { margin: 0 0 10px; font-size: 21px; }
+.sub-panel p,.detail-item p { color: var(--sub); margin: 4px 0 0; }
+.sub-panel ol { margin-bottom: 0; padding-left: 22px; }
+.sub-panel li { margin: 8px 0; }
+.detail-item { margin: 10px 0; padding: 14px; box-shadow: none; background: #fff; }
 
-.sub-panel {
-  padding: 18px;
-  box-shadow: var(--soft-shadow);
-}
-
-.sub-panel h3 {
-  margin: 0 0 10px;
-  font-size: 21px;
-}
-
-.sub-panel p,
-.detail-item p {
-  color: var(--sub);
-  margin: 4px 0 0;
-}
-
-.detail-item {
-  margin: 10px 0;
-  padding: 14px;
-  box-shadow: none;
-  background: #fff;
-}
-
-.request-box {
-  width: 100%;
-  min-height: 180px;
-  margin-top: 18px;
+.cta-box {
+  margin: 18px 0;
   border: 2px solid var(--line);
-  border-radius: 14px;
-  background: #fff;
-  padding: 13px;
-  resize: vertical;
-}
-
-.pricing {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 16px;
-}
-
-.price-card {
+  border-radius: 20px;
+  background: var(--ink);
+  color: var(--paper2);
   padding: 20px;
   box-shadow: var(--soft-shadow);
 }
+.cta-box h3 { margin: 0 0 6px; font-size: 23px; }
+.cta-box p { margin: 0 0 14px; color: #d7dedb; }
+.cta-box .button { box-shadow: none; }
 
-.price-card.highlight {
-  background: #fff8e5;
-}
-
-.price-card h3 {
-  margin: 0 0 8px;
-  font-size: 22px;
-}
-
-.price {
-  margin: 0 0 8px;
-  font-size: 30px;
-  line-height: 1.1;
-  font-weight: 950;
-}
-
-.price-card p:not(.price),
-.price-card li {
-  color: var(--sub);
-}
-
-.flow {
+.pricing {
   display: grid;
   grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 14px;
+  gap: 16px;
 }
+.price-card { padding: 20px; box-shadow: var(--soft-shadow); }
+.price-card.highlight { background: var(--cream); }
+.price-card h3 { margin: 0 0 8px; font-size: 22px; }
+.price { margin: 0 0 8px; font-size: 30px; line-height: 1.1; font-weight: 950; }
+.price-card p:not(.price),.price-card li { color: var(--sub); }
+.price-card ul { padding-left: 19px; }
 
-.flow div {
-  border: 2px solid var(--line);
-  border-radius: 18px;
-  background: #fff;
-  padding: 16px;
-  box-shadow: var(--soft-shadow);
-}
-
-.flow span {
-  width: 34px;
-  height: 34px;
-  border: 2px solid var(--line);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--yellow);
-  font-weight: 950;
-  margin-bottom: 10px;
-}
-
-.flow strong { display: block; }
-.flow p { margin: 6px 0 0; color: var(--sub); }
-
-.warning {
-  background: var(--ink);
-  color: var(--paper2);
-}
-
+.warning { background: var(--ink); color: var(--paper2); }
 .warning .label { color: var(--yellow); }
-
-.warning p {
-  color: #d7dedb;
-}
+.warning p { color: #d7dedb; }
 
 footer {
   width: min(var(--max), calc(100% - 36px));
@@ -499,110 +371,31 @@ footer {
   border-top: 2px solid var(--line);
 }
 
-@media (max-width: 900px) {
-  .site-header,
-  .hero,
-  .two-col,
-  .pricing,
-  .flow {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header {
-    display: grid;
-    align-items: start;
-  }
-
-  .header-nav {
-    justify-content: flex-start;
-  }
-
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 980px) {
+  .hero,.two-col,.pricing,.form-grid { grid-template-columns: 1fr; }
+  .platform-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .summary-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header,main,footer { width: min(var(--max), calc(100% - 28px)); }
+  main { padding-top: 24px; }
+  h1 { font-size: 14px; }
+  .header-nav { display: none; }
+  .brand-mark { width: 36px; height: 36px; }
+  .hero-copy,.hero-card,.panel { border-radius: 18px; box-shadow: 5px 5px 0 rgba(31,37,43,.12); padding: 20px; }
+  .hero-copy h2 { font-size: clamp(30px, 10vw, 42px); line-height: 1.08; }
+  .lead,.panel-head p:not(.label),.check-list,.price-card p:not(.price),.price-card li { font-size: 14px; line-height: 1.8; }
+  .hero-actions,.result-actions,.mini-actions { display: grid; grid-template-columns: 1fr; }
+  .button,.field-card input:not([type="checkbox"]),.field-card select { width: 100%; min-height: 46px; white-space: normal; }
+  .platform-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+  .platform-grid label { min-height: 44px; padding: 9px 10px; font-size: 13px; border-radius: 12px; }
+  .platform-grid input[type="checkbox"] { width: 20px; height: 20px; min-width: 20px; min-height: 20px; flex-basis: 20px; }
+  .score-card { display: grid; grid-template-columns: 1fr; }
+  .score-ring { width: 76px; height: 76px; font-size: 22px; }
 }
 
-@media (max-width: 640px) {
-  .site-header,
-  main,
-  footer {
-    width: min(var(--max), calc(100% - 28px));
-  }
-
-  main {
-    padding-top: 24px;
-  }
-
-  h1 {
-    font-size: 14px;
-  }
-
-  .header-nav {
-    display: none;
-  }
-
-  .brand-mark {
-    width: 36px;
-    height: 36px;
-  }
-
-  .hero-copy,
-  .hero-card,
-  .panel {
-    border-radius: 18px;
-    box-shadow: 5px 5px 0 rgba(31,37,43,.12);
-  }
-
-  .hero-copy,
-  .hero-card,
-  .panel {
-    padding: 20px;
-  }
-
-  .hero-copy h2 {
-    font-size: clamp(30px, 10vw, 42px);
-    line-height: 1.08;
-  }
-
-  .lead,
-  .panel-head p:not(.label),
-  .check-list,
-  .price-card p:not(.price),
-  .price-card li,
-  .flow p {
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .hero-actions,
-  .scan-form,
-  .result-actions {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .button,
-  .scan-form input {
-    width: 100%;
-    min-height: 46px;
-    white-space: normal;
-  }
-
-  .option-row {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .score-card {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .score-ring {
-    width: 72px;
-    height: 72px;
-    font-size: 21px;
-  }
+@media (max-width: 380px) {
+  .platform-grid { grid-template-columns: 1fr; }
 }
 
   </style>
@@ -612,15 +405,14 @@ footer {
     <div class="brand">
       <span class="brand-mark">K</span>
       <div>
-        <p class="eyebrow">KICHOHIN.COM / Site Check</p>
-        <h1>URLを入れるだけで、公開前・広告配信前の確認点を整理します。</h1>
+        <p class="eyebrow">KICHOHIN.COM / CV Check</p>
+        <h1>広告配信前・LP公開前のCV計測リスクを確認します。</h1>
       </div>
     </div>
     <nav class="header-nav" aria-label="主要メニュー">
       <a href="/">TOPへ戻る</a>
-      <a href="#checker">診断する</a>
-      <a href="#plans">プラン</a>
-      <a href="#flow">展開</a>
+      <a href="#checker">チェックする</a>
+      <a href="#plans">商品</a>
       <a href="#limitations">注意事項</a>
     </nav>
   </header>
@@ -628,47 +420,83 @@ footer {
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <p class="label">Web制作者・広告運用者・EC担当者向け</p>
-        <h2>SEO・OGP・リンク・フォーム・タグの確認を、専門用語に寄せすぎずに可視化します。</h2>
+        <p class="label">Shopify / LP / WordPress / 広告運用者向け</p>
+        <h2>広告費を使う前に、CV計測の事故候補を確認する。</h2>
         <p class="lead">
-          本ツールは、対象ページのHTML上で確認できる範囲を診断し、◎ / △ / × で結果を表示します。
-          修正が必要な場合は、そのまま相談文をコピーできます。
+          GA4・GTM・Google広告・Meta Pixel・LINEタグ・フォーム・CTAなど、<strong>広告成果に関わる計測まわりの不備候補</strong>をURLから簡易チェックします。
+          一般的なSEO診断ではなく、既存のGA4/GTM修正サービスにつながる「CV計測リスク」の可視化に寄せています。
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#checker">無料で診断する</a>
-          <a class="button secondary" href="#plans">診断内容を見る</a>
+          <a class="button primary" href="#checker">無料で簡易チェック</a>
+          <a class="button secondary" href="#plans">有料チェックを見る</a>
         </div>
       </div>
       <div class="hero-card">
-        <p class="card-title">診断カテゴリ</p>
+        <p class="card-title">確認する主な項目</p>
         <ul class="check-list">
-          <li>SEO基本: title / description / canonical</li>
-          <li>SNS表示: OGP / Twitter Card</li>
-          <li>計測タグ: GTM / GA4 / Meta Pixel等</li>
-          <li>リンク: 空リンク / # / herf typo候補</li>
-          <li>フォーム: form / input / submit</li>
-          <li>画像: alt不足候補</li>
+          <li>GTM / GA4 / Google広告タグの有無</li>
+          <li>Meta Pixel / LINE / Yahoo / TikTokタグの有無</li>
+          <li>Shopify / WordPress / LP種別の推定</li>
+          <li>フォーム・購入・問い合わせCTAの有無</li>
+          <li>OGP / title / descriptionなど公開前の基本項目</li>
+          <li>症状別の次アクション案内</li>
         </ul>
       </div>
     </section>
 
     <section id="checker" class="panel checker">
       <div class="panel-head">
-        <p class="label">Free Check</p>
-        <h2>診断するURLを入力してください</h2>
-        <p>初期版では、トップページやLPなど「1ページ単位」の診断を前提にしています。</p>
+        <p class="label">Free CV Check</p>
+        <h2>対象URLと状況を入力してください</h2>
+        <p>無料版では、総合判定・リスク分類・優先確認項目3件までを表示します。詳細PDFや複数URLチェックは有料導線に寄せます。</p>
       </div>
 
-      <form id="scanForm" class="scan-form">
-        <input id="targetUrl" type="url" inputmode="url" placeholder="https://example.com" required />
-        <button class="button primary" type="submit">診断する</button>
+      <form id="scanForm">
+        <div class="form-grid">
+          <div class="field-card full">
+            <label for="targetUrl">対象URL</label>
+            <input id="targetUrl" type="url" inputmode="url" placeholder="https://example.com/lp" required />
+          </div>
+
+          <div class="field-card">
+            <label for="siteType">サイト種別</label>
+            <select id="siteType">
+              <option value="unknown">まだ分からない</option>
+              <option value="shopify">Shopify / EC</option>
+              <option value="wordpress">WordPress</option>
+              <option value="lp">LP / 静的ページ</option>
+              <option value="ecforce">ecforce</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+
+          <div class="field-card">
+            <label for="symptom">現在の症状</label>
+            <select id="symptom">
+              <option value="prelaunch">広告配信前・公開前に確認したい</option>
+              <option value="ga4-missing">GA4にイベントが出ない</option>
+              <option value="google-cv-zero">Google広告のCVが0件</option>
+              <option value="meta-mismatch">Meta広告の購入数と実売上が合わない</option>
+              <option value="gtm-exists-no-cv">GTMはあるがCVにならない</option>
+              <option value="unknown">何が原因か分からない</option>
+            </select>
+          </div>
+
+          <div class="field-card full">
+            <label>利用・確認したい媒体</label>
+            <div class="platform-grid">
+              <label><input type="checkbox" name="platform" value="ga4" checked /> GA4</label>
+              <label><input type="checkbox" name="platform" value="google_ads" /> Google広告</label>
+              <label><input type="checkbox" name="platform" value="meta" /> Meta広告</label>
+              <label><input type="checkbox" name="platform" value="line" /> LINE広告</label>
+              <label><input type="checkbox" name="platform" value="yahoo" /> Yahoo広告</label>
+              <label><input type="checkbox" name="platform" value="other" /> その他</label>
+            </div>
+          </div>
+        </div>
+
+        <button class="button primary" type="submit">無料でCV計測リスクを確認する</button>
       </form>
-
-      <div class="option-row" aria-label="プラン選択">
-        <label><input type="radio" name="plan" value="free" checked /> Free</label>
-        <label><input type="radio" name="plan" value="pro" /> Pro想定</label>
-        <label><input type="radio" name="plan" value="agency" /> Agency想定</label>
-      </div>
 
       <div id="status" class="status hidden" role="status"></div>
       <div id="result" class="result hidden"></div>
@@ -676,55 +504,58 @@ footer {
 
     <section id="plans" class="panel">
       <div class="panel-head">
-        <p class="label">Next Step</p>
-        <h2>診断後の使い方</h2>
+        <p class="label">Product Line</p>
+        <h2>診断後の商品導線</h2>
+        <p>無料で完結させず、詳細チェック・複数URL・修正・月次確認へ接続します。</p>
       </div>
+
       <div class="pricing">
         <article class="price-card">
           <h3>Free</h3>
           <p class="price">0円</p>
-          <p>1URLの簡易診断。入口・拡散用。</p>
+          <p>1URLの簡易判定。上位3項目のみ。</p>
           <ul>
-            <li>総合判定</li>
-            <li>主要カテゴリの◎△×</li>
-            <li>修正依頼導線</li>
+            <li>CV計測リスク</li>
+            <li>主要カテゴリ判定</li>
+            <li>次に選ぶ商品案内</li>
           </ul>
         </article>
-        <article class="price-card highlight">
-          <h3>Pro</h3>
-          <p class="price">4,980円</p>
-          <p>5URL診断、HTMLレポート、修正依頼文生成。</p>
-          <ul>
-            <li>詳細結果</li>
-            <li>レポート保存</li>
-            <li>依頼文コピー</li>
-          </ul>
-          <a class="button primary" data-stripe-link="pro" href="#">Pro決済リンクを設定</a>
-        </article>
-        <article class="price-card">
-          <h3>Agency</h3>
-          <p class="price">14,800円</p>
-          <p>制作者・運用者向け。クライアント提出文を含む。</p>
-          <ul>
-            <li>提出向けレポート文</li>
-            <li>納品前チェック表</li>
-            <li>ホワイトラベル文面</li>
-          </ul>
-          <a class="button secondary" data-stripe-link="agency" href="#">Agency決済リンクを設定</a>
-        </article>
-      </div>
-    </section>
 
-    <section id="flow" class="panel">
-      <div class="panel-head">
-        <p class="label">Business Flow</p>
-        <h2>この商品の展開方法</h2>
-      </div>
-      <div class="flow">
-        <div><span>1</span><strong>無料診断</strong><p>URL入力で問題を可視化します。</p></div>
-        <div><span>2</span><strong>有料レポート</strong><p>Pro / Agencyで自動課金します。</p></div>
-        <div><span>3</span><strong>修正依頼</strong><p>診断結果から相談文をコピーできます。</p></div>
-        <div><span>4</span><strong>月次チェック</strong><p>広告・LP運用者向けに継続確認へ進めます。</p></div>
+        <article class="price-card highlight">
+          <h3>詳細レポート</h3>
+          <p class="price">1,980円</p>
+          <p>1URLの詳細結果・保存用レポート想定。</p>
+          <ul>
+            <li>詳細項目の表示</li>
+            <li>HTML/PDF化の対象</li>
+            <li>修正費に充当可能</li>
+          </ul>
+          <a class="button primary" data-link="detail" href="#">決済リンクを設定してください</a>
+        </article>
+
+        <article class="price-card">
+          <h3>3URLパック</h3>
+          <p class="price">4,980円</p>
+          <p>LP・商品ページ・完了ページなど複数URL向け。</p>
+          <ul>
+            <li>3URL分の確認</li>
+            <li>比較レポート想定</li>
+            <li>制作者・運用者向け</li>
+          </ul>
+          <a class="button secondary" data-link="pack" href="#">決済リンクを設定してください</a>
+        </article>
+
+        <article class="price-card">
+          <h3>修正対応</h3>
+          <p class="price">35,000円〜</p>
+          <p>原因特定・修正・再検証が必要な方向け。</p>
+          <ul>
+            <li>GA4 / GTM</li>
+            <li>Google広告 / Meta</li>
+            <li>Shopify / LP</li>
+          </ul>
+          <a class="button dark" data-link="repair" href="#">修正を相談する</a>
+        </article>
       </div>
     </section>
 
@@ -736,41 +567,52 @@ footer {
       <p>
         本ツールは、Webページ上で確認できる範囲のタグ・メタ情報・リンク・フォーム等を診断するものです。
         広告管理画面側のCV反映、購入完了イベント、サーバーサイド計測、Meta CAPI等の正常性を保証するものではありません。
-        必要な場合は、別途修正・確認作業として承ります。
+        必要な場合は、別途「原因特定・修正・再検証」として対応します。
       </p>
     </section>
   </main>
 
   <footer>
-    <p>© KICHOHIN.COM / Kichohin Site Check</p>
+    <p>© KICHOHIN.COM / 広告CV計測チェック</p>
   </footer>
 
   <template id="resultTemplate">
     <div class="score-card">
       <div>
-        <p class="label">総合判定</p>
+        <p class="label">CV計測リスク判定</p>
         <h2 data-field="overallText"></h2>
+        <p data-field="overallMessage"></p>
       </div>
       <div class="score-ring" data-field="score"></div>
     </div>
+
     <div class="summary-grid" data-field="categories"></div>
+
     <div class="two-col">
       <section class="sub-panel">
         <h3>優先確認項目</h3>
         <ol data-field="priority"></ol>
       </section>
       <section class="sub-panel">
-        <h3>次の行動</h3>
+        <h3>次に選ぶべき対応</h3>
         <p data-field="nextAction"></p>
-        <button class="button primary" data-action="copy-request">修正依頼文をコピー</button>
-        <button class="button secondary" data-action="download-report">レポートHTMLを保存</button>
       </section>
     </div>
+
+    <section class="cta-box">
+      <h3 data-field="offerTitle"></h3>
+      <p data-field="offerMessage"></p>
+      <div class="result-actions">
+        <a class="button primary" data-action="detail" href="#">1,980円で詳細レポート</a>
+        <a class="button secondary" data-action="pack" href="#">4,980円で3URLチェック</a>
+        <a class="button ghost" data-action="repair" href="#">35,000円〜で修正相談</a>
+      </div>
+    </section>
+
     <section class="sub-panel">
-      <h3>詳細結果</h3>
+      <h3>無料版で確認できる詳細</h3>
       <div data-field="details"></div>
     </section>
-    <textarea class="request-box" data-field="requestText" readonly></textarea>
   </template>
 
   <script src="./app.js"></script>
