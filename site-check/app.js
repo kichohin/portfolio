@@ -2,33 +2,30 @@ const CONFIG = {
   // Cloudflare Worker API
   SCAN_ENDPOINT: "https://kichohin-site-check-api.kichohinkichohin.workers.dev/scan",
 
-  // Stripe Payment Linksを作成後、ここにURLを入れてください。
-  STRIPE_PRO_LINK: "https://buy.stripe.com/REPLACE_PRO_LINK",
-  STRIPE_AGENCY_LINK: "https://buy.stripe.com/REPLACE_AGENCY_LINK",
+  STRIPE_DETAIL_LINK: "https://buy.stripe.com/REPLACE_DETAIL_REPORT_LINK",
+  STRIPE_PACK_LINK: "https://buy.stripe.com/REPLACE_3URL_PACK_LINK",
 
-  // 修正依頼を受ける先。Coconala商品URL、自社フォーム、メールフォーム等に変更してください。
-  REPAIR_CONTACT_URL: "https://coconala.com/users/5218668"
+  // 既存の勝ち筋商品へ接続
+  REPAIR_CONTACT_URL: "https://coconala.com/services/3673839"
 };
 
 const form = document.getElementById("scanForm");
 const statusEl = document.getElementById("status");
 const resultEl = document.getElementById("result");
 
-document.querySelectorAll("[data-stripe-link]").forEach((link) => {
-  const key = link.dataset.stripeLink === "agency" ? "STRIPE_AGENCY_LINK" : "STRIPE_PRO_LINK";
-  link.href = CONFIG[key];
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-});
+initStaticLinks();
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   const url = document.getElementById("targetUrl").value.trim();
-  const plan = document.querySelector('input[name="plan"]:checked')?.value || "free";
+  const siteType = document.getElementById("siteType").value;
+  const symptom = document.getElementById("symptom").value;
+  const platforms = [...document.querySelectorAll('input[name="platform"]:checked')].map((input) => input.value);
 
   if (!url) return;
 
-  setStatus("診断しています。通常10〜30秒ほどで完了します。", false);
+  setStatus("CV計測リスクを確認しています。通常10〜30秒ほどで完了します。", false);
   resultEl.classList.add("hidden");
   resultEl.innerHTML = "";
 
@@ -36,7 +33,7 @@ form.addEventListener("submit", async (event) => {
     const response = await fetch(CONFIG.SCAN_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, plan })
+      body: JSON.stringify({ url, siteType, symptom, platforms, plan: "free" })
     });
 
     const data = await response.json();
@@ -44,25 +41,50 @@ form.addEventListener("submit", async (event) => {
       throw new Error(data.error || "診断に失敗しました。");
     }
 
-    renderResult(data.report, plan);
+    renderResult(data.report);
     setStatus("診断が完了しました。", false);
   } catch (error) {
     setStatus(error.message || "診断に失敗しました。URLをご確認ください。", true);
   }
 });
 
+function initStaticLinks() {
+  document.querySelectorAll('[data-link="detail"]').forEach((link) => setupLink(link, CONFIG.STRIPE_DETAIL_LINK, "詳細レポートの決済リンクが未設定です。app.js の STRIPE_DETAIL_LINK を差し替えてください。"));
+  document.querySelectorAll('[data-link="pack"]').forEach((link) => setupLink(link, CONFIG.STRIPE_PACK_LINK, "3URLパックの決済リンクが未設定です。app.js の STRIPE_PACK_LINK を差し替えてください。"));
+  document.querySelectorAll('[data-link="repair"]').forEach((link) => setupLink(link, CONFIG.REPAIR_CONTACT_URL, ""));
+}
+
+function setupLink(link, href, missingMessage) {
+  const isMissing = !href || /REPLACE_/.test(href);
+  if (isMissing) {
+    link.href = "#";
+    link.setAttribute("aria-disabled", "true");
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (missingMessage) alert(missingMessage);
+    });
+    return;
+  }
+
+  link.href = href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.removeAttribute("aria-disabled");
+}
+
 function setStatus(message, isError) {
   statusEl.textContent = message;
   statusEl.classList.remove("hidden");
-  statusEl.style.borderColor = isError ? "#fecdca" : "#e5e7eb";
-  statusEl.style.background = isError ? "#fef3f2" : "#f8fafc";
+  statusEl.style.borderColor = isError ? "#d94b34" : "#1f252b";
+  statusEl.style.background = isError ? "#fef3f2" : "#fff";
 }
 
-function renderResult(report, plan) {
+function renderResult(report) {
   const template = document.getElementById("resultTemplate");
   const node = template.content.cloneNode(true);
 
   node.querySelector('[data-field="overallText"]').textContent = report.overall.label;
+  node.querySelector('[data-field="overallMessage"]').textContent = report.overall.message;
   node.querySelector('[data-field="score"]').textContent = `${report.overall.score}`;
 
   const categoriesEl = node.querySelector('[data-field="categories"]');
@@ -70,7 +92,7 @@ function renderResult(report, plan) {
     const div = document.createElement("div");
     div.className = "category-card";
     div.innerHTML = `
-      <span class="badge ${statusClass(cat.status)}">${cat.mark} ${escapeHtml(cat.statusLabel)}</span>
+      <span class="badge ${statusClass(cat.status)}">${escapeHtml(cat.mark)} ${escapeHtml(cat.statusLabel)}</span>
       <strong>${escapeHtml(cat.name)}</strong>
       <small>${escapeHtml(cat.summary)}</small>
     `;
@@ -85,112 +107,33 @@ function renderResult(report, plan) {
   });
 
   node.querySelector('[data-field="nextAction"]').textContent = report.nextAction;
+  node.querySelector('[data-field="offerTitle"]').textContent = report.offer.title;
+  node.querySelector('[data-field="offerMessage"]').textContent = report.offer.message;
 
   const detailsEl = node.querySelector('[data-field="details"]');
   report.details.forEach((detail) => {
     const div = document.createElement("div");
     div.className = "detail-item";
     div.innerHTML = `
-      <span class="badge ${statusClass(detail.status)}">${detail.mark} ${escapeHtml(detail.statusLabel)}</span>
+      <span class="badge ${statusClass(detail.status)}">${escapeHtml(detail.mark)} ${escapeHtml(detail.statusLabel)}</span>
       <strong>${escapeHtml(detail.title)}</strong>
       <p>${escapeHtml(detail.message)}</p>
     `;
     detailsEl.appendChild(div);
   });
 
-  const requestText = buildRepairRequest(report, plan);
-  const requestBox = node.querySelector('[data-field="requestText"]');
-  requestBox.value = requestText;
-
   resultEl.appendChild(node);
   resultEl.classList.remove("hidden");
 
-  resultEl.querySelector('[data-action="copy-request"]').addEventListener("click", async () => {
-    await navigator.clipboard.writeText(requestText);
-    alert("修正依頼文をコピーしました。");
-  });
-
-  resultEl.querySelector('[data-action="download-report"]').addEventListener("click", () => {
-    const html = buildReportHtml(report);
-    downloadFile(`site-check-report-${Date.now()}.html`, html, "text/html");
-  });
-}
-
-function buildRepairRequest(report, plan) {
-  return [
-    "お世話になっております。",
-    "以下URLの診断結果をもとに、修正可否とお見積りをご確認いただけますでしょうか。",
-    "",
-    `対象URL：${report.url}`,
-    `診断日時：${report.checkedAt}`,
-    `利用プラン：${plan}`,
-    `総合判定：${report.overall.label}（${report.overall.score}点）`,
-    "",
-    "優先確認項目：",
-    ...report.priorityFindings.map((item, index) => `${index + 1}. ${item}`),
-    "",
-    "確認したい内容：",
-    "・ページ上で確認できる不備の修正",
-    "・広告タグ/計測タグの設置状況確認",
-    "・必要に応じた管理画面側の確認",
-    "",
-    "補足：",
-    "本診断はページ上で確認できる範囲の結果です。広告管理画面側のCV反映、購入完了イベント、サーバーサイド計測、Meta CAPI等は別途確認が必要です。"
-  ].join("\n");
-}
-
-function buildReportHtml(report) {
-  const details = report.details.map(d => `
-    <li>
-      <strong>${escapeHtml(d.mark)} ${escapeHtml(d.title)}</strong><br>
-      ${escapeHtml(d.message)}
-    </li>
-  `).join("");
-
-  const priorities = report.priorityFindings.map(f => `<li>${escapeHtml(f)}</li>`).join("");
-
-  return `<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>Kichohin Site Check Report</title>
-  <style>
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;line-height:1.8;padding:32px;color:#111827}
-    .box{border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin:18px 0}
-    h1{font-size:28px}
-  </style>
-</head>
-<body>
-  <h1>Kichohin Site Check Report</h1>
-  <div class="box">
-    <p><strong>対象URL：</strong>${escapeHtml(report.url)}</p>
-    <p><strong>診断日時：</strong>${escapeHtml(report.checkedAt)}</p>
-    <p><strong>総合判定：</strong>${escapeHtml(report.overall.label)} / ${escapeHtml(String(report.overall.score))}点</p>
-  </div>
-  <h2>優先確認項目</h2>
-  <ol>${priorities}</ol>
-  <h2>詳細結果</h2>
-  <ul>${details}</ul>
-  <div class="box">
-    <p>本レポートは、Webページ上で確認できる範囲のタグ・メタ情報・リンク・フォーム等を診断したものです。広告管理画面側のCV反映、購入完了イベント、サーバーサイド計測、Meta CAPI等の正常性を保証するものではありません。</p>
-  </div>
-</body>
-</html>`;
-}
-
-function downloadFile(filename, content, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  setupLink(resultEl.querySelector('[data-action="detail"]'), CONFIG.STRIPE_DETAIL_LINK, "詳細レポートの決済リンクが未設定です。app.js の STRIPE_DETAIL_LINK を差し替えてください。");
+  setupLink(resultEl.querySelector('[data-action="pack"]'), CONFIG.STRIPE_PACK_LINK, "3URLパックの決済リンクが未設定です。app.js の STRIPE_PACK_LINK を差し替えてください。");
+  setupLink(resultEl.querySelector('[data-action="repair"]'), CONFIG.REPAIR_CONTACT_URL, "");
 }
 
 function statusClass(status) {
   if (status === "ok") return "ok";
   if (status === "warn") return "warn";
+  if (status === "info") return "info";
   return "ng";
 }
 
