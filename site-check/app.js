@@ -1,13 +1,11 @@
 const CONFIG = {
-  // Cloudflare Worker API
+
   SCAN_ENDPOINT: "https://kichohin-site-check-api.kichohinkichohin.workers.dev/scan",
   PAY_ENDPOINT: "https://kichohin-site-check-api.kichohinkichohin.workers.dev/pay",
 
-  // Square Sandbox
   SQUARE_APP_ID: "sandbox-sq0idb-jldNnvxTyG8v1kbeGurg1w",
   SQUARE_LOCATION_ID: "L8WW7F30VAVO3",
 
-  // 既存の勝ち筋商品へ接続
   REPAIR_CONTACT_URL: "https://coconala.com/services/3673839",
 
   PRODUCTS: {
@@ -268,19 +266,7 @@ if (squarePayButton) {
       squarePayButton.disabled = true;
       squarePayButton.textContent = "決済処理中...";
 
-      const verificationDetails = {
-        amount: String(product.amount),
-        currencyCode: "JPY",
-        intent: "CHARGE",
-        customerInitiated: true,
-        sellerKeyedIn: false,
-        billingContact: {
-          email,
-          countryCode: "JP"
-        }
-      };
-
-      const tokenResult = await squareCard.tokenize(verificationDetails);
+      const tokenResult = await squareCard.tokenize();
 
       if (tokenResult.status !== "OK") {
         throw new Error(getTokenizeErrorMessage(tokenResult));
@@ -316,6 +302,7 @@ if (squarePayButton) {
         window.open(data.downloadUrl, "_blank", "noopener,noreferrer");
       }, 600);
     } catch (error) {
+      console.error("Square payment flow error:", error);
       setPaymentStatus(error.message || "決済処理中にエラーが発生しました。", true);
     } finally {
       squarePayButton.disabled = false;
