@@ -1,6 +1,4 @@
-
-<!DOCTYPE html
-
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8"/>
@@ -370,10 +368,31 @@
     .policy p { color: #d7dedb; margin: 0; }
     .policy strong { color: #fff; }
 
-    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .step { border: 2px solid var(--line); background: var(--paper2); padding: 18px; border-radius: 18px; }
-    .step b { color: var(--red); }
-    .step h3 { margin: 8px 0 6px; }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .step {
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      background: var(--paper2);
+      padding: 20px;
+      min-height: 210px;
+    }
+    .step b {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .step h3 { margin: 0 0 8px; font-size: 19px; }
     .step p { margin: 0; color: var(--sub); font-size: 14px; }
 
     .contact { border: 2px solid var(--line); background: var(--paper2); border-radius: 24px; box-shadow: var(--shadow); display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; padding: 28px; }
@@ -1449,7 +1468,779 @@
     }
   }
 
-  </style>
+
+  /* === v13 flow mobile compact patch ===
+     目的：FLOWのスマホ表示だけカード高さを抑え、4枚の見え方を均一化する。
+     他セクション・フォーム・JS処理には影響なし。
+  */
+  @media (max-width: 640px) {
+    #flow .section-head {
+      align-items: start;
+    }
+
+    #flow .section-desc {
+      max-width: none;
+      margin-top: 2px;
+    }
+
+    #flow .flow {
+      gap: 12px;
+    }
+
+    #flow .step {
+      min-height: 154px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    #flow .step b {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    #flow .step h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    #flow .step p {
+      font-size: 13.5px;
+      line-height: 1.62;
+    }
+  }
+
+  @media (max-width: 380px) {
+    #flow .step {
+      min-height: 150px;
+      padding: 13px 16px;
+    }
+
+    #flow .step p {
+      font-size: 13px;
+      line-height: 1.58;
+    }
+  }
+
+
+  /* === v14 problem cards redesign: only PROBLEM card area === */
+  .problem-route-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .problem-route-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 500px;
+    padding: 22px;
+    border: 2px solid var(--line);
+    border-radius: 24px;
+    background: var(--paper2);
+    box-shadow: 6px 6px 0 rgba(31,37,43,.12);
+  }
+
+  .problem-route-card.featured {
+    background: #fff8e5;
+  }
+
+  .problem-route-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .problem-route-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 950;
+    line-height: 1;
+  }
+
+  .problem-route-tag {
+    display: inline-flex;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 950;
+    line-height: 1.35;
+  }
+
+  .problem-route-card h3 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+  }
+
+  .problem-route-card p {
+    margin: 0;
+    color: var(--sub);
+  }
+
+  .problem-symptoms {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .problem-symptoms li {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    border-top: 1px dashed rgba(31,37,43,.18);
+    padding-top: 8px;
+    color: var(--ink);
+    font-weight: 780;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .problem-symptoms li::before {
+    content: "→";
+    color: var(--red);
+    font-weight: 950;
+    flex: 0 0 auto;
+  }
+
+  .problem-route-actions {
+    display: grid;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .problem-route-actions .btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  .problem-next-url {
+    color: var(--sub);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 930px) {
+    .problem-route-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .problem-route-card {
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .problem-route-grid {
+      gap: 14px;
+    }
+
+    .problem-route-card {
+      padding: 18px;
+      border-radius: 22px;
+      gap: 14px;
+    }
+
+    .problem-route-card h3 {
+      font-size: 22px;
+      line-height: 1.32;
+    }
+
+    .problem-route-card p,
+    .problem-symptoms li {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .problem-route-num {
+      min-width: 40px;
+      height: 40px;
+      border-radius: 13px;
+    }
+
+    .problem-route-actions .btn {
+      min-height: 45px;
+      font-size: 14px;
+      padding: 11px 14px;
+    }
+  }
+
+
+  
+  /* === v15 quick estimate patch: replace QUICK CHECK only === */
+  .estimate-wizard .wizard-head {
+    background: #e9f3f6;
+  }
+
+  .estimate-body {
+    grid-template-columns: 1.05fr .95fr;
+  }
+
+  .estimate-picker {
+    display: grid;
+    gap: 22px;
+  }
+
+  .estimate-step .question {
+    margin: 0 0 10px;
+  }
+
+  .estimate-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .estimate-options-compact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .estimate-option {
+    width: 100%;
+    min-height: 78px;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    align-items: start;
+    gap: 10px;
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper2);
+    padding: 12px;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 rgba(31,37,43,.10);
+    transition: .16s ease;
+  }
+
+  .estimate-option:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 rgba(31,37,43,.12);
+  }
+
+  .estimate-option.selected {
+    background: var(--ink);
+    color: var(--paper2);
+  }
+
+  .estimate-option strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .estimate-option small {
+    display: block;
+    margin-top: 3px;
+    color: inherit;
+    opacity: .72;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .estimate-dot {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+  }
+
+  .estimate-option.selected .estimate-dot {
+    background: var(--yellow);
+    box-shadow: inset 0 0 0 4px var(--ink);
+  }
+
+  .optional-label {
+    display: inline-flex;
+    margin-left: 6px;
+    padding: 2px 8px;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--sub);
+    font-size: 11px;
+    font-weight: 900;
+    vertical-align: middle;
+  }
+
+  .estimate-note {
+    min-height: 98px;
+  }
+
+  .estimate-info {
+    border: 2px dashed rgba(31,37,43,.28);
+    border-radius: 14px;
+    padding: 12px 13px;
+    margin: 12px 0 14px;
+    background: rgba(255,255,255,.6);
+  }
+
+  .estimate-info strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+
+  .estimate-info p {
+    margin: 0;
+    color: var(--sub);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .estimate-actions {
+    margin-top: 12px;
+  }
+
+  .estimate-actions .btn {
+    width: 100%;
+  }
+
+  .estimate-inline-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 2px dashed rgba(31,37,43,.22);
+  }
+
+  .estimate-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .estimate-submit {
+    width: 100%;
+  }
+
+  .estimate-status {
+    margin: 0;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 930px) {
+    .estimate-body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .estimate-options,
+    .estimate-options-compact,
+    .estimate-form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .estimate-picker {
+      gap: 18px;
+    }
+
+    .estimate-option {
+      min-height: auto;
+      border-radius: 14px;
+      padding: 11px 12px;
+    }
+
+    .estimate-option strong {
+      font-size: 13.5px;
+    }
+
+    .estimate-note {
+      min-height: 92px;
+    }
+  }
+  #check .estimate-result textarea#memo.memo {
+    min-height: 220px;
+    height: 280px;
+  }
+
+
+  /* === v16 price guide menu patch: replace MENU cards only === */
+  .price-guide-box {
+    border: 2px solid var(--line);
+    background: var(--paper2);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .price-guide-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    gap: 18px;
+    align-items: center;
+    padding: 24px 22px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .price-guide-row:last-child {
+    border-bottom: 0;
+  }
+
+  .price-guide-label {
+    color: var(--red);
+    font-weight: 950;
+    letter-spacing: .12em;
+    font-size: 14px;
+  }
+
+  .price-guide-main h3 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .price-guide-main p {
+    margin: 0;
+    color: var(--sub);
+  }
+
+  .price-guide-price {
+    text-align: right;
+    font-size: 24px;
+    font-weight: 950;
+    white-space: nowrap;
+  }
+
+  .price-guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .price-guide-actions .btn {
+    min-width: 220px;
+  }
+
+  @media (max-width: 930px) {
+    .price-guide-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .price-guide-price {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .price-guide-box {
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.12);
+    }
+
+    .price-guide-row {
+      padding: 18px;
+    }
+
+    .price-guide-main h3 {
+      font-size: 19px;
+    }
+
+    .price-guide-main p {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .price-guide-price {
+      font-size: 20px;
+    }
+
+    .price-guide-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .price-guide-actions .btn {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+
+
+  /* === v17 price guide wording patch: CHECK / WEB FIX / AUTOMATION / SUPPORT === */
+  .price-guide-price span,
+  .price-guide-price small {
+    display: block;
+  }
+
+  .price-guide-price small {
+    margin-top: 2px;
+    color: var(--sub);
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 850;
+    letter-spacing: .02em;
+  }
+
+  @media (min-width: 931px) {
+    .price-guide-row {
+      grid-template-columns: 180px 1fr 210px;
+    }
+  }
+
+
+  /* === v19 unified price menu: top and price page consistency === */
+  .price-guide-clean {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .price-guide-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 226px;
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    background: var(--paper2);
+    padding: 20px;
+    box-shadow: 5px 5px 0 rgba(31,37,43,.10);
+  }
+
+  .price-guide-card.featured {
+    background: #fff8e5;
+  }
+
+  .price-guide-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .price-guide-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: 950;
+    letter-spacing: .08em;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .price-guide-price {
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 950;
+    line-height: 1.25;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .price-guide-card h3 {
+    margin: 4px 0 0;
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: -.02em;
+  }
+
+  .price-guide-card p {
+    margin: 0;
+    color: var(--sub);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 930px) {
+    .price-guide-clean {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .price-guide-clean {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .price-guide-card {
+      min-height: auto;
+      padding: 18px;
+      border-radius: 20px;
+      gap: 10px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.10);
+    }
+
+    .price-guide-card h3 {
+      font-size: 19px;
+    }
+
+    .price-guide-card p {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .price-guide-card-head {
+      align-items: center;
+    }
+
+    .price-guide-price {
+      font-size: 18px;
+    }
+  }
+
+
+  /* === v20 price guide row design: keep original table-like layout, update only content/price === */
+  .price-guide-box {
+    border: 2px solid var(--line);
+    background: var(--paper2);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .price-guide-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 190px;
+    gap: 18px;
+    align-items: center;
+    padding: 24px 22px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .price-guide-row:last-child {
+    border-bottom: 0;
+  }
+
+  .price-guide-label {
+    color: var(--red);
+    font-weight: 950;
+    letter-spacing: .12em;
+    font-size: 14px;
+  }
+
+  .price-guide-main h3 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .price-guide-main p {
+    margin: 0;
+    color: var(--sub);
+  }
+
+  .price-guide-price {
+    display: grid;
+    gap: 3px;
+    justify-items: end;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .price-guide-price span {
+    font-size: 24px;
+    font-weight: 950;
+    line-height: 1.2;
+  }
+
+  .price-guide-price small {
+    color: var(--sub);
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.35;
+  }
+
+  .price-guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .price-guide-actions .btn {
+    min-width: 220px;
+  }
+
+  @media (max-width: 930px) {
+    .price-guide-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .price-guide-price {
+      justify-items: start;
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .price-guide-box {
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 rgba(31,37,43,.12);
+    }
+
+    .price-guide-row {
+      padding: 18px;
+    }
+
+    .price-guide-main h3 {
+      font-size: 19px;
+    }
+
+    .price-guide-main p {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .price-guide-price span {
+      font-size: 20px;
+    }
+
+    .price-guide-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .price-guide-actions .btn {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+</style>
 </head>
 <body>
 <div class="top-notice">
@@ -1463,11 +2254,10 @@
 <div class="wrap nav-inner">
 <a class="brand" href="#top"><span class="brand-box"><img src="assets/iconsample1.png" alt="KICHOHIN.COM ロゴ"/></span><span>KICHOHIN.COM</span></a>
 <div class="nav-links">
-<a href="#check">30秒相談</a>
-<a href="#services">対応内容</a>
+<a href="#services">料金</a>
+<a href="#check">かんたん相談</a>
 <a href="#works">実績</a>
 <a href="#contact">相談する</a>
-
 </div>
 <a class="btn btn-main nav-cta" href="#contact">相談する</a>
 </div>
@@ -1478,7 +2268,7 @@
 <div>
 <span class="stamp">相談無料 / まずはお気軽にご相談ください</span>
 <h1 class="hero-title hero-title-retain"><span class="hero-title-web">WEBまわり</span><span class="hero-title-quote">「諦める」を</span><span class="hero-title-bottom">諦めませんか？</span></h1>
-<p class="lead"><strong>既存の環境を大きく壊さない最小改修</strong>と、<strong>日々の面倒な作業を減らす自動化</strong>を、必要な内容を整理しながら進めます。</p>
+<p class="lead"><strong>既存の環境を大きく壊さない最小改修</strong>と、<strong>日々の面倒な作業を減らす自動化</strong>を、必要な内容を整理しながら無駄なくご案内いたします。</p>
 <div class="actions">
 <a class="btn btn-main" href="#check">30秒で悩みを整理する</a>
 <a class="btn btn-blue" href="#contact">対応可否を相談する</a>
@@ -1493,9 +2283,9 @@
 <div class="profile-copy"><h2>貴重品 ／ KICHOHIN</h2><p>Web修理・EC運用・計測確認・GAS自動化。相談内容を整理し、作業・確認・報告まで進めます。</p></div>
 </div>
 <div class="proof-list">
-<div class="proof-item">他社制作サイトの復旧・修正 <span>既存テーマや運用をなるべく壊さない方針</span></div>
-<div class="proof-item">GAS・通知・予約・決済まわり <span>今あるツールを活かして小さく自動化</span></div>
-<div class="proof-item">GA4/GTM/Search Console確認 <span>広告・SEO・CV判断に必要な計測を整理</span></div>
+<div class="proof-item">GA4・GTM・広告タグ<span>広告計測のの設定・修正</span></div>
+<div class="proof-item">Webサイト小規模修正 <span>表示崩れ、フォームの不具合の軽微修正</span></div>
+<div class="proof-item">業務自動化 <span>今ある業務の手作業を正しく軽減</span></div>
 </div>
 </div>
 </div>
@@ -1509,53 +2299,244 @@
 </div></div>
 <section class="section">
 <div class="wrap">
-<div class="section-head"><div><p class="kicker">PROBLEM</p><h2 class="section-title">いま止まっている実務<br/>「前に」進めます。</h2></div><p class="section-desc">「どこに、どう頼めばいいか分からない」「制作会社には小さすぎる」「でも放置をして機会損失を生みたくない」ご相談ください。</p></div>
-<div class="pain-grid">
-<div class="pain"><h3>サイト保守・バグ修正</h3><ul><li>他社制作で保守先がない</li><li>白画面・表示崩れ・フォーム不具合</li><li>既存テーマを変えずに直したい</li></ul><div class="answer">→ 影響範囲を絞って最小改修</div></div>
-<div class="pain"><h3>事務作業の自動化</h3><ul><li>転記・通知・集計が手作業</li><li>予約・決済・顧客管理が散らばる</li><li>専用システムは重すぎる</li></ul><div class="answer">→ GAS等で小さく自動化</div></div>
-<div class="pain"><h3>広告・SEOの計測確認</h3><ul><li>CVが取れているか不安</li><li>GA4/GTM/Search Consoleが曖昧</li><li>報告文に落とせない</li></ul><div class="answer">→ 設定・発火・報告を整理</div></div>
+<div class="section-head"><div><p class="kicker">PROBLEM</p><h2 class="section-title">いま止まっている実務<br/>「次に」進めます。</h2></div><p class="section-desc">GA4や広告タグの不安、サイト表示やフォームの不具合、毎日の転記・通知作業など、放置すると機会損失につながる小さな詰まりを整理します。まずは近い内容からご相談ください。
+</p></div>
+<div class="problem-route-grid">
+  <article class="problem-route-card featured">
+    <div class="problem-route-top">
+      <span class="problem-route-num">01</span>
+      <span class="problem-route-tag">最初に強化</span>
+    </div>
+    <h3>GA4・GTM・広告タグの不具合や新規設定</h3>
+    <p>広告費を使っているのにCVが見えない、成果数が合わない、発火しているか分からない場合の入口です。</p>
+    <ul class="problem-symptoms">
+      <li>GA4のコンバージョンが0件のまま</li>
+      <li>Meta広告・LINE広告の成果が合わない</li>
+      <li>GTMの発火条件やタグ重複が不安</li>
+      <li>サンクスページ・フォーム到達の計測を確認したい</li>
+    </ul>
+    <div class="problem-route-actions">
+      <a class="btn btn-main" href="#check">この内容で相談メモを作る</a>
+      <a class="btn btn-blue" href="/ga4-gtm-check/">詳細ページへ</a>
+      <span class="problem-next-url">遷移先案：/ga4-gtm-check/</span>
+    </div>
+  </article>
+
+  <article class="problem-route-card">
+    <div class="problem-route-top">
+      <span class="problem-route-num">02</span>
+      <span class="problem-route-tag">小規模修正</span>
+    </div>
+    <h3>WordPress・Wix・ShopifyなどのCMS・ECサイト修正</h3>
+    <p>他社制作サイトの軽微修正、表示崩れ、フォーム、OGP、EC導線の調整を相談する入口です。</p>
+    <ul class="problem-symptoms">
+      <li>表示が崩れている、白画面になる</li>
+      <li>問い合わせフォームが届かない</li>
+      <li>OGPや検索結果の表示を整えたい</li>
+      <li>既存テーマや運用を壊さず直したい</li>
+    </ul>
+    <div class="problem-route-actions">
+      <a class="btn btn-main" href="#check">この内容で相談メモを作る</a>
+      <a class="btn btn-blue" href="/web-fix/">詳細ページへ</a>
+      <span class="problem-next-url">遷移先案：/web-fix/</span>
+    </div>
+  </article>
+
+  <article class="problem-route-card">
+    <div class="problem-route-top">
+      <span class="problem-route-num">03</span>
+      <span class="problem-route-tag">自動化</span>
+    </div>
+    <h3>既存リソースの自動化・業務効率化</h3>
+    <p>毎日の転記、通知、PDF生成、予約・決済案内などを、今あるGoogle環境を活かして軽く自動化する入口です。</p>
+    <ul class="problem-symptoms">
+      <li>スプレッドシートへの転記が多い</li>
+      <li>メール・LINE・Chatwork通知を自動化したい</li>
+      <li>PDF生成や予約情報の整理をしたい</li>
+      <li>高額な専用システムまでは不要</li>
+    </ul>
+    <div class="problem-route-actions">
+      <a class="btn btn-main" href="#check">この内容で相談メモを作る</a>
+      <a class="btn btn-blue" href="/gas-automation/">詳細ページへ</a>
+      <span class="problem-next-url">遷移先案：/gas-automation/</span>
+    </div>
+  </article>
 </div>
 </div>
 
 </section>
-<div class="section-ticker" aria-hidden="true"><div class="section-ticker-track"><span>小規模修正 15,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span><span>小規模修正 15,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span></div></div>
-<section class="section" id="check">
-<div class="wrap">
-<div class="wizard">
-<div class="wizard-head"><div><p class="kicker">QUICK CHECK</p><h2>まずはお困りごとを整理しましょう</h2><p>名前やメールアドレスを入れる前に、まず相談内容だけ整理できます。<br>金額は概算となります。ご予算に合わせてご案内いたします。</p></div><span class="badge">30秒でわかる</span></div>
-<div class="wizard-body">
-<div class="picker">
-<div class="question">1. 一番近い困りごとは？</div>
-<div class="chips" data-group="problem"><button class="chip" data-value="smallfix">小規模修正・確認</button><button class="chip" data-value="web">サイトを直したい</button><button class="chip" data-value="auto">手作業を減らしたい</button><button class="chip" data-value="track">計測を確認したい</button><button class="chip" data-value="ec">EC運用を整えたい</button><button class="chip" data-value="ai">AI活用を業務に入れたい</button><button class="chip" data-value="partner">外部パートナーを探している</button></div>
-<div class="question">2. 急ぎ度は？</div>
-<div class="chips" data-group="urgency"><button class="chip" data-value="now">早めに確認したい</button><button class="chip" data-value="month">今月中に進めたい</button><button class="chip" data-value="plan">まず整理したい</button></div>
-<div class="question">3. 予算感は？</div>
-<div class="chips" data-group="budget"><button class="chip" data-value="mini">5万円以下</button><button class="chip" data-value="small">5万円前後</button><button class="chip" data-value="mid">10〜30万円</button><button class="chip" data-value="large">30万円以上</button><button class="chip" data-value="monthly">月額で相談</button></div>
-</div>
-<div class="result">
-<div class="result-label">相談メモ</div>
-<h3 id="resultTitle">初回スコープ整理</h3>
-<div class="price" id="resultPrice">50,000円 ~ </div>
-<p id="resultSummary">選択内容に応じて、相談内容の下書きを作成します。</p>
-<textarea class="memo" id="memo" readonly="">【相談内容】
-現状の困りごとについて、対応可否・概算・必要な確認事項を整理したいです。</textarea>
-<div class="actions"><button class="btn btn-main" id="copyBtn" type="button">コピー</button><button class="btn btn-blue" id="pasteMemoBtn" type="button">相談に貼る</button></div>
-</div>
-</div>
-</div>
-
-</div>
-</section>
+<div class="section-ticker" aria-hidden="true"><div class="section-ticker-track"><span>小規模修正 8,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span><span>小規模修正 8,000円〜</span><span>他社制作サイト修正</span><span>GAS自動化</span><span>GA4 / GTM確認</span><span>フォーム不具合確認</span></div></div>
 <section class="section" id="services">
 <div class="wrap">
-<div class="section-head"><div><p class="kicker">MENU</p><h2 class="section-title">「損失の大きさ」<br/>本当に適切ですか？</h2></div><p class="section-desc">小さな修正も可能です。現在のご状況に合わせて、事業改善・計測・自動化・継続運用に繋がるサービスをご案内いたします。</p></div>
-<div class="service-row">
-<div class="service"><div class="service-mark">01 / SMALL</div><div><h3>小規模修正・確認窓口</h3><p>テキスト・画像差し替え、軽微な表示崩れ、フォーム確認など、短時間で完了できる範囲を確認します。</p></div><div class="service-price"> ~ 50,000円</div></div>
-<div class="service"><div class="service-mark">02 / SCOPE</div><div><h3>初回スコープ整理</h3><p>URL、画面、現状を確認し、対応可否・必要情報・見積り範囲を整理します。</p></div><div class="service-price">50,000円 ~ </div></div>
-<div class="service"><div class="service-mark">03 / FIX</div><div><h3>Web・EC改善</h3><p>WordPress/Wix/Shopify/WooCommerceの修正、フォーム、導線、SEO/OGPを整えます。</p></div><div class="service-price"> ~ 500,000円</div></div>
-<div class="service"><div class="service-mark">04 / AUTO</div><div><h3>GAS・通知・管理自動化</h3><p>スプレッドシート、Chatwork、LINE、メール、PDF生成などを組み合わせます。</p></div><div class="service-price"> ~ 600,000円</div></div>
-<div class="service"><div class="service-mark">05 / TRACK</div><div><h3>GA4/GTM・広告計測確認</h3><p>CV・イベント・タグ・Search Consoleなど、判断に必要な計測環境を整理します。</p></div><div class="service-price"> ~ 300,000円</div></div>
-<div class="service"><div class="service-mark">06 / PARTNER</div><div><h3>外部パートナー対応</h3><p>制作会社・広告代理店・EC支援会社様の細かな実装・確認・資料化を巻き取ります。</p></div><div class="service-price">月額150,000円 ~ </div></div>
+<div class="section-head">
+  <div>
+    <p class="kicker">MENU</p>
+    <h2 class="section-title">「損失の大きさ」<br/>本当に適切ですか？</h2>
+  </div>
+  <p class="section-desc">小さな修正も可能です。現在のご状況に合わせて、事業改善・計測・自動化・継続運用に繋がるサービスをご案内いたします。</p>
+</div>
+
+<div class="price-guide-box">
+  <div class="price-guide-row">
+    <div class="price-guide-label">CHECK</div>
+    <div class="price-guide-main">
+      <h3>確認・小規模修正</h3>
+      <p>表示崩れ、リンク不良、フォーム確認、軽微なHTML/CSS/JS調整など、まず状態を見て短時間で対応できる範囲を整理します。</p>
+    </div>
+    <div class="price-guide-price"><span>8,000円〜</span><small>明確な軽微修正</small></div>
+  </div>
+
+  <div class="price-guide-row">
+    <div class="price-guide-label">DIAGNOSE</div>
+    <div class="price-guide-main">
+      <h3>GA4・広告計測診断</h3>
+      <p>CVが入らない、成果数が合わない、どこを見ればよいか分からない状態を、修正前に整理します。</p>
+    </div>
+    <div class="price-guide-price"><span>8,000円〜</span><small>原因整理・診断</small></div>
+  </div>
+
+  <div class="price-guide-row">
+    <div class="price-guide-label">TRACKING</div>
+    <div class="price-guide-main">
+      <h3>GA4・広告タグ修正</h3>
+      <p>GTM、Meta、LINE広告などのCV漏れ・発火不備を、原因特定から修正、再確認まで対応します。</p>
+    </div>
+    <div class="price-guide-price"><span>45,000円〜</span><small>原因特定〜再確認</small></div>
+  </div>
+
+  <div class="price-guide-row">
+    <div class="price-guide-label">WEB FIX</div>
+    <div class="price-guide-main">
+      <h3>Web・CMS・EC修正</h3>
+      <p>WordPress、Wix、Shopify、WooCommerceなど、既存環境を確認しながら修正・整理します。</p>
+    </div>
+    <div class="price-guide-price"><span>30,000円〜</span><small>内容により個別見積</small></div>
+  </div>
+
+  <div class="price-guide-row">
+    <div class="price-guide-label">AUTOMATION</div>
+    <div class="price-guide-main">
+      <h3>GAS・業務自動化</h3>
+      <p>スプレッドシート、Webhook、Drive保存、PDF生成、メール・LINE・Chatwork通知など、今ある業務フローをもとに自動化します。</p>
+    </div>
+    <div class="price-guide-price"><span>50,000円〜</span><small>構成により変動</small></div>
+  </div>
+
+  <div class="price-guide-row">
+    <div class="price-guide-label">SUPPORT</div>
+    <div class="price-guide-main">
+      <h3>月額保守・継続運用</h3>
+      <p>軽微修正、死活・更新確認、バックアップ、簡易レポート、継続的な相談窓口としての整理に対応します。</p>
+    </div>
+    <div class="price-guide-price"><span>30,000円/月〜</span><small>範囲により調整</small></div>
+  </div>
+</div>
+
+<div class="price-guide-actions">
+  <a class="btn btn-main" href="#check">かんたん見積もりをする</a>
+  <a class="btn btn-blue" href="/price/">詳しい見積もりを見る</a>
+</div>
+</div>
+</section>
+<section class="section" id="check">
+<div class="wrap">
+<div class="wizard estimate-wizard">
+<div class="wizard-head"><div><p class="kicker">QUICK ESTIMATE</p><h2>かんたん見積もり</h2><p>ご相談内容がはっきりしていなくても問題ありません。近い内容を選ぶだけで、費用目安と相談文を作成できます。そのまま相談することも、メモとしてコピーすることも可能です。</p></div><span class="badge">30秒でわかる</span></div>
+<div class="wizard-body estimate-body">
+<div class="picker estimate-picker">
+<div class="estimate-step">
+<div class="question">1. ジャンル・媒体を選んでください</div>
+<div class="estimate-options" data-estimate-group="category">
+<button class="estimate-option" data-value="track" type="button"><span class="estimate-dot"></span><span><strong>GA4・GTM・広告計測</strong><small>CV、タグ、広告成果、Search Consoleなど</small></span></button>
+<button class="estimate-option" data-value="web" type="button"><span class="estimate-dot"></span><span><strong>CMS・ECサイトまわり</strong><small>WordPress・Wix・Shopifyなどの修正</small></span></button>
+<button class="estimate-option" data-value="auto" type="button"><span class="estimate-dot"></span><span><strong>スプレッドシート・GAS自動化</strong><small>転記、通知、PDF生成、予約・決済案内など</small></span></button>
+<button class="estimate-option selected" data-value="unknown" type="button"><span class="estimate-dot"></span><span><strong>どれに近いか分からない</strong><small>まず内容と費用感だけ確認したい場合</small></span></button>
+</div>
+</div>
+
+<div class="estimate-step">
+<div class="question">2. 希望する範囲を選んでください</div>
+<div class="estimate-options estimate-options-compact" data-estimate-group="scope">
+<button class="estimate-option selected" data-value="check" type="button"><span class="estimate-dot"></span><span><strong>状態確認・切り分け</strong><small>まず原因や対応可否を見たい</small></span></button>
+<button class="estimate-option" data-value="fix" type="button"><span class="estimate-dot"></span><span><strong>軽微な修正</strong><small>既存環境を大きく変えず直したい</small></span></button>
+<button class="estimate-option" data-value="setup" type="button"><span class="estimate-dot"></span><span><strong>設定・実装まで相談</strong><small>必要な作業までまとめて進めたい</small></span></button>
+<button class="estimate-option" data-value="partner" type="button"><span class="estimate-dot"></span><span><strong>継続的に相談したい</strong><small>外部パートナーとして相談したい</small></span></button>
+</div>
+</div>
+
+<div class="estimate-step">
+<div class="question">3. 急ぎ度を選んでください</div>
+<div class="estimate-options estimate-options-compact" data-estimate-group="urgency">
+<button class="estimate-option" data-value="now" type="button"><span class="estimate-dot"></span><span><strong>早めに確認したい</strong><small>なるべく早く状況を見たい</small></span></button>
+<button class="estimate-option" data-value="month" type="button"><span class="estimate-dot"></span><span><strong>今月中に進めたい</strong><small>時期を見ながら進めたい</small></span></button>
+<button class="estimate-option selected" data-value="plan" type="button"><span class="estimate-dot"></span><span><strong>まず費用感だけ知りたい</strong><small>相談前に目安を確認したい</small></span></button>
+</div>
+</div>
+
+<div class="estimate-step">
+<div class="question">4. 伝えておきたいことがあればご記入ください <span class="optional-label">任意</span></div>
+<textarea class="estimate-note" id="estimateNote" placeholder="例：対象URL、エラー画面、いつから起きているか、希望納期、現在の管理画面の状況など"></textarea>
+</div>
+</div>
+
+<div class="result estimate-result">
+<div class="result-label">費用目安</div>
+<h3 id="resultTitle">まずは内容整理・対応可否の確認</h3>
+<div class="price" id="resultPrice">8,000円 ~ 45,000円程度</div>
+<p id="resultSummary">症状や依頼内容がはっきりしていない場合でも、URL・画面・現在困っていることをもとに、対応可否と必要な確認事項を整理します。</p>
+<div class="estimate-info">
+<strong>正式見積もりに必要な情報</strong>
+<p id="estimateNeeded">対象URL、該当画面、スクリーンショット、現在困っている内容</p>
+</div>
+<label for="memo">相談文の下書き</label>
+<textarea class="memo" id="memo" readonly="">【相談したい内容】
+どの内容に近いか分からないため、まずは対応可否と費用感を相談したいです。
+
+【現在の状況】
+Webサイト、計測、フォーム、EC、スプレッドシート作業などで気になる点がありますが、原因や依頼内容をまだ整理できていません。
+
+【希望する範囲】
+状態確認・切り分け
+
+【急ぎ度】
+まず費用感だけ知りたい
+
+【費用目安】
+8,000円 ~ 45,000円程度
+※内容確認後、正式なお見積もりをご案内ください。
+
+【補足】
+必要に応じて、対象URL・スクリーンショット・現在の状況を共有します。</textarea>
+<div class="actions estimate-actions"><button class="btn btn-blue" id="copyBtn" type="button">コピー</button></div>
+
+<form class="estimate-inline-form" id="estimateForm">
+<input name="category" id="estimateCategoryInput" type="hidden" value="どれに近いか分からない"/>
+<input name="message" id="estimateMessageInput" type="hidden"/>
+<input name="estimate" id="estimatePriceInput" type="hidden" value="8,000円 ~ 45,000円程度"/>
+<input autocomplete="off" id="estimateWebsite" name="website" style="display:none;" tabindex="-1" type="text"/>
+<div class="estimate-form-grid">
+<div><label>お名前 / 会社名</label><input name="name" placeholder="例：株式会社〇〇 / ご担当者名" required/></div>
+<div><label>メールアドレス</label><input name="email" placeholder="example@example.com" type="email" required/></div>
+</div>
+<button class="btn btn-main estimate-submit" id="estimateSubmitBtn" type="submit">この内容で相談する</button>
+<p class="estimate-status" id="estimateStatus"></p>
+</form>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+
+<section class="section" id="flow">
+<div class="wrap">
+<div class="section-head"><div><p class="kicker">FLOW</p><h2 class="section-title">ご相談からお納めまで<br/>テキストで進めます。</h2></div><p class="section-desc">大切なサイト・管理画面・計測環境を扱うからこそ、やり取りは文章で残します。認識違いや取りこぼしを防ぎ、双方にとって安心して進められる形を大切にしています。</p></div>
+<div class="flow">
+<div class="step"><b>1</b><h3>症状を送る</h3><p>URL、スクショ、困っている内容、希望納期を送ってください。</p></div>
+<div class="step"><b>2</b><h3>切り分け</h3><p>対応可能範囲、必要情報、リスク、概算を整理します。</p></div>
+<div class="step"><b>3</b><h3>作業・確認</h3><p>既存環境への影響を抑えながら、修正・設定・検証を進めます。</p></div>
+<div class="step"><b>4</b><h3>報告・納品</h3><p>対応内容、確認結果、今後の注意点を文章で残します。</p></div>
 </div>
 </div>
 
@@ -1609,27 +2590,78 @@
 <footer><div class="wrap foot"><span>© 2026 KICHOHIN.COM</span></div></footer>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const state = { problem: '', urgency: '', budget: '' };
+      const state = { category: 'unknown', scope: 'check', urgency: 'plan', note: '' };
 
-      const jpMap = {
-        smallfix: ['小規模修正・確認', '15,000円 ~ 50,000円', 'テキスト・画像差し替え、軽微な表示崩れ、フォーム確認など、短時間で完了できる範囲を確認します。'],
-        web: ['Web・EC改善', '100,000円 ~ 500,000円', '既存サイト・ECの修正、導線、フォーム、SEO/OGPなどを、影響範囲を絞って整えます。'],
-        auto: ['GAS・通知・管理自動化', '100,000円 ~ 600,000円', 'スプレッドシート、通知、メール、PDF、LINE/Chatworkなどを組み合わせて手作業を減らします。'],
-        track: ['GA4/GTM・広告計測確認', '80,000円 ~ 300,000円', 'CV、イベント、タグ、Search Consoleなど、判断に必要な計測状態を整理します。'],
-        ec: ['EC運用整理・改善', '100,000円 ~ 500,000円', 'Shopify/WooCommerce/決済/通知/商品管理/多言語周辺を運用しやすい形に整えます。'],
-        ai: ['AI活用・業務テンプレート整備', '50,000円 ~ 200,000円', '返信文、営業文、報告書、業務プロンプト、手順書などを実務で使える形にします。'],
-        partner: ['外部パートナー対応', '月額150,000円 ~ ', '制作会社・広告代理店・EC支援会社様の細かな実装・確認・資料化を巻き取ります。']
+      const estimateMap = {
+        track: {
+          title: 'GA4・GTM・広告計測の確認',
+          category: 'GA4 / GTM / 広告計測',
+          summary: 'CV、イベント、タグ、広告成果、Search Consoleなど、判断に必要な計測状態を確認します。',
+          needed: '対象URL、GTM/GA4/広告管理画面の状況、計測したいCV、サンクスページやフォーム到達条件',
+          situation: 'GA4・GTM・広告タグまわりで、CVが見えない、成果数が合わない、発火しているか分からないなどの不安があります。'
+        },
+        web: {
+          title: 'CMS・ECサイトまわりの修正',
+          category: 'Web / EC修正',
+          summary: 'WordPress・Wix・Shopifyなどの既存サイトについて、表示崩れ、フォーム、OGP、EC導線まわりを確認します。',
+          needed: '対象URL、該当画面、スクリーンショット、管理画面の状況、使用中のCMSやテーマ情報',
+          situation: 'WordPress・Wix・ShopifyなどのCMS・ECサイトまわりで、表示崩れ、フォーム不具合、OGP、検索結果表示、EC導線など確認したい箇所があります。'
+        },
+        auto: {
+          title: 'スプレッドシート・GAS自動化',
+          category: 'GAS / 自動化',
+          summary: '毎日の転記、通知、PDF生成、予約・決済案内などを、今あるGoogle環境を活かして軽く自動化する内容を確認します。',
+          needed: '現在使っているスプレッドシート、作業手順、通知先、出力したいPDFやメール文面、連携したいツール',
+          situation: 'GoogleスプレッドシートやGASを使い、毎日の転記、通知、PDF生成、予約情報の整理、決済案内などの手作業を減らしたいです。'
+        },
+        unknown: {
+          title: 'まずは内容整理・対応可否の確認',
+          category: '小規模修正・確認',
+          summary: '症状や依頼内容がはっきりしていない場合でも、URL・画面・現在困っていることをもとに、対応可否と必要な確認事項を整理します。',
+          needed: '対象URL、該当画面、スクリーンショット、現在困っている内容',
+          situation: 'Webサイト、計測、フォーム、EC、スプレッドシート作業などで気になる点がありますが、原因や依頼内容をまだ整理できていません。'
+        }
       };
 
-      const labelsJa = {
-        problem: { smallfix: '小規模修正・確認', web: 'サイト修正', auto: '自動化', track: '計測確認', ec: 'EC運用', ai: 'AI活用', partner: '外部パートナー' },
-        urgency: { now: '早めに確認', month: '今月中', plan: 'まず整理' },
-        budget: { mini: '1.5〜5万円', small: '5万円前後', mid: '10〜30万円', large: '30万円以上', monthly: '月額相談' }
+      const scopeMap = {
+        check: '状態確認・切り分け',
+        fix: '軽微な修正',
+        setup: '設定・実装まで相談',
+        partner: '継続的に相談したい'
       };
 
-      function getLabel(dict, key, val, fallback) {
-        return (dict[key] && dict[key][val]) || fallback;
-      }
+      const urgencyMap = {
+        now: '早めに確認したい',
+        month: '今月中に進めたい',
+        plan: 'まず費用感だけ知りたい'
+      };
+
+      const priceMap = {
+        track: {
+          check: '8,000円 ~ 45,000円程度',
+          fix: '45,000円 ~ 120,000円程度',
+          setup: '80,000円 ~ 200,000円程度',
+          partner: '月額30,000円〜 / 内容により応相談'
+        },
+        web: {
+          check: '8,000円 ~ 30,000円程度',
+          fix: '30,000円 ~ 80,000円程度',
+          setup: '50,000円 ~ 150,000円程度',
+          partner: '月額30,000円〜 / 内容により応相談'
+        },
+        auto: {
+          check: '50,000円 ~ 80,000円程度',
+          fix: '80,000円 ~ 120,000円程度',
+          setup: '120,000円 ~ 300,000円程度',
+          partner: '月額30,000円〜 / 内容により応相談'
+        },
+        unknown: {
+          check: '8,000円 ~ 45,000円程度',
+          fix: '30,000円 ~ 80,000円程度',
+          setup: '50,000円 ~ 150,000円程度',
+          partner: '月額30,000円〜 / 内容により応相談'
+        }
+      };
 
       function setText(id, text) {
         const el = document.getElementById(id);
@@ -1641,45 +2673,88 @@
         if (el) el.value = value;
       }
 
-      function updateJa() {
-        const data = jpMap[state.problem] || ['初回スコープ整理', '50,000円 ~ ', '選択内容に応じて、相談内容の下書きを作成します。'];
-        setText('resultTitle', data[0]);
-        setText('resultPrice', data[1]);
-        setText('resultSummary', data[2]);
-        setValue('memo', `【相談内容】
-${getLabel(labelsJa, 'problem', state.problem, '未選択')}について相談したいです。
-
-【急ぎ度】
-${getLabel(labelsJa, 'urgency', state.urgency, '未選択')}
-
-【予算感】
-${getLabel(labelsJa, 'budget', state.budget, '未選択')}
-
-【希望】
-対応可否、概算費用、必要な確認事項、進行方法を整理いただきたいです。
-
-【補足】
-対象URL、エラー画面、管理画面の状況、現在困っている内容は必要に応じて共有いたします。`);
+      function getPrice() {
+        return (priceMap[state.category] && priceMap[state.category][state.scope]) || '内容確認後にご案内';
       }
 
-      document.querySelectorAll('.chips').forEach(function (group) {
+      function buildMemo() {
+        const item = estimateMap[state.category] || estimateMap.unknown;
+        const price = getPrice();
+        const note = state.note.trim();
+        return `【相談したい内容】
+${item.title}について相談したいです。
+
+【現在の状況】
+${item.situation}
+
+【希望する範囲】
+${scopeMap[state.scope] || '未選択'}
+
+【急ぎ度】
+${urgencyMap[state.urgency] || '未選択'}
+
+【費用目安】
+${price}
+※内容確認後、正式なお見積もりをご案内ください。
+
+【補足】
+${note || '必要に応じて、対象URL・スクリーンショット・現在の状況を共有します。'}
+
+【共有できるもの】
+${item.needed}`;
+      }
+
+      function updateEstimate() {
+        const item = estimateMap[state.category] || estimateMap.unknown;
+        const price = getPrice();
+        const memo = buildMemo();
+        setText('resultTitle', item.title);
+        setText('resultPrice', price);
+        setText('resultSummary', item.summary);
+        setText('estimateNeeded', item.needed);
+        setValue('memo', memo);
+        setValue('estimateCategoryInput', item.category);
+        setValue('estimatePriceInput', price);
+        setValue('estimateMessageInput', memo);
+      }
+
+      function selectEstimateOption(groupName, value) {
+        const group = document.querySelector('[data-estimate-group="' + groupName + '"]');
+        if (!group) return;
+        group.querySelectorAll('.estimate-option').forEach(function (option) {
+          const isSelected = option.dataset.value === value;
+          option.classList.toggle('selected', isSelected);
+          option.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        });
+        state[groupName] = value;
+        updateEstimate();
+      }
+
+      document.querySelectorAll('[data-estimate-group]').forEach(function (group) {
         group.addEventListener('click', function (event) {
-          const btn = event.target.closest('.chip');
+          const btn = event.target.closest('.estimate-option');
           if (!btn) return;
-          group.querySelectorAll('.chip').forEach(function (chip) { chip.classList.remove('selected'); });
-          btn.classList.add('selected');
-          const groupName = group.dataset.group;
-          state[groupName] = btn.dataset.value;
-          updateJa();
+          const groupName = group.dataset.estimateGroup;
+          selectEstimateOption(groupName, btn.dataset.value);
         });
       });
+
+      const estimateNote = document.getElementById('estimateNote');
+      if (estimateNote) {
+        estimateNote.addEventListener('input', function (event) {
+          state.note = event.target.value;
+          updateEstimate();
+        });
+      }
 
       function copyToClipboard(id, btn) {
         const el = document.getElementById(id);
         if (!el || !btn) return;
         el.focus();
         el.select();
-        document.execCommand('copy');
+        try {
+          document.execCommand('copy');
+        } catch (error) {}
         const original = btn.textContent;
         btn.textContent = 'コピーしました';
         setTimeout(function () { btn.textContent = original; }, 1200);
@@ -1688,110 +2763,93 @@ ${getLabel(labelsJa, 'budget', state.budget, '未選択')}
       const copyBtn = document.getElementById('copyBtn');
       if (copyBtn) copyBtn.addEventListener('click', function (event) { copyToClipboard('memo', event.currentTarget); });
 
+      document.querySelectorAll('.problem-route-card .problem-route-actions a[href="#check"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          const card = link.closest('.problem-route-card');
+          const title = card ? card.querySelector('h3')?.textContent || '' : '';
+          let nextCategory = 'unknown';
+          if (title.includes('GA4') || title.includes('GTM') || title.includes('広告')) nextCategory = 'track';
+          if (title.includes('WordPress') || title.includes('Wix') || title.includes('Shopify') || title.includes('CMS')) nextCategory = 'web';
+          if (title.includes('自動化') || title.includes('GAS') || title.includes('業務効率化')) nextCategory = 'auto';
+          setTimeout(function () { selectEstimateOption('category', nextCategory); }, 50);
+        });
+      });
+
       const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzocQi03JwTVzQN4votfTZnCWLvWa3Rev-wNwrb7yn5WYpWstBRwWOcUwEEvqlcr-UW/exec';
+      const estimateForm = document.getElementById('estimateForm');
       const contactForm = document.getElementById('contactForm');
 
-      function pasteMemoToContact() {
-        const memo = document.getElementById('memo');
-        const contactSection = document.getElementById('contact');
-        if (!memo || !contactForm) return;
+      async function submitForm(form, submitBtn, status, successText) {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
-        const messageField = contactForm.querySelector('textarea[name="message"]');
-        const categoryField = contactForm.querySelector('select[name="category"]');
-        const status = document.getElementById('formStatus');
-
-        if (messageField) {
-          messageField.value = memo.value;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = '送信中...';
+        }
+        if (status) {
+          status.textContent = '';
+          status.style.color = '';
         }
 
-        if (categoryField) {
-          const categoryMap = {
-            smallfix: '小規模修正・確認',
-            web: 'Web / EC修正',
-            auto: 'GAS / 自動化',
-            track: 'GA4 / GTM / 広告計測',
-            ec: 'Web / EC修正',
-            ai: 'AI活用',
-            partner: '外部パートナー相談'
-          };
-          const nextCategory = categoryMap[state.problem];
-          if (nextCategory) {
-            categoryField.value = nextCategory;
+        try {
+          await fetch(GAS_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (status) {
+            status.textContent = successText;
+            status.style.color = 'var(--green)';
+          }
+          form.reset();
+          state.note = '';
+          updateEstimate();
+        } catch (error) {
+          if (status) {
+            status.textContent = '送信に失敗しました。恐れ入りますが、メールで直接ご連絡ください。';
+            status.style.color = 'var(--red)';
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.originalText || 'この内容で相談する';
           }
         }
-
-        if (status) {
-          status.textContent = '相談メモを貼り付けました。必要に応じてURLや補足を追記してください。';
-          status.style.color = 'var(--green)';
-        }
-
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        if (messageField) {
-          setTimeout(function () {
-            messageField.focus({ preventScroll: true });
-          }, 450);
-        }
       }
 
-      const pasteMemoBtn = document.getElementById('pasteMemoBtn');
-      if (pasteMemoBtn) {
-        pasteMemoBtn.addEventListener('click', pasteMemoToContact);
+      if (estimateForm) {
+        estimateForm.addEventListener('submit', async function (event) {
+          event.preventDefault();
+          const honeypot = document.getElementById('estimateWebsite');
+          if (honeypot && honeypot.value) return;
+          updateEstimate();
+          const submitBtn = document.getElementById('estimateSubmitBtn');
+          if (submitBtn && !submitBtn.dataset.originalText) submitBtn.dataset.originalText = submitBtn.textContent;
+          const status = document.getElementById('estimateStatus');
+          await submitForm(estimateForm, submitBtn, status, '送信が完了しました。内容を確認のうえ返信いたします。');
+        });
       }
-
 
       if (contactForm) {
         contactForm.addEventListener('submit', async function (event) {
           event.preventDefault();
-
           const honeypot = document.getElementById('website');
           if (honeypot && honeypot.value) return;
-
           const submitBtn = document.getElementById('submitBtn');
+          if (submitBtn && !submitBtn.dataset.originalText) submitBtn.dataset.originalText = submitBtn.textContent;
           const status = document.getElementById('formStatus');
-          const formData = new FormData(contactForm);
-          const data = Object.fromEntries(formData.entries());
-
-          if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.textContent = '送信中...';
-          }
-          if (status) {
-            status.textContent = '';
-            status.style.color = '';
-          }
-
-          try {
-            await fetch(GAS_ENDPOINT, {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: {
-                'Content-Type': 'text/plain;charset=utf-8'
-              },
-              body: JSON.stringify(data)
-            });
-
-            if (status) {
-              status.textContent = '送信が完了しました。内容を確認のうえ返信いたします。';
-              status.style.color = 'var(--green)';
-            }
-            contactForm.reset();
-          } catch (error) {
-            if (status) {
-              status.textContent = '送信に失敗しました。恐れ入りますが、メールで直接ご連絡ください。';
-              status.style.color = 'var(--red)';
-            }
-          } finally {
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.textContent = '相談内容を送信する';
-            }
-          }
+          await submitForm(contactForm, submitBtn, status, '送信が完了しました。内容を確認のうえ返信いたします。');
         });
       }
+
+      updateEstimate();
     });
   </script>
+
 </body>
 </html>

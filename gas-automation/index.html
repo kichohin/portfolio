@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GAS・スプレッドシート業務自動化 | KICHOHIN.COM</title>
+<meta name="description" content="Googleスプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知など、日々の転記や確認作業を今あるGoogle環境で自動化します。"/>
+<link rel="canonical" href="https://kichohin.com/gas-automation/"/>
+<link rel="icon" href="../assets/favicon.png" type="image/jpeg"/>
+<link rel="apple-touch-icon" href="../assets/favicon.png"/>
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="KICHOHIN.COM"/>
+<meta property="og:title" content="GAS・スプレッドシート業務自動化 | KICHOHIN.COM"/>
+<meta property="og:description" content="Googleスプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知など、日々の転記や確認作業を今あるGoogle環境で自動化します。"/>
+<meta property="og:url" content="https://kichohin.com/gas-automation/"/>
+<meta property="og:image" content="https://kichohin.com/assets/ogp-kichohin-20260510.jpg?v=20260609"/>
+<meta property="og:image:secure_url" content="https://kichohin.com/assets/ogp-kichohin-20260510.jpg?v=20260609"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="KICHOHIN.COM Web修正・GAS自動化・GA4/GTM確認の相談案内"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="GAS・スプレッドシート業務自動化 | KICHOHIN.COM"/>
+<meta name="twitter:description" content="Googleスプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知など、日々の転記や確認作業を今あるGoogle環境で自動化します。"/>
+<meta name="twitter:image" content="https://kichohin.com/assets/ogp-kichohin-20260510.jpg?v=20260609"/>
+<link rel="alternate" hreflang="ja" href="https://kichohin.com/gas-automation/"/>
+<link rel="alternate" hreflang="x-default" href="https://kichohin.com/gas-automation/"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kichohin.com/gas-automation/#webpage",
+      "url": "https://kichohin.com/gas-automation/",
+      "name": "GAS・スプレッドシート業務自動化 | KICHOHIN.COM",
+      "description": "Googleスプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知など、日々の転記や確認作業を今あるGoogle環境で自動化します。",
+      "isPartOf": {
+        "@id": "https://kichohin.com/#website"
+      },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://kichohin.com/gas-automation/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "KICHOHIN.COM",
+          "item": "https://kichohin.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "GAS / 業務自動化",
+          "item": "https://kichohin.com/gas-automation/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://kichohin.com/gas-automation/#service",
+      "name": "GAS・スプレッドシート業務自動化",
+      "provider": {
+        "@id": "https://kichohin.com/#business"
+      },
+      "serviceType": "GAS・スプレッドシート業務自動化",
+      "areaServed": [
+        "JP",
+        "Worldwide"
+      ],
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://kichohin.com/gas-automation/"
+      },
+      "description": "Googleスプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知など、日々の転記や確認作業を今あるGoogle環境で自動化します。"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kichohin.com/gas-automation/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "GASが分からなくても相談できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。現在の手作業を文章で説明いただければ、GASで置き換えやすい部分を整理します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "すでに使っているスプレッドシートを活かせますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。ただし、列構成や入力ルールによっては、安定運用のために整理を提案する場合があります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "LINEやChatwork通知もできますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。各サービスのAPIやWebhookの制限、権限、通知内容を確認したうえで設計します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "止まらないシステムとして保証できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "保証できません。Googleや外部サービスの仕様変更、API制限、権限変更で停止する可能性があります。停止時に確認しやすい構成と運用メモを重視します。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --paper:#f6f1e8;
+  --paper2:#fffaf2;
+  --ink:#1f252b;
+  --sub:#667071;
+  --line:#1f252b;
+  --red:#d94b34;
+  --blue:#2f6f92;
+  --green:#547d62;
+  --yellow:#f0c45c;
+  --soft:#e9f3f6;
+  --cream:#fff8e5;
+  --shadow:7px 7px 0 rgba(31,37,43,.16);
+  --radius:22px;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    linear-gradient(rgba(31,37,43,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,37,43,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size:22px 22px;
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  line-height:1.78;
+  letter-spacing:.02em;
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 36px));margin:0 auto}
+.section{padding:54px 0}
+.top-notice{background:var(--ink);color:var(--paper2);font-size:13px;padding:8px 0}
+.top-notice .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nav{position:sticky;top:0;z-index:40;background:rgba(246,241,232,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--line)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:.08em}
+.brand-box{width:38px;height:38px;border:2px solid var(--line);background:#11127f;display:grid;place-items:center;box-shadow:4px 4px 0 rgba(31,37,43,.18);overflow:hidden}
+.brand-box img{width:100%;height:100%;display:block;object-fit:cover;image-rendering:pixelated}
+.nav-links{display:flex;align-items:center;gap:18px;font-size:14px;color:var(--sub);font-weight:800}
+.nav-links a:hover{color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--line);border-radius:999px;padding:13px 20px;min-height:50px;background:var(--paper2);color:var(--ink);font-weight:950;box-shadow:4px 4px 0 rgba(31,37,43,.18);transition:.16s ease;cursor:pointer;text-align:center;line-height:1.35}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(31,37,43,.18)}
+.btn-main{background:var(--red);color:#fff}.btn-blue{background:#d7ecf4}.btn-flat{background:transparent;box-shadow:none}.btn-dark{background:var(--ink);color:var(--paper2)}
+.btn.nav-cta{height:38px;min-height:38px;padding:0 14px;font-size:13px;line-height:1;white-space:nowrap;box-shadow:3px 3px 0 rgba(31,37,43,.18)}
+.hero{padding:58px 0 46px}.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:34px;align-items:center}.stamp{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--paper2);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:950;box-shadow:3px 3px 0 rgba(31,37,43,.13)}.stamp:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block}
+h1{margin:22px 0 18px;font-size:clamp(40px,5.8vw,70px);line-height:1.04;letter-spacing:-.055em}.lead{color:var(--sub);font-size:clamp(16px,1.9vw,20px);max-width:760px}.lead strong{color:var(--ink);background:linear-gradient(transparent 62%,rgba(240,196,92,.72) 0)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.micro-note{margin-top:12px;color:var(--sub);font-size:13px}.hero-card{border:2px solid var(--line);background:var(--paper2);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.windowbar{display:flex;align-items:center;justify-content:space-between;background:#e8dfd1;border-bottom:2px solid var(--line);padding:10px 14px;font-weight:950}.window-icons{display:flex;gap:8px}.window-icons span{width:14px;height:14px;border:2px solid var(--line);display:block;background:#fff}.hero-card-body{padding:24px}.hero-card h2{margin:0 0 12px;font-size:26px;line-height:1.22;letter-spacing:-.03em}.hero-card p{margin:0 0 12px;color:var(--sub)}
+.check-list{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none}.check-list li{display:flex;gap:9px;align-items:flex-start;border-top:1px dashed rgba(31,37,43,.20);padding-top:10px;font-weight:850;line-height:1.62}.check-list li:before{content:"→";color:var(--red);font-weight:950;flex:0 0 auto}.price-current-note{display:inline-flex;align-items:center;gap:6px;margin:16px 0 0;border:2px solid var(--line);border-radius:999px;background:#fff;padding:7px 12px;font-size:13px;font-weight:850;color:var(--sub)}
+.ticker{overflow:hidden;border-top:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--yellow)}.ticker-track{display:flex;width:max-content;gap:10px;padding:8px 0;white-space:nowrap;animation:tickerMove 34s linear infinite}.ticker-track span{display:inline-flex;align-items:center;border:2px solid var(--line);border-radius:999px;background:var(--paper2);padding:4px 10px;font-size:12px;font-weight:950}@keyframes tickerMove{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}.kicker{color:var(--red);font-weight:950;letter-spacing:.12em;font-size:13px;text-transform:uppercase;margin:0}.section-title{margin:6px 0 0;font-size:clamp(30px,4.4vw,52px);line-height:1.08;letter-spacing:-.04em}.section-desc{color:var(--sub);max-width:560px;margin:0}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{border:2px solid var(--line);background:var(--paper2);border-radius:22px;padding:22px;box-shadow:5px 5px 0 rgba(31,37,43,.10)}.card.featured{background:var(--cream)}.card h3{margin:0 0 10px;font-size:22px;line-height:1.35;letter-spacing:-.02em}.card p{margin:0;color:var(--sub)}.card small{display:inline-flex;margin-bottom:10px;border:2px solid var(--line);border-radius:999px;background:#fff;padding:3px 9px;font-weight:950;color:var(--red);letter-spacing:.08em}.plain-list{margin:12px 0 0;padding-left:20px;color:var(--sub)}.plain-list li{margin:5px 0}
+.band{border:2px solid var(--line);background:var(--ink);color:var(--paper2);border-radius:24px;box-shadow:var(--shadow);padding:28px;display:grid;grid-template-columns:.88fr 1.12fr;gap:26px}.band p{color:#d7dedb;margin:0}.band .section-title{color:var(--paper2)}.band .kicker{color:var(--yellow)}.band strong{color:#fff}.band .card{background:#fff;color:var(--ink);box-shadow:none}.band .card p{color:var(--sub)}.band .grid-3{grid-template-columns:1fr;gap:12px}
+.scope-table{border:2px solid var(--line);border-radius:24px;background:var(--paper2);box-shadow:var(--shadow);overflow:hidden}.scope-row{display:grid;grid-template-columns:240px 1fr;border-bottom:2px solid var(--line)}.scope-row:last-child{border-bottom:0}.scope-head{background:#e8dfd1;padding:18px 20px;font-weight:950}.scope-body{padding:18px 20px;color:var(--sub)}.scope-body strong{color:var(--ink)}
+.price-box{border:2px solid var(--line);background:var(--paper2);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.price-row{display:grid;grid-template-columns:1fr 190px;border-bottom:2px solid var(--line);align-items:center}.price-row:last-child{border-bottom:0}.price-main{padding:18px 20px}.price-main b{font-size:18px}.price-main p{margin:4px 0 0;color:var(--sub);font-size:14px}.price-amount{padding:18px 20px;text-align:right;font-weight:950;font-size:21px;white-space:nowrap}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{border:2px solid var(--line);border-radius:20px;background:var(--paper2);padding:20px;min-height:210px}.step b{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:2px solid var(--line);border-radius:12px;background:var(--yellow);color:var(--ink);margin-bottom:12px}.step h3{margin:0 0 8px;font-size:19px}.step p{margin:0;color:var(--sub);font-size:14px}
+.cta{border:2px solid var(--line);background:var(--paper2);border-radius:24px;box-shadow:var(--shadow);display:grid;grid-template-columns:.92fr 1.08fr;gap:24px;padding:28px}.cta h2{margin:6px 0 12px}.cta-panel{border:2px dashed rgba(31,37,43,.26);border-radius:18px;background:#fff;padding:18px}.cta-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.note-box{border:2px dashed rgba(31,37,43,.24);border-radius:18px;background:rgba(255,255,255,.62);padding:16px;color:var(--sub)}.note-box strong{color:var(--ink)}
+.faq{display:grid;gap:12px}details{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 18px}summary{font-weight:950;cursor:pointer}details p{color:var(--sub)}
+footer{padding:36px 0;border-top:2px solid var(--line);color:var(--sub)}.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+@media(max-width:930px){.hero-grid,.band,.cta{grid-template-columns:1fr}.grid-3,.grid-2{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.section-head{display:grid;grid-template-columns:1fr;align-items:start;gap:12px}.section-desc{max-width:none}.scope-row{grid-template-columns:1fr}.price-row{grid-template-columns:1fr}.price-amount{text-align:left;padding-top:0}.nav-links a{display:none}}
+@media(max-width:640px){.wrap{width:min(var(--max),calc(100% - 28px))}.top-notice{display:none}.nav-inner{height:58px;gap:10px}.brand{gap:9px;font-size:13px;letter-spacing:.05em}.brand-box{width:30px;height:30px;box-shadow:3px 3px 0 rgba(31,37,43,.16);flex:0 0 auto}.btn.nav-cta{height:34px;min-height:34px;padding:0 12px;font-size:12px}.hero{padding:32px 0 32px}h1{font-size:clamp(34px,10.6vw,43px);line-height:1.12;margin:16px 0 14px}.lead{font-size:14px;line-height:1.85}.actions,.cta-actions{display:grid;grid-template-columns:1fr;gap:10px}.btn{width:100%;min-height:46px;padding:11px 14px;font-size:14px}.hero-card-body,.card,.step,.cta,.band{padding:18px;border-radius:20px;box-shadow:5px 5px 0 rgba(31,37,43,.12)}.hero-card h2{font-size:22px}.section{padding:36px 0}.section-head{padding-left:8px;padding-right:8px;margin-bottom:16px}.kicker{font-size:12px}.section-title{font-size:clamp(26px,7.7vw,34px);line-height:1.18}.section-desc,.card p,.scope-body,.price-main p,.step p,details p{font-size:14px;line-height:1.82}.card h3{font-size:20px}.scope-head,.scope-body,.price-main,.price-amount{padding:16px}.flow{grid-template-columns:1fr;gap:12px}.step{min-height:auto}.price-current-note{display:flex;border-radius:16px;line-height:1.55}.ticker-track{animation-duration:44s}.windowbar{font-size:12px}.foot{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="top-notice"><div class="wrap"><span>現在稼働中：Web修理 / 業務自動化 / 計測確認 / 既存環境を壊さない最小改修</span><span>info@kichohin.com</span></div></div>
+<nav class="nav"><div class="wrap nav-inner"><a class="brand" href="../"><span class="brand-box"><img src="../assets/iconsample1.png" alt="KICHOHIN.COM ロゴ"/></span><span>KICHOHIN.COM</span></a><div class="nav-links"><a href="../#services">料金目安</a><a href="../#check">かんたん相談</a><a href="../#works">実績</a><a href="../#contact">相談する</a></div><a class="btn btn-main nav-cta" href="../#contact">相談する</a></div></nav>
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="stamp">自動化 / 相談前の整理から対応します</span>
+      <h1>自動化を<br>もっと手軽に。</h1>
+      <p class="lead">スプレッドシート、GAS、Drive保存、PDF生成、メール・LINE・Chatwork通知などを組み合わせ、<strong>人が毎回やっている確認・転記・通知</strong>を減らします。高額な専用システムの前に、今ある環境でできる範囲から設計します。</p>
+      <div class="actions">
+        <a class="btn btn-main" href="../#check">相談メモを作る</a>
+        <a class="btn btn-blue" href="mailto:info@kichohin.com?subject=GAS%E3%83%BB%E6%A5%AD%E5%8B%99%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E7%9B%B8%E8%AB%87&body=%E3%80%90%E7%9B%B8%E8%AB%87%E7%A8%AE%E5%88%A5%E3%80%91GAS%E3%83%BB%E6%A5%AD%E5%8B%99%E8%87%AA%E5%8B%95%E5%8C%96%0A%E3%80%90%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%89%8B%E4%BD%9C%E6%A5%AD%E3%80%91%0A%E3%80%90%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8BGoogle%E7%92%B0%E5%A2%83%E3%80%91%E3%82%B9%E3%83%97%E3%83%AC%E3%83%83%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88%20/%20%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%20/%20Drive%20/%20Gmail%20/%20%E3%81%9D%E3%81%AE%E4%BB%96%0A%E3%80%90%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%97%E3%81%9F%E3%81%84%E5%86%85%E5%AE%B9%E3%80%91%0A%E3%80%90%E9%80%9A%E7%9F%A5%E5%85%88%E3%80%91%E3%83%A1%E3%83%BC%E3%83%AB%20/%20LINE%20/%20Chatwork%20/%20%E3%81%9D%E3%81%AE%E4%BB%96%0A%E3%80%90%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F%E3%81%84%E8%B3%87%E6%96%99%E3%82%84PDF%E3%81%AE%E6%9C%89%E7%84%A1%E3%80%91%0A%E3%80%90%E5%B8%8C%E6%9C%9B%E7%B4%8D%E6%9C%9F%E3%80%91">メールで相談する</a>
+        <a class="btn btn-flat" href="#price">料金目安を見る</a>
+      </div>
+      <p class="price-current-note">正式な金額は、対象URL・作業範囲・既存環境を確認したうえでご案内します。</p>
+    </div>
+    <aside class="hero-card" aria-label="このページで扱う相談内容">
+      <div class="windowbar"><span>KICHOHIN SERVICE DESK</span><div class="window-icons"><span></span><span></span><span></span></div></div>
+      <div class="hero-card-body">
+        <h2>自動化は、いきなり大きく作らない方が安定します。</h2>
+        <p>入力、処理、保存、通知、ログの流れを分け、止まった時に分かる作りにします。毎日使うものだからこそ、派手さよりも確認しやすさを重視します。</p>
+        <ul class="check-list"><li>スプレッドシートへの転記が多い</li><li>メール・LINE・Chatwork通知を自動化したい</li><li>PDF生成や予約情報の整理をしたい</li><li>Drive保存やファイル名整理を自動化したい</li><li>高額な専用システムまでは不要</li></ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" id="first">
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">FIRST CHECK</p><h2 class="section-title">業務の流れをそのまま見て、減らせる手作業を分けます。</h2></div><p class="section-desc">最初に「何を入力し、どこへ保存し、誰へ通知し、どこで確認するか」を整理します。</p></div>
+    <div class="grid-3"><article class="card"><small>01</small><h3>入力を整理する</h3><p>フォーム、シート、外部Webhookなど、どこから情報が入るかを決めます。</p></article><article class="card"><small>02</small><h3>処理を小さく分ける</h3><p>PDF生成、Drive保存、通知、ステータス更新を分けて作り、確認しやすくします。</p></article><article class="card"><small>03</small><h3>運用に残す</h3><p>エラー時に見る場所、手動で直す方法、今後増やせる範囲を残します。</p></article></div>
+  </div>
+</section>
+
+<section class="section" id="risk">
+  <div class="wrap band">
+    <div><p class="kicker">WHY NOW</p><h2 class="section-title">人が毎回やる作業は、忙しい時ほど抜けます。</h2><p>転記、通知、PDF作成、ファイル保存は、単体では小さな作業です。ただし毎日繰り返すと時間を取り、抜け漏れも起きます。まずは、いちばん頻度が高い作業から自動化するのが現実的です。</p></div>
+    <div class="grid-3"><article class="card"><h3>転記ミスが残る</h3><p>同じ内容を何度も入力すると、数字・名前・日付のズレが起きやすくなります。</p></article><article class="card"><h3>通知漏れが起きる</h3><p>対応者への連絡が手動だと、忙しい日ほど抜けやすくなります。</p></article><article class="card"><h3>確認場所が散らばる</h3><p>メール、シート、Drive、Chatworkが分かれると、あとから追いにくくなります。</p></article></div>
+  </div>
+</section>
+<section class="section" id="scope">
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">SCOPE</p><h2 class="section-title">対応範囲</h2></div><p class="section-desc">ご依頼前の不安を減らすために、できることだけでなく、保証・範囲の外にあることもご案内いたします。</p></div>
+    <div class="scope-table"><div class="scope-row"><div class="scope-head">対応できること</div><div class="scope-body">Googleスプレッドシート、Google Apps Script、Googleフォーム、Drive保存、PDF生成、メール送信、LINE通知、Chatwork通知、Webhook受信、簡易ログ、管理シート作成。</div></div><div class="scope-row"><div class="scope-head">確認の進め方</div><div class="scope-body">現在の手作業を聞き取り、入力元、処理内容、保存先、通知先、例外処理を分けて設計します。</div></div><div class="scope-row"><div class="scope-head">成果物</div><div class="scope-body">GASコード、スプレッドシート構成、使い方メモ、運用時の注意点、必要に応じた簡易ログや手動復旧手順を残します。</div></div><div class="scope-row"><div class="scope-head">対応しないこと</div><div class="scope-body">24時間365日の稼働保証、Google側の仕様変更保証、外部APIの障害保証、大規模な基幹システム開発、厳格な医療・金融・法務システムとしての保証は対応範囲外です。</div></div></div>
+  </div>
+</section>
+<section class="section" id="price">
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">PRICE</p><h2 class="section-title">料金目安</h2></div><p class="section-desc">正式な金額は、対象URL・既存環境・作業範囲・確認内容を見たうえでご案内します。お見積もりは無料です。お気兼ねなくご相談ください。
+    </p></div>
+    <div class="price-box"><div class="price-row"><div class="price-main"><b>単一フローの自動化</b><p>フォーム入力からシート記録、簡単な通知など、1本の流れを作成します。</p></div><div class="price-amount">50,000円〜</div></div><div class="price-row"><div class="price-main"><b>Webhook・通知・Drive保存・簡易ログ</b><p>外部入力、通知、Drive保存、簡易ログを含む構成です。</p></div><div class="price-amount">80,000円〜</div></div><div class="price-row"><div class="price-main"><b>PDF生成・管理シート・運用メモ付き</b><p>PDF生成、ファイル命名、管理シート、運用メモまで含む構成です。</p></div><div class="price-amount">120,000円〜</div></div><div class="price-row"><div class="price-main"><b>複数フロー・外部連携を含む構築</b><p>複数の入力元、複数通知先、外部サービス連携を含む構成です。</p></div><div class="price-amount">180,000円〜</div></div></div>
+  </div>
+</section>
+<section class="section" id="flow">
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">FLOW</p><h2 class="section-title">進め方</h2></div><p class="section-desc">大切な資産をお守りするため、齟齬が生まれぬよう文章で相談内容・作業範囲・確認結果を残しながら進めます。</p></div>
+    <div class="flow">
+      <article class="step"><b>01</b><h3>相談内容の確認</h3><p>対象URL、現象、希望範囲を確認し、見るべき箇所を整理します。</p></article>
+      <article class="step"><b>02</b><h3>対応可否と概算</h3><p>作業できる範囲、追加確認が必要な範囲、概算費用を分けてご案内します。</p></article>
+      <article class="step"><b>03</b><h3>作業・確認</h3><p>既存環境への影響を見ながら、必要な範囲を修正・設定・確認します。</p></article>
+      <article class="step"><b>04</b><h3>結果共有</h3><p>実施内容、確認結果、残る注意点を文章で共有します。</p></article>
+    </div>
+  </div>
+</section>
+<section class="section" id="prepare">
+  <div class="wrap grid-2">
+    <article class="card featured"><small>REQUEST</small><h3>相談時にあると判断しやすい情報</h3><ul class="plain-list"><li>現在の手作業の流れ</li><li>使用しているスプレッドシートやフォーム</li><li>通知したい相手・通知先</li><li>作成したいPDFや保存したいファイルの例</li><li>例外パターン、締切、手動対応が必要な条件</li><li>Googleアカウントや外部サービス権限の状況</li></ul></article>
+    <article class="card"><small>NOTE</small><h3>内容が固まっていなくても問題ありません。</h3><p>正確な依頼文になっていなくても、現象、URL、スクリーンショット、希望する状態が分かれば、こちらで確認項目を整理します。最初から専門用語で説明する必要はありません。</p><div class="actions"><a class="btn btn-main" href="../#check">相談メモを作る</a></div></article>
+  </div>
+</section>
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">FAQ</p><h2 class="section-title">よくある質問</h2></div><p class="section-desc">事前に認識違いが起きやすい内容を整理しています。</p></div>
+    <div class="faq"><details><summary>GASが分からなくても相談できますか？</summary><p>可能です。現在の手作業を文章で説明いただければ、GASで置き換えやすい部分を整理します。</p></details><details><summary>すでに使っているスプレッドシートを活かせますか？</summary><p>可能です。ただし、列構成や入力ルールによっては、安定運用のために整理を提案する場合があります。</p></details><details><summary>LINEやChatwork通知もできますか？</summary><p>可能です。各サービスのAPIやWebhookの制限、権限、通知内容を確認したうえで設計します。</p></details><details><summary>止まらないシステムとして保証できますか？</summary><p>保証できません。Googleや外部サービスの仕様変更、API制限、権限変更で停止する可能性があります。停止時に確認しやすい構成と運用メモを重視します。</p></details></div>
+  </div>
+</section>
+<section class="section" id="contact">
+  <div class="wrap cta">
+    <div><p class="kicker">CONTACT</p><h2 class="section-title">相談前の整理からで大丈夫です。</h2><p class="section-desc">「何を依頼すればよいか分からない」段階でも、近い内容を選んで送っていただければ、対応可否・概算・必要な確認事項を整理します。</p></div>
+    <div class="cta-panel">
+      <div class="note-box"><strong>おすすめの進め方</strong><br/>まず「相談メモを作る」で内容を整理し、必要に応じてメール・ココナラ・Chatworkから送ってください。</div>
+      <div class="cta-actions">
+        <a class="btn btn-main" href="../#check">相談メモを作る</a>
+        <a class="btn btn-blue" href="mailto:info@kichohin.com?subject=GAS%E3%83%BB%E6%A5%AD%E5%8B%99%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E7%9B%B8%E8%AB%87&body=%E3%80%90%E7%9B%B8%E8%AB%87%E7%A8%AE%E5%88%A5%E3%80%91GAS%E3%83%BB%E6%A5%AD%E5%8B%99%E8%87%AA%E5%8B%95%E5%8C%96%0A%E3%80%90%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%89%8B%E4%BD%9C%E6%A5%AD%E3%80%91%0A%E3%80%90%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8BGoogle%E7%92%B0%E5%A2%83%E3%80%91%E3%82%B9%E3%83%97%E3%83%AC%E3%83%83%E3%83%89%E3%82%B7%E3%83%BC%E3%83%88%20/%20%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%20/%20Drive%20/%20Gmail%20/%20%E3%81%9D%E3%81%AE%E4%BB%96%0A%E3%80%90%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%97%E3%81%9F%E3%81%84%E5%86%85%E5%AE%B9%E3%80%91%0A%E3%80%90%E9%80%9A%E7%9F%A5%E5%85%88%E3%80%91%E3%83%A1%E3%83%BC%E3%83%AB%20/%20LINE%20/%20Chatwork%20/%20%E3%81%9D%E3%81%AE%E4%BB%96%0A%E3%80%90%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F%E3%81%84%E8%B3%87%E6%96%99%E3%82%84PDF%E3%81%AE%E6%9C%89%E7%84%A1%E3%80%91%0A%E3%80%90%E5%B8%8C%E6%9C%9B%E7%B4%8D%E6%9C%9F%E3%80%91">メールで相談する</a>
+        <a class="btn" href="https://coconala.com/users/5218668" target="_blank" rel="noopener">ココナラで相談する</a>
+        <a class="btn btn-flat" href="../#contact">問い合わせ欄へ</a>
+      </div>
+  </div>
+</section>
+
+</main>
+<footer><div class="wrap foot"><span>© KICHOHIN.COM</span><span><a href="../">トップページへ戻る</a></span></div></footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const now = new Date();
+    const currentMonth = new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long' }).format(now);
+    document.querySelectorAll('[data-current-month]').forEach(function (el) { el.textContent = currentMonth; });
+  });
+</script>
+</body>
+</html>
