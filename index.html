@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -2238,6 +2239,39 @@
       width: 100%;
       min-width: 0;
     }
+  }
+
+
+
+  /* === v21 section subtitle no-width-limit fix ===
+     目的：各セクションのタイトル下テキストに入っていた横幅制限を外し、
+     セクション内の利用可能幅いっぱいで自然に折り返す。
+     PC / タブレット / スマホのいずれも、画面幅に応じて自動改行させる。
+     フォーム・GAS送信処理には影響なし。
+  */
+  .section-head {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: start !important;
+    justify-content: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .section-head > div,
+  .section-head .section-desc,
+  .contact .section-desc,
+  .section-desc {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  .section-head .section-desc,
+  .contact .section-desc {
+    margin: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: break-word;
   }
 
 </style>
