@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -180,7 +182,7 @@
       letter-spacing: .02em;
     }
 
-    a { color: inherit; text-doration: none; }
+    a { color: inherit; text-decoration: none; }
     button, input, textarea, selt { font: inherit; }
     .wrap { width: min(var(--max), calc(100% - 36px)); margin: 0 auto; }
     .stion { padding: 76px 0; }
@@ -2273,6 +2275,20 @@
     margin: 0 !important;
     white-space: normal !important;
     overflow-wrap: break-word;
+  }
+
+
+  /* === v22 link underline fix patch ===
+     目的：aタグの下線を全体で非表示にする。
+     原因：既存CSSの text-decoration が text-doration と誤記されていたため。
+     フォーム・GAS送信処理には影響なし。
+  */
+  a,
+  a:visited,
+  a:hover,
+  a:active,
+  .btn {
+    text-decoration: none;
   }
 
 </style>
